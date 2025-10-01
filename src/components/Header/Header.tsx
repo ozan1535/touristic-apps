@@ -1,6 +1,5 @@
 import React from "react";
 import SelectLanguage from "../SelectLanguage/SelectLanguage";
-import { useRouter, useSearchParams } from "next/navigation";
 
 function Header() {
   return (
