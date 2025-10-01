@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -30,11 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LanguageProvider defaultLanguage="en">
-          <Header />
-          {children}
-          <Footer />
-        </LanguageProvider>
+        <Suspense>
+          <LanguageProvider defaultLanguage="en">
+            <Header />
+            {children}
+            <Footer />
+          </LanguageProvider>
+        </Suspense>
       </body>
     </html>
   );
