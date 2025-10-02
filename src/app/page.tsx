@@ -21,11 +21,11 @@ export default function Home() {
       setSelectedCountry(params.get("country") || "en");
     }
 
-    const currentLanguage = localStorage.getItem("language");
+    const currentLanguage = localStorage.getItem("language") as "tr" | "en";
     setLanguage(currentLanguage || "en");
   }, [router, params]);
   return (
-    <div className="h-[90vh] w-full p-10 ">
+    <div className="h-[92vh] w-full p-10 ">
       <AppDetails selectedCountry={selectedCountry} />
       <SearchCountry />
       <div className="flex justify-center mt-10">

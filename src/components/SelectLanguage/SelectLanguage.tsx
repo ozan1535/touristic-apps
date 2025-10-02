@@ -20,16 +20,15 @@ function SelectLanguage() {
 
   useEffect(() => {
     const storedLang = localStorage.getItem("language");
-    console.log(storedLang, "stored");
     if (storedLang) {
-      setLanguage(storedLang.toLocaleLowerCase());
+      setLanguage(storedLang.toLocaleLowerCase() as "en" | "tr");
     }
   }, []);
 
-  const handleLanguageSelect = (code: string) => {
+  const handleLanguageSelect = (code: "en" | "tr") => {
     setLanguage(code);
     localStorage.setItem("language", code.toLowerCase());
-    setLanguage(code.toLowerCase());
+    setLanguage(code.toLowerCase() as "en" | "tr");
   };
 
   const selected =
@@ -56,7 +55,7 @@ function SelectLanguage() {
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => handleLanguageSelect(lang.code)}
+            onClick={() => handleLanguageSelect(lang.code as "en" | "tr")}
             className="flex items-center gap-3 px-3 py-2.5 cursor-pointer rounded-md focus:bg-gray-100"
           >
             <div className="relative w-7 h-5 rounded overflow-hidden shadow-sm flex-shrink-0">

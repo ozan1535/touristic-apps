@@ -17,15 +17,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { allCountriesEN } from "@/lib/helpers";
+import { allCountries } from "@/lib/helpers";
 import { useLanguage } from "@/app/context/SelectedLanguage";
-
-const countries = allCountriesEN
-  .map((country) => ({
-    value: country.name,
-    label: country.name,
-  }))
-  .sort((a, b) => a.label.localeCompare(b.label));
 
 export function SearchCountry() {
   const [open, setOpen] = useState(false);
@@ -33,6 +26,13 @@ export function SearchCountry() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { language } = useLanguage();
+
+  const countries = allCountries
+    .map((country) => ({
+      value: country.name[language],
+      label: country.name[language],
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label));
   const handleCountryUpdate = (selectedCountry: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("country", selectedCountry.toLocaleLowerCase());
@@ -52,7 +52,7 @@ export function SearchCountry() {
             ? countries.find((framework) => framework.value === value)?.label
             : language === "en"
             ? "Search a Country..."
-            : "Bir ülke ara"}
+            : "Bir Ülke Ara..."}
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -60,7 +60,7 @@ export function SearchCountry() {
         <Command>
           <CommandInput
             placeholder={
-              language === "en" ? "Search a Country..." : "Bir ülke ara"
+              language === "en" ? "Search a Country..." : "Bir Ülke Ara..."
             }
           />
           <CommandList>

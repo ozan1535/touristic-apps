@@ -8,10 +8,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { allCountriesEN } from "@/lib/helpers";
+import { allCountries } from "@/lib/helpers";
 import { Separator } from "../ui/separator";
 import AppsAccordion from "../AppsAccordion/AppsAccordion";
+import { useLanguage } from "@/app/context/SelectedLanguage";
 function AppDetails({ selectedCountry }: { selectedCountry: string }) {
+  const { language } = useLanguage();
   const searchParams = useSearchParams();
   const router = useRouter();
   const handleClose = () => {
@@ -21,18 +23,18 @@ function AppDetails({ selectedCountry }: { selectedCountry: string }) {
   };
 
   const selectedCountryCca2 =
-    allCountriesEN
+    allCountries
       .find(
         (item) =>
-          item.name.toLocaleLowerCase() === selectedCountry.toLocaleLowerCase()
+          item.name[language].toLocaleLowerCase() ===
+          selectedCountry.toLocaleLowerCase()
       )
       ?.cca2.toLocaleLowerCase() || selectedCountry.toLocaleLowerCase();
 
-  const selectedCountryData = allCountriesEN.find(
+  const selectedCountryData = allCountries.find(
     (item) =>
       item.cca2.toLocaleLowerCase() === selectedCountryCca2.toLocaleLowerCase()
   );
-
   return (
     <Dialog
       open={searchParams.get("country") ? true : false}
@@ -49,9 +51,9 @@ function AppDetails({ selectedCountry }: { selectedCountry: string }) {
               src={selectedCountryData?.flag || ""}
               width={30}
               height={30}
-              alt={`${selectedCountryData?.name} flag`}
+              alt={`${selectedCountryData?.name[language]} flag`}
             />
-            <span>{selectedCountryData?.name}</span>
+            <span>{selectedCountryData?.name[language]}</span>
           </DialogTitle>
           <Separator />
         </DialogHeader>
