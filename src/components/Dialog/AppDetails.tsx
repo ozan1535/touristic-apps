@@ -12,7 +12,7 @@ import { allCountries } from "@/lib/helpers";
 import { Separator } from "../ui/separator";
 import AppsAccordion from "../AppsAccordion/AppsAccordion";
 import { useLanguage } from "@/app/context/SelectedLanguage";
-function AppDetails({ selectedCountry }: { selectedCountry: string }) {
+function AppDetails() {
   const { language } = useLanguage();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -27,14 +27,19 @@ function AppDetails({ selectedCountry }: { selectedCountry: string }) {
       .find(
         (item) =>
           item.name[language].toLocaleLowerCase() ===
-          selectedCountry.toLocaleLowerCase()
+          searchParams.get("country")?.toLocaleLowerCase()
       )
-      ?.cca2.toLocaleLowerCase() || selectedCountry.toLocaleLowerCase();
+      ?.cca2.toLocaleLowerCase() ||
+    searchParams.get("country")?.toLocaleLowerCase();
 
   const selectedCountryData = allCountries.find(
     (item) =>
-      item.cca2.toLocaleLowerCase() === selectedCountryCca2.toLocaleLowerCase()
+      item.cca2.toLocaleLowerCase() === selectedCountryCca2?.toLocaleLowerCase()
   );
+
+  if (!selectedCountryData) {
+    return;
+  }
   return (
     <Dialog
       open={searchParams.get("country") ? true : false}
@@ -57,7 +62,7 @@ function AppDetails({ selectedCountry }: { selectedCountry: string }) {
           </DialogTitle>
           <Separator />
         </DialogHeader>
-        <AppsAccordion countryCca2={selectedCountryCca2} />
+        <AppsAccordion countryCca2={selectedCountryCca2 || ""} />
       </DialogContent>
     </Dialog>
   );
