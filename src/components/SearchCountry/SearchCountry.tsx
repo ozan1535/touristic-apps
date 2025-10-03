@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckIcon, ChevronsUpDownIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
@@ -39,6 +39,13 @@ export function SearchCountry() {
 
     router.replace(`?${params.toString()}`);
   };
+
+  useEffect(() => {
+    if (!searchParams.get("country")) {
+      setValue("");
+    }
+  }, [searchParams]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
