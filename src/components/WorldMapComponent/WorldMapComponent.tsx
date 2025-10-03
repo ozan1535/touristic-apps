@@ -183,6 +183,9 @@ import {
   handleMouseMove,
   handleMouseUp,
   handleReset,
+  handleTouchEnd,
+  handleTouchMove,
+  handleTouchStart,
   handleWheel,
   handleZoomIn,
   handleZoomOut,
@@ -195,6 +198,9 @@ function WorldMapComponent() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [lastTouchDistance, setLastTouchDistance] = useState<number | null>(
+    null
+  );
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -272,6 +278,28 @@ function WorldMapComponent() {
         style={{
           cursor: scale > 1 ? (isDragging ? "grabbing" : "grab") : "default",
         }}
+        onTouchStart={(e) =>
+          handleTouchStart(
+            e,
+            scale,
+            setIsDragging,
+            setDragStart,
+            setLastTouchDistance
+          )
+        }
+        onTouchMove={(e) =>
+          handleTouchMove(
+            e,
+            isDragging,
+            scale,
+            setPosition,
+            dragStart,
+            lastTouchDistance,
+            setLastTouchDistance,
+            setScale
+          )
+        }
+        onTouchEnd={() => handleTouchEnd(setIsDragging, setLastTouchDistance)}
       >
         <WorldMap
           color="#3b82f6"
@@ -279,7 +307,7 @@ function WorldMapComponent() {
           size="xl"
           data={data}
           onClickFunction={clickAction as () => any}
-          title={language === "en" ? "Select a country" : "Bir ülke seçin"}
+          // title={language === "en" ? "Select a country" : "Bir ülke seçin"}
           tooltipTextFunction={getTooltipText}
           valuePrefix=""
           valueSuffix=""
