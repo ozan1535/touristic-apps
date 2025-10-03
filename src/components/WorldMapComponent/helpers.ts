@@ -561,7 +561,6 @@ export const handleTouchMove = (
   setScale: Dispatch<SetStateAction<number>>
 ) => {
   if (e.touches.length === 1 && isDragging && scale > 0.5) {
-    // e.preventDefault();
     const g = getSvgGroup();
     if (g) {
       const current = parseTransform(g);
@@ -572,7 +571,6 @@ export const handleTouchMove = (
       setPosition({ x: newTranslateX, y: newTranslateY });
     }
   } else if (e.touches.length === 2) {
-    e.preventDefault();
     const distance = Math.hypot(
       e.touches[0].clientX - e.touches[1].clientX,
       e.touches[0].clientY - e.touches[1].clientY
