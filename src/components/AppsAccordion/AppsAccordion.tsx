@@ -40,7 +40,7 @@ function AppsAccordion({ countryCca2 }: { countryCca2: string }) {
           <AccordionTrigger className="ring-0 focus-visible:ring-0 focus-visible:border-none">
             {item.category}
           </AccordionTrigger>
-          <AccordionContent className="grid grid-cols-3 gap-3 p-1">
+          <AccordionContent className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-1">
             {item.apps.map((appDetail) => (
               <CountryDetailCard appDetail={appDetail} key={appDetail.id} />
             ))}
