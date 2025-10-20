@@ -37,7 +37,7 @@ function SelectLanguage() {
     ) || languages[0];
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-2.5 px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors duration-200 shadow-sm outline-none focus:ring-2 focus:ring-gray-300">
+      <DropdownMenuTrigger className="flex items-center gap-2.5 px-4 py-2 rounded-lg border border-purple-primary hover:bg-gray-50 transition-colors duration-200 shadow-sm outline-none focus:ring-2 focus:ring-gray-300 bg-white">
         <div className="relative w-7 h-5 rounded overflow-hidden shadow-sm">
           <Image
             fill
