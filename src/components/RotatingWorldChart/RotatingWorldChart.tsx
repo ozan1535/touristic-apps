@@ -69,10 +69,9 @@ export default function RotatingWorldChart() {
 
     polygonSeries.mapPolygons.template.events.on("click", (a) => {
       const params = new URLSearchParams(searchParams.toString());
-      params.set(
-        "country",
-        a.target.dataItem?.dataContext?.id?.toLocaleLowerCase()
-      );
+      const data = a.target.dataItem?.dataContext as { id: string };
+
+      params.set("country", data.id.toLowerCase());
 
       router.replace(`?${params.toString()}`);
     });
