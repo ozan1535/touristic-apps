@@ -58,12 +58,15 @@ export function SearchCountry() {
           {value
             ? countries.find((framework) => framework.value === value)?.label
             : language === "en"
-            ? "Search a Country..."
-            : "Bir Ülke Ara..."}
+            ? "Search for a country..."
+            : "Bir ülke ara..."}
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[400px] p-0">
+      <PopoverContent
+        className="p-0"
+        style={{ width: "var(--radix-popover-trigger-width)" }}
+      >
         <Command>
           <CommandInput
             placeholder={
