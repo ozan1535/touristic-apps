@@ -1,19 +1,18 @@
-"use client";
+/* "use client";
 import { useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5geodata_lang_TR from "@amcharts/amcharts5-geodata/lang/TR";
 import am5geodata_lang_EN from "@amcharts/amcharts5-geodata/lang/EN";
-import { useLanguage } from "@/app/context/SelectedLanguage";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 
 export default function RotatingWorldChart() {
-  const chartRef = useRef(null);
-  const searchParams = useSearchParams();
+  const language = useLocale();
   const router = useRouter();
-  const { language } = useLanguage();
+  const chartRef = useRef(null);
 
   useEffect(() => {
     // Create root element
@@ -68,33 +67,11 @@ export default function RotatingWorldChart() {
     });
 
     polygonSeries.mapPolygons.template.events.on("click", (a) => {
-      const params = new URLSearchParams(searchParams.toString());
       const data = a.target.dataItem?.dataContext as { id: string };
 
-      params.set("country", data.id.toLowerCase());
-
-      router.replace(`?${params.toString()}`);
+      router.push(`/${data.id.toLowerCase()}`);
     });
 
-    // polygonSeries.mapPolygons.template.events.on("click", function (ev) {
-    //   const countryData = ev.target.dataItem.dataContext;
-    //   console.log("Clicked country:", countryData);
-
-    //   // You can access country properties like:
-    //   // countryData.name - Country name
-    //   // countryData.id - Country code (e.g., "US", "GB")
-
-    //   alert(`You clicked on: ${countryData.name}`);
-
-    //   // You can replace the alert with your own logic:
-    //   // - Navigate to another page
-    //   // - Open a modal
-    //   // - Update state
-    //   // - Make an API call
-    //   // etc.
-    // });
-
-    // Create graticule series
     const graticuleSeries = chart.series.push(
       am5map.GraticuleSeries.new(root, {})
     );
@@ -124,6 +101,134 @@ export default function RotatingWorldChart() {
   return (
     <div className="w-full max-w-full">
       <div ref={chartRef} style={{ width: "100%", height: "500px" }} />
+    </div>
+  );
+}
+ */
+
+"use client";
+import { useEffect, useRef } from "react";
+import * as am5 from "@amcharts/amcharts5";
+import * as am5map from "@amcharts/amcharts5/map";
+import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
+import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
+import am5geodata_lang_TR from "@amcharts/amcharts5-geodata/lang/TR";
+import am5geodata_lang_EN from "@amcharts/amcharts5-geodata/lang/EN";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
+
+export default function RotatingWorldChart({
+  clickShortText,
+}: {
+  clickShortText: string;
+}) {
+  const language = useLocale() as "en" | "tr";
+  const router = useRouter();
+  const chartRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<am5.Root | null>(null);
+
+  useEffect(() => {
+    if (!chartRef.current) return;
+
+    const root = am5.Root.new(chartRef.current);
+    rootRef.current = root;
+
+    root.setThemes([am5themes_Animated.new(root)]);
+
+    const chart = root.container.children.push(
+      am5map.MapChart.new(root, {
+        panX: "rotateX",
+        panY: "rotateY",
+        projection: am5map.geoOrthographic(),
+        paddingBottom: 20,
+        paddingTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+      })
+    );
+
+    const polygonSeries = chart.series.push(
+      am5map.MapPolygonSeries.new(root, {
+        geoJSON: am5geodata_worldLow,
+        geodataNames:
+          language === "tr" ? am5geodata_lang_TR : am5geodata_lang_EN,
+      })
+    );
+
+    polygonSeries.mapPolygons.template.setAll({
+      tooltipText: "{name}",
+      toggleKey: "active",
+      interactive: true,
+      fill: am5.color(0x6366f1),
+      stroke: am5.color(0x312e81),
+      strokeWidth: 0.5,
+    });
+
+    polygonSeries.mapPolygons.template.states.create("hover", {
+      fill: am5.color(0xec4899),
+      strokeWidth: 1,
+    });
+
+    polygonSeries.mapPolygons.template.states.create("active", {
+      fill: am5.color(0xf472b6),
+    });
+
+    const backgroundSeries = chart.series.push(
+      am5map.MapPolygonSeries.new(root, {})
+    );
+    backgroundSeries.mapPolygons.template.setAll({
+      fill: am5.color(0x1e1b4b), // Purple-900
+      fillOpacity: 0.2,
+      strokeOpacity: 0,
+    });
+    backgroundSeries.data.push({
+      geometry: am5map.getGeoRectangle(90, 180, -90, -180),
+    });
+
+    polygonSeries.mapPolygons.template.events.on("click", (event) => {
+      const data = event.target.dataItem?.dataContext as
+        | { id: string }
+        | undefined;
+      if (data?.id) {
+        router.push(`/${language}/${data.id.toLowerCase()}`);
+      }
+    });
+
+    const graticuleSeries = chart.series.push(
+      am5map.GraticuleSeries.new(root, {})
+    );
+    graticuleSeries.mapLines.template.setAll({
+      strokeOpacity: 0.15,
+      stroke: am5.color(0x8b5cf6),
+    });
+
+    chart.animate({
+      key: "rotationX",
+      from: 0,
+      to: 360,
+      duration: 40000,
+      loops: Infinity,
+    });
+
+    chart.appear(1000, 100);
+
+    return () => {
+      root.dispose();
+      rootRef.current = null;
+    };
+  }, [language, router]);
+
+  return (
+    <div className="w-full">
+      <div
+        ref={chartRef}
+        className="w-full"
+        style={{
+          height: "500px",
+          minHeight: "400px",
+        }}
+      />
+      <p className="text-center text-gray-500 text-sm mt-4">{clickShortText}</p>
     </div>
   );
 }
