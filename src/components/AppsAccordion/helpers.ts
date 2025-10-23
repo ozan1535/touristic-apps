@@ -8,6 +8,7 @@ export const handleFetchApps = async (
   setData: Dispatch<SetStateAction<ICategoryWithApps[] | null>>,
   setLoading: Dispatch<SetStateAction<boolean>>
 ) => {
+  return;
   setLoading(true);
   const supabase = await createClient();
 
@@ -24,21 +25,21 @@ export const handleFetchApps = async (
 
   const categoriesMap = new Map<string, IAppDetail[]>();
 
-  data?.forEach((app) => {
-    if (!categoriesMap.has(app.category)) {
-      categoriesMap.set(app.category, []);
-    }
+  // data?.forEach((app) => {
+  //   if (!categoriesMap.has(app.category)) {
+  //     categoriesMap.set(app.category, []);
+  //   }
 
-    categoriesMap.get(app.category)?.push({
-      id: app.id,
-      app_name: app.app_name,
-      description: app.description,
-      logo_url: app.logo_url,
-      website_url: app.website_url,
-      app_store_url: app.app_store_url,
-      play_store_url: app.play_store_url,
-    });
-  });
+  //   categoriesMap.get(app.category)?.push({
+  //     id: app.id,
+  //     app_name: app.app_name,
+  //     description: app.description,
+  //     logo_url: app.logo_url,
+  //     website_url: app.website_url,
+  //     app_store_url: app.app_store_url,
+  //     play_store_url: app.play_store_url,
+  //   });
+  // });
 
   setData(
     Array.from(categoriesMap.entries()).map(([category, apps]) => ({
