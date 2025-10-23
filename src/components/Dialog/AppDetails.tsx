@@ -13,6 +13,7 @@ import { Separator } from "../ui/separator";
 import AppsAccordion from "../AppsAccordion/AppsAccordion";
 import { useLanguage } from "@/app/context/SelectedLanguage";
 function AppDetails() {
+  return <div>fdsfds</div>
   const { language } = useLanguage();
   const searchParams = useSearchParams();
   const router = useRouter();
