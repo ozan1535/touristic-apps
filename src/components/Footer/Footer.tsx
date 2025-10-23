@@ -1,12 +1,13 @@
 "use client";
-import { useLanguage } from "@/app/context/SelectedLanguage";
+import { useParams } from "next/navigation";
 import React from "react";
 
 export default function Footer() {
-  const { language } = useLanguage();
+  const params = useParams();
+  const { locale } = params;
   return (
-    <div className="w-full h-10 bg-primary border-t flex justify-center items-center absolute bottom-0 text-secondary">
-      {language === "tr" ? "Tüm hakları saklıdır" : "All rights are reserved"}
+    <div className="w-full h-10 bg-primary border-t flex justify-center items-center text-secondary mt-5">
+      {locale === "tr" ? "Tüm hakları saklıdır" : "All rights are reserved"}
     </div>
   );
 }
