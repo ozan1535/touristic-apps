@@ -1,3 +1,7 @@
+import { IAppDetail } from "@/components/AppsAccordion/types";
+import { createClient } from "./supabase/client";
+import { ITripForm } from "@/app/[locale]/ai-travel-planner/types";
+
 export const allCountries = [
   {
     name: { tr: "Litvanya", en: "Lithuania" },
@@ -1271,3 +1275,108 @@ export const allCountries = [
     cca2: "MR",
   },
 ];
+
+export const getCountryApps = async (
+  countryId: string,
+  locale: "en" | "tr"
+) => {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("apps")
+    .select("*")
+    .eq("country_cca2", countryId.toUpperCase())
+    .eq("language", locale);
+
+  if (error) {
+    console.error("Error fetching apps:", error);
+    return [];
+  }
+  const categoriesMap = new Map<string, IAppDetail[]>();
+
+  data?.forEach((app) => {
+    if (!categoriesMap.has(app.category)) {
+      categoriesMap.set(app.category, []);
+    }
+
+    categoriesMap.get(app.category)?.push({
+      id: app.id,
+      app_name: app.app_name,
+      description: app.description,
+      logo_url: app.logo_url,
+      website_url: app.website_url,
+      app_store_url: app.app_store_url,
+      play_store_url: app.play_store_url,
+      isTop: app.isTop,
+    });
+  });
+
+  return Array.from(categoriesMap.entries()).map(([category, apps]) => ({
+    category,
+    apps,
+  }));
+};
+
+// TODO: Fix type
+export const getTopApps = (countryApps: any[]) => {
+  return countryApps
+    .flatMap((category) => category.apps)
+    .filter((app) => app.isTop);
+};
+
+export const getAiPrompt = (locale: "en" | "tr", form: ITripForm) => {
+  const prompt =
+    locale === "tr"
+      ? `
+Sen bir seyahat planlayıcısı yapay zekasısın. Aşağıdaki kullanıcı tercihlerini göz önünde bulundurarak, detaylı günlük bir seyahat planı oluştur. 
+Önerilen şehirler, gezilecek yerler, yapılacak aktiviteler ve görülecek yerleri dahil et. Yanıtın HTML formatında olmalı ve bir web arayüzünde doğrudan kullanılabilir olmalı. Samimi ve bilgilendirici bir dil kullan.
+
+TASARIM VE RENK KURALLARI (önemli):
+- Arka plan rengi: #161528 (çok koyu).
+- Yazı rengi açık ve kontrastlı olmalı: varsayılan olarak #EAEAEA veya #FFFFFF kullan.
+- Başlıklar (#E0B3FF gibi açık mor tonları), vurgular (#FFD966 gibi açık altın tonları) ve bağlantılar (#8BE9FD gibi açık mavi tonları) için renk öner.
+- Koyu renkte veya okunması zor renkler kullanma.
+- Gerekirse inline style kullanabilirsin (örnek: <h2 style="color:#E0B3FF;">).
+- Modern, okunabilir bir görünüm oluştur.
+
+YAPISAL KURALLAR:
+- <html>, <head>, <body> veya genel <style> etiketleri kullanma.
+- Sadece gömülebilir HTML içeriği üret (<div>, <h2>, <p>, <ul>, <li> vb.).
+- Tüm içeriği <div class="travel-itinerary"> içinde sar.
+- Cevap tamamen Türkçe olmalı.
+
+Tercihler:
+- Gidilecek Yer: ${form.destination}
+- Süre: ${form.duration} gün
+- İlgi Alanları: ${form.interests}
+- Bütçe: ${form.budget}
+- Seyahat Tarzı: ${form.travelStyle}
+`
+      : `
+You are a travel planner AI. Based on the following user preferences, plan a detailed day-by-day travel itinerary. 
+Include recommended cities, activities, places to visit, and things to do. Your response should be in HTML format and directly usable in a web interface. Be friendly and informative.
+
+DESIGN & COLOR RULES (important):
+- Background color: #161528 (very dark).
+- Use **light, high-contrast text colors** — default text color should be #EAEAEA or #FFFFFF.
+- Use **accent colors** that stand out: headers in #E0B3FF (soft purple), highlights in #FFD966 (gold), links or special notes in #8BE9FD (light blue).
+- Do NOT use dark or low-contrast colors.
+- You may use inline styles if needed (e.g. <p style="color:#EAEAEA;">).
+- Make sure the output looks good and readable on a dark background.
+
+STRUCTURE RULES:
+- Do NOT include <html>, <head>, <body>, or global <style> tags.
+- ONLY include embeddable HTML (<div>, <h2>, <p>, <ul>, <li>, etc.).
+- Wrap the entire content in a single <div class="travel-itinerary">.
+- Use a friendly, engaging tone.
+
+Preferences:
+- Destination: ${form.destination}
+- Duration: ${form.duration} days
+- Interests: ${form.interests}
+- Budget: ${form.budget}
+- Travel Style: ${form.travelStyle}
+`;
+
+  return prompt;
+};
