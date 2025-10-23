@@ -1307,7 +1307,7 @@ export const getCountryApps = async (
       website_url: app.website_url,
       app_store_url: app.app_store_url,
       play_store_url: app.play_store_url,
-      isTop: app.isTop,
+      is_top: app.is_top,
     });
   });
 
@@ -1321,7 +1321,7 @@ export const getCountryApps = async (
 export const getTopApps = (countryApps: any[]) => {
   return countryApps
     .flatMap((category) => category.apps)
-    .filter((app) => app.isTop);
+    .filter((app) => app.is_top);
 };
 
 export const getAiPrompt = (locale: "en" | "tr", form: ITripForm) => {
