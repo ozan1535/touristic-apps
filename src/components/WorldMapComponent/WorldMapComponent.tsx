@@ -193,6 +193,7 @@ import {
 import { useLanguage } from "@/app/context/SelectedLanguage";
 
 function WorldMapComponent() {
+  return <div>fewfew</div>;
   const { language } = useLanguage();
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });

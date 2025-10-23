@@ -12,6 +12,7 @@ import { ICategoryWithApps } from "./types";
 import CountryDetailCard from "../CountryDetailCard/CountryDetailCard";
 
 function AppsAccordion({ countryCca2 }: { countryCca2: string }) {
+  return <div>fewf</div>;
   const [data, setData] = useState<ICategoryWithApps[] | null>(null);
   const [loading, setLoading] = useState(true);
   const { language } = useLanguage();
