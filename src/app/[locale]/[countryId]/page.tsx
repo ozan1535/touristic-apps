@@ -62,8 +62,9 @@ import PriceGuide from "@/components/PriceGuide/PriceGuide";
 import { ICountryPageProp } from "./countryApps.types";
 import { getTranslations } from "next-intl/server";
 
-async function page({ params }: ICountryPageProp) {
-  const { countryId, locale } = await params;
+// TODO: Fix type issue Type '{ countryId: string; locale: string; }' is missing the following properties from type 'Promise<any>'
+async function page({ params }: any) {
+  const { countryId, locale } = params;
 
   const currentCountry = allCountries.find(
     (country) => country.cca2.toLowerCase() === countryId
