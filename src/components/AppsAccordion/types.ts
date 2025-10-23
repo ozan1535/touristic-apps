@@ -6,6 +6,7 @@ export interface IAppDetail {
   website_url?: string;
   app_store_url?: string;
   play_store_url?: string;
+  isTop: boolean;
 }
 
 export interface ICategoryWithApps {
