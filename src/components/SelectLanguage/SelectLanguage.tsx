@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import {
@@ -9,45 +9,67 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLanguage } from "@/app/context/SelectedLanguage";
-
+import { usePathname, useRouter } from "@/i18n/navigation";
+import { useParams } from "next/navigation";
+/* import { useLanguage } from "@/app/context/SelectedLanguage";
+ */
 function SelectLanguage() {
-  const { language, setLanguage } = useLanguage();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const params = useParams();
+  const { locale } = params;
+  /* const { language, setLanguage } = useLanguage(); */
   const languages = [
     { code: "EN", name: "English", flag: "/english-flag.png" },
     { code: "TR", name: "Türkçe", flag: "/turkish-flag.webp" },
   ];
 
-  useEffect(() => {
+  /* useEffect(() => {
     const storedLang = localStorage.getItem("language");
     if (storedLang) {
       setLanguage(storedLang.toLocaleLowerCase() as "en" | "tr");
     }
-  }, []);
+  }, []); */
 
   const handleLanguageSelect = (code: "en" | "tr") => {
-    setLanguage(code);
-    localStorage.setItem("language", code.toLowerCase());
-    setLanguage(code.toLowerCase() as "en" | "tr");
+    router.replace(
+      // @ts-expect-error -- TypeScript will validate that only known `params`
+      // are used in combination with a given `pathname`. Since the two will
+      // always match for the current route, we can skip runtime checks.
+      { pathname, params },
+      { locale: code.toLowerCase() }
+    );
   };
 
-  const selected =
+  /*  const selected =
     languages.find(
       (lang) => lang.code.toLocaleLowerCase() === language.toLocaleLowerCase()
-    ) || languages[0];
+    ) || languages[0]; */
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2.5 px-4 py-2 rounded-lg border border-purple-primary hover:bg-gray-50 transition-colors duration-200 shadow-sm outline-none focus:ring-2 focus:ring-gray-300 bg-white">
         <div className="relative w-7 h-5 rounded overflow-hidden shadow-sm">
           <Image
             fill
-            src={selected.flag}
-            alt={`${selected.name} flag`}
+            src={
+              languages.find(
+                (language) => language.code.toLowerCase() === locale
+              )?.flag || ""
+            }
+            alt={`${
+              languages.find(
+                (language) => language.code.toLowerCase() === locale
+              )?.name || ""
+            } flag`}
             className="object-cover"
           />
         </div>
         <span className="font-medium text-gray-700 text-sm">
-          {selected.code}
+          {
+            languages.find((language) => language.code.toLowerCase() === locale)
+              ?.code
+          }
         </span>
         <ChevronDown className="w-4 h-4 text-gray-500 ml-1" />
       </DropdownMenuTrigger>
