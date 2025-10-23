@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { LanguageProvider } from "./context/SelectedLanguage";
+import { NextIntlClientProvider } from "next-intl";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,14 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full h-screen touch-none overscroll-none bg-primary`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full min-h-screen bg-primary flex flex-col`}
       >
         <Suspense>
-          <LanguageProvider defaultLanguage="en">
+          <NextIntlClientProvider>
             <Header />
-            {children}
+            <main className="flex-1">{children}</main>
             <Footer />
-          </LanguageProvider>
+          </NextIntlClientProvider>
         </Suspense>
       </body>
     </html>
