@@ -1,148 +1,62 @@
 import React from "react";
+import { User } from "lucide-react";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import ProfileSidebar from "@/components/ProfileSidebar/ProfileSidebar";
 import MyTrips from "@/components/MyTrips/MyTrips";
 import MyPosts from "@/components/MyPosts/MyPosts";
+import { getUserProfile } from "@/lib/supabase/sync-user";
+import { fetchUserPosts, fetchUserTrips } from "./user.helpers";
 
-const getUserData = async () => {
-  return {
-    name: "Admin User",
-    bio: "Exploring the world one country at a time. Passionate about discovering local cultures and hidden gems.",
-    profileImage: "/english-flag.png",
-    joinDate: "January 2024",
-    tripsCount: 12,
-    postsCount: 45,
-  };
-};
+// TODO: fix type
+export default async function ProfilePage({ params }: { params: any }) {
+  const { userId } = await params;
 
-const getUserTrips = async () => {
-  return [
-    {
-      id: 1,
-      title: "Cherry Blossoms in Japan",
-      country: "Japan",
-      description:
-        "A wonderful week exploring Tokyo and Kyoto during the sakura season.",
-      image: "/english-flag.png",
-      date: "March 2024",
-      duration: "7 days",
-    },
-    {
-      id: 2,
-      title: "Alpine Adventures",
-      country: "Switzerland",
-      description:
-        "Hiking through the stunning Swiss Alps and exploring charming villages.",
-      image: "/english-flag.png",
-      date: "July 2024",
-      duration: "10 days",
-    },
-    {
-      id: 3,
-      title: "Mediterranean Magic",
-      country: "Greece",
-      description: "Island hopping through Santorini, Mykonos, and Athens.",
-      image: "/english-flag.png",
-      date: "September 2024",
-      duration: "14 days",
-    },
-    {
-      id: 11,
-      title: "Cherry Blossoms in Japan",
-      country: "Japan",
-      description:
-        "A wonderful week exploring Tokyo and Kyoto during the sakura season.",
-      image: "/english-flag.png",
-      date: "March 2024",
-      duration: "7 days",
-    },
-    {
-      id: 21,
-      title: "Alpine Adventures",
-      country: "Switzerland",
-      description:
-        "Hiking through the stunning Swiss Alps and exploring charming villages.",
-      image: "/english-flag.png",
-      date: "July 2024",
-      duration: "10 days",
-    },
-    {
-      id: 231,
-      title: "Mediterranean Magic",
-      country: "Greece",
-      description: "Island hopping through Santorini, Mykonos, and Athens.",
-      image: "/english-flag.png",
-      date: "September 2024",
-      duration: "14 days",
-    },
-  ];
-};
+  const { data: pageOwner } = await getUserProfile(userId);
+  if (!pageOwner) {
+    return <NoUserFound />;
+  }
 
-const getUserPosts = async () => {
-  return [
-    {
-      id: 1,
-      author: "Admin User",
-      content:
-        "Just got back from France and it was amazing! The food, the culture, everything was perfect. Highly recommend visiting Lyon for authentic French cuisine.",
-      timestamp: "2 hours ago",
-    },
-    {
-      id: 2,
-      author: "Admin User",
-      content:
-        "Pro tip: Always download offline maps before traveling. Saved me multiple times in rural Japan!",
-      timestamp: "1 day ago",
-    },
-    {
-      id: 3,
-      author: "Admin User",
-      content:
-        "The sunrise at Santorini is overrated... because it's even better than the photos! 🌅",
-      timestamp: "3 days ago",
-    },
-    {
-      id: 12,
-      author: "Admin User",
-      content:
-        "Just got back from France and it was amazing! The food, the culture, everything was perfect. Highly recommend visiting Lyon for authentic French cuisine.",
-      timestamp: "2 hours ago",
-    },
-    {
-      id: 22,
-      author: "Admin User",
-      content:
-        "Pro tip: Always download offline maps before traveling. Saved me multiple times in rural Japan!",
-      timestamp: "1 day ago",
-    },
-    {
-      id: 32,
-      author: "Admin User",
-      content:
-        "The sunrise at Santorini is overrated... because it's even better than the photos! 🌅",
-      timestamp: "3 days ago",
-    },
-  ];
-};
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
 
-async function ProfilePage() {
-  const userData = await getUserData();
-  const userTrips = await getUserTrips();
-  const userPosts = await getUserPosts();
+  const [currentUserData, postsData, tripsData] = await Promise.all([
+    getUserProfile(user?.id as string),
+    fetchUserPosts(pageOwner.kinde_user_id),
+    fetchUserTrips(pageOwner.kinde_user_id),
+  ]);
+
+  const currentUser = currentUserData?.data;
+  const posts = postsData?.data || [];
+  const trips = tripsData?.data || [];
+
+  const isOwner = currentUser?.username === userId;
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 p-4 md:p-10">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
         <aside className="lg:w-80 flex-shrink-0">
-          <ProfileSidebar userData={userData} />
+          <ProfileSidebar
+            userData={pageOwner}
+            isOwner={isOwner}
+            postsLength={posts.length}
+            tripsLength={trips.length}
+          />
         </aside>
 
         <main className="flex-1 flex flex-col gap-6">
-          <MyTrips trips={userTrips} />
-          <MyPosts posts={userPosts} />
+          <MyTrips trips={trips} isOwner={isOwner} userData={pageOwner} />
+          <MyPosts posts={posts} userData={pageOwner} isOwner={isOwner} />
         </main>
       </div>
     </div>
   );
 }
 
-export default ProfilePage;
+function NoUserFound() {
+  return (
+    <div className="w-96 mx-auto mt-10 text-center py-12 border-2 border-dashed border-purple-500/30 rounded-lg">
+      <User className="mx-auto mb-4 text-purple-400 opacity-50" size={48} />
+      <p className="text-gray-400">There is no such user.</p>
+    </div>
+  );
+}
