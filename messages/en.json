@@ -72,11 +72,30 @@
     "submitting": "Submitting...",
     "errorCountry": "Please select a country",
     "errorAppName": "Please enter an app name",
-    "errorTip": "Please share your experience (minimum 20 characters)",
+    "errorTip": "Please share your experience (minimum 10 characters)",
     "successTitle": "Thank You!",
     "successMessage": "Your tip has been submitted successfully and will help other travelers!",
     "loginRequired": "Please log in to share your tips",
     "character": "characters"
+  },
+  "SignIn": {
+    "welcome": "Welcome",
+    "login": "Sign in to your account",
+    "noAccount": "Don't have an account?",
+    "register": "Register"
+  },
+  "SignUp": {
+    "create": "Create Account",
+    "createForFree": "Create your free account",
+    "alreadyHave": "Already have an account?",
+    "login": "Sign In"
+  },
+  "LoginPage": {
+    "continue": "Continue",
+    "info": "By continuing, you agree to our policies.",
+    "terms": "Terms of Use",
+    "privacy": "Privacy Policy",
+    "and": "and"
   },
   "CulturalInsights": {
     "title": "Cultural Insights",

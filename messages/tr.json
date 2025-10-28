@@ -68,11 +68,30 @@
     "submitting": "Gönderiliyor...",
     "errorCountry": "Lütfen bir ülke seçin",
     "errorAppName": "Lütfen bir uygulama adı girin",
-    "errorTip": "Lütfen deneyiminizi paylaşın (minimum 20 karakter)",
+    "errorTip": "Lütfen deneyiminizi paylaşın (minimum 10 karakter)",
     "successTitle": "Teşekkürler!",
     "successMessage": "İpucunuz başarıyla gönderildi ve diğer gezginlere yardımcı olacak!",
     "loginRequired": "İpuçlarınızı paylaşmak için lütfen giriş yapın",
     "character": "karakter"
+  },
+  "SignIn": {
+    "welcome": "Hoş Geldiniz",
+    "login": "Hesabınıza giriş yapın",
+    "noAccount": "Hesabınız yok mu?",
+    "register": "Kayıt Ol"
+  },
+  "SignUp": {
+    "create": "Hesap Oluştur",
+    "createForFree": "Ücretsiz hesabınızı oluşturun",
+    "alreadyHave": "Zaten bir hesabınız var mı?",
+    "login": "Giriş Yap"
+  },
+  "LoginPage": {
+    "continue": "Devam",
+    "info": "Devam ederek politikalarımızı kabul etmiş olursunuz.",
+    "terms": "Kullanım Şartları",
+    "privacy": "Gizlilik Politikası",
+    "and": "ve"
   },
   "CulturalInsights": {
     "title": "Kültürel Görüşler",
