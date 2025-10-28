@@ -10,6 +10,7 @@ export interface ICountry {
 }
 
 export interface ICountryBannerProps {
+  picture: string;
   country: ICountry;
   locale: "en" | "tr";
 }

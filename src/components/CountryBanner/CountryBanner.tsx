@@ -1,56 +1,9 @@
-/* import { Plane } from "lucide-react";
-import Link from "next/link";
-
-function CountryBanner({
-  country,
-  locale,
-}: {
-  country: any;
-  locale: "en" | "tr";
-}) {
-  return (
-    <div className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${country?.flag})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
-
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-      <div className="relative h-full flex flex-col items-start justify-end px-4 md:px-6 lg:px-10 pb-6 md:pb-10">
-        <div className="max-w-7xl w-full mx-auto">
-          <h1 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
-            {country?.name[locale]}
-          </h1>
-          <p className="text-gray-200 text-sm md:text-base mb-4">
-            Your guide to essential apps and local costs.
-          </p>
-          <Link
-            href={"/ai-travel-planner"}
-            className="inline-flex gap-3 px-4 py-3 bg-purple-primary rounded-md text-white font-bold hover:bg-purple-600 transition-colors"
-          >
-            <Plane size={20} />
-            <span>Plan a trip with AI</span>
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default CountryBanner;
- */
-
 import { Plane, MapPin } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ICountryBannerProps } from "./CountryBanner.types";
 
-function CountryBanner({ country, locale }: ICountryBannerProps) {
+function CountryBanner({ picture, country, locale }: ICountryBannerProps) {
   const CountryBannerTranslation = useTranslations("CountryBanner");
 
   return (
@@ -58,7 +11,7 @@ function CountryBanner({ country, locale }: ICountryBannerProps) {
       <div
         className="absolute inset-0 bg-cover bg-center scale-110"
         style={{
-          backgroundImage: `url(${country.flag})`,
+          backgroundImage: `url(${picture || country.flag})`,
         }}
       />
 

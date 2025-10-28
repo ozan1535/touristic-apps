@@ -10,7 +10,7 @@ function CountryDetailCard({ appDetail }: { appDetail: IAppDetail }) {
       <div className="flex items-center gap-2 mb-2">
         <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 flex-shrink-0">
           <Image
-            src={appDetail?.logo_url || "/english-flag.png"}
+            src={appDetail?.logo_url || "/profile.webp"}
             width={32}
             height={32}
             alt="Country flag"
