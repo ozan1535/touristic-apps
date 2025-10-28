@@ -1,7 +1,7 @@
-import CulturalInsightsClient from "@/components/CulturalInsightsClient/CulturalInsightsClient";
+import React from "react";
 import { Lightbulb } from "lucide-react";
 import { useTranslations } from "next-intl";
-import React from "react";
+import CulturalInsightsClient from "@/components/CulturalInsightsClient/CulturalInsightsClient";
 
 function page() {
   const CulturalInsightsTranslation = useTranslations("CulturalInsights");
