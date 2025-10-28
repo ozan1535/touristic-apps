@@ -1,42 +1,7 @@
-/* import AppDetails from "@/components/Dialog/AppDetails";
-import RotatingWorldChart from "@/components/RotatingWorldChart/RotatingWorldChart";
-import { SearchCountry } from "@/components/SearchCountry/SearchCountry";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Touristic App",
-  description:
-    "A touristic app that guides tourists for each country by suggesting apps",
-};
-
-export default function Home() {
-  return (
-    <div className="w-full p-10 ">
-      <h1 className="text-3xl md:text-5xl font-black text-center text-purple-primary">
-        GlobalAppGuide
-      </h1>
-
-      <p className="text-center text-secondary my-3 md:my-8">
-        Your ultimate companion for navigating life abroad. Discover essential
-        apps and local prices for any country.
-      </p>
-      <div className="flex justify-center items-center w-full text-center">
-        <div className="w-full md:w-[50%]">
-          <SearchCountry />
-        </div>
-      </div>
-      <div className="flex justify-center mt-10">
-        <RotatingWorldChart />
-      </div>
-    </div>
-  );
-}
- */
-
 import { Sparkles } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import RotatingWorldChart from "@/components/RotatingWorldChart/RotatingWorldChart";
 import { SearchCountry } from "@/components/SearchCountry/SearchCountry";
 
@@ -48,9 +13,9 @@ export const metadata: Metadata = {
     "travel apps, local prices, country guide, tourist apps, travel planner",
 };
 
-export default function Home() {
-  const searchCountryTranslation = useTranslations("SearchCountry");
-  const homePageTranslation = useTranslations("HomePage");
+export default async function Home() {
+  const searchCountryTranslation = await getTranslations("SearchCountry");
+  const homePageTranslation = await getTranslations("HomePage");
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950">
