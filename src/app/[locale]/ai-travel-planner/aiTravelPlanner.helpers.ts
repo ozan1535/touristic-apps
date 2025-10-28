@@ -23,7 +23,8 @@ export const getAiResponse = async (
   setIsLoading: Dispatch<React.SetStateAction<boolean>>,
   setData: Dispatch<React.SetStateAction<string>>,
   getAiPrompt: (locale: "en" | "tr", form: ITripForm) => string,
-  locale: "en" | "tr"
+  locale: "en" | "tr",
+  handleAddData: (response: string) => void
 ) => {
   if (!validateForm(form, setError)) return;
 
@@ -41,18 +42,20 @@ export const getAiResponse = async (
       contents: getAiPrompt(locale, form),
       config: {
         systemInstruction: `You are an expert travel planner. Create detailed day-by-day itineraries that include:
-- Recommended cities and neighborhoods
-- Must-see attractions and hidden gems
-- Local dining recommendations
-- Transportation tips
-- Estimated costs and timing
-- Cultural insights and practical tips
+    - Recommended cities and neighborhoods
+    - Must-see attractions and hidden gems
+    - Local dining recommendations
+    - Transportation tips
+    - Estimated costs and timing
+    - Cultural insights and practical tips
 
-Format your response in clean, semantic HTML with proper headings (h3, h4), paragraphs, and lists. Make it visually scannable and user-friendly.`,
+    Format your response in clean, semantic HTML with proper headings (h3, h4), paragraphs, and lists. Make it visually scannable and user-friendly.`,
       },
     });
 
     setData(response.text || "");
+
+    handleAddData(response.text as string);
   } catch (err) {
     setError(
       "Failed to generate itinerary. Please check your API key and try again."
