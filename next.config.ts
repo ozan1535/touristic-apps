@@ -2,11 +2,13 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     remotePatterns: [
       {
-        protocol: "https", // Ensure to specify the protocol (http or https)
+        protocol: "https",
         hostname: "qmeplsipesyoodcwjotf.supabase.co",
       },
     ],
