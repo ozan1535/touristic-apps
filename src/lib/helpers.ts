@@ -1,7 +1,7 @@
+import { Dispatch, SetStateAction } from "react";
 import { IAppDetail } from "@/components/AppsAccordion/types";
 import { createClient } from "./supabase/client";
 import { ITripForm } from "@/app/[locale]/ai-travel-planner/types";
-
 export const allCountries = [
   {
     name: { tr: "Litvanya", en: "Lithuania" },
@@ -1379,4 +1379,45 @@ Preferences:
 `;
 
   return prompt;
+};
+
+export function generateUsername(length: number = 8): string {
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789_.";
+  let username = "";
+
+  const letters = "abcdefghijklmnopqrstuvwxyz";
+  username += letters.charAt(Math.floor(Math.random() * letters.length));
+
+  for (let i = 1; i < length; i++) {
+    username += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  return username;
+}
+
+export async function generateUniqueUsername(
+  checkExists: (username: string) => Promise<boolean>,
+  length: number = 8,
+  maxAttempts: number = 10
+): Promise<string> {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const username = generateUsername(length);
+    const exists = await checkExists(username);
+
+    if (!exists) {
+      return username;
+    }
+  }
+
+  return generateUsername(length - 4) + Date.now().toString().slice(-4);
+}
+
+export const handleInputChange = <T extends object>(
+  field: keyof T,
+  value: string | File | null,
+  setData: Dispatch<SetStateAction<T>>,
+  setError: Dispatch<SetStateAction<string>>
+) => {
+  setData((prev) => ({ ...prev, [field]: value }));
+  setError("");
 };
