@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { Zap, Plane, Calendar, Heart, Wallet, Compass } from "lucide-react";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,9 +12,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getAiPrompt } from "@/lib/helpers";
 import { ITripForm } from "@/app/[locale]/ai-travel-planner/types";
 import { getAiResponse } from "@/app/[locale]/ai-travel-planner/aiTravelPlanner.helpers";
+import { supabase } from "@/lib/supabase/client";
 
 function TravelPlannerClient() {
   const aiTravelPlannerTranslation = useTranslations("AiTravelPlanner");
+
   const { locale } = useParams<{ locale: "en" | "tr" }>();
   const [form, setForm] = useState<ITripForm>({
     destination: "",
@@ -22,10 +25,27 @@ function TravelPlannerClient() {
     budget: "",
     travelStyle: "",
   });
-
+  const { destination, duration, interests, budget, travelStyle } = form;
   const [data, setData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const { getUser } = useKindeBrowserClient();
+  const user = getUser();
+
+  const handleAddData = async (response: string) => {
+    if (user) {
+      const { error } = await supabase.from("ai_planner").insert({
+        destination,
+        duration,
+        interests,
+        budget,
+        travel_style: travelStyle,
+        user_id: user?.id,
+        ai_response: response,
+      });
+    }
+  };
 
   const handleChange =
     (field: keyof ITripForm) =>
@@ -153,7 +173,8 @@ function TravelPlannerClient() {
                 setIsLoading,
                 setData,
                 getAiPrompt,
-                locale
+                locale,
+                handleAddData
               )
             }
             disabled={isLoading}
