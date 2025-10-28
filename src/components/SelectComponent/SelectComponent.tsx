@@ -23,7 +23,6 @@ function SelectComponent({
   customPlaceholder?: string;
 }) {
   return (
-    // TODO: Fix SelectValue color after selecting and item
     <Select onValueChange={handleValueChange}>
       <SelectTrigger className={customStyle || "w-[180px]"}>
         <SelectValue placeholder={customPlaceholder || "All"} />
