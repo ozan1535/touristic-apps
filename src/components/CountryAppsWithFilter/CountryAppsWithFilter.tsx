@@ -1,46 +1,3 @@
-/* "use client";
-import React, { useState } from "react";
-import SelectComponent from "../SelectComponent/SelectComponent";
-import AppDetailCard from "../AppDetailCard/AppDetailCard";
-import { ICategoryWithApps } from "../AppsAccordion/types";
-
-function CountryAppsWithFilter({
-  countryApps,
-}: {
-  countryApps: ICategoryWithApps[];
-}) {
-  const categories = countryApps.map((item) => item.category);
-  const allApps = countryApps.flatMap((category) => category.apps);
-  const [filteredData, setFilteredData] = useState(allApps);
-  const filterData = (selectedItem: string) => {
-    if (selectedItem === "All") {
-      setFilteredData(allApps);
-      return;
-    }
-    setFilteredData(
-      [countryApps.find((item) => item.category === selectedItem)].flatMap(
-        (all) => all.apps
-      )
-    );
-  };
-  return (
-    <div className="mt-5">
-      <div className="flex justify-between">
-        <h1 className="text-xl font-black text-secondary">Applications</h1>
-        <SelectComponent categories={categories} filterData={filterData} />
-      </div>
-      <div className="grid grid-cols-2 gap-5 mt-5">
-        {filteredData.map((appDetail) => (
-          <AppDetailCard appDetail={appDetail} key={appDetail.id} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export default CountryAppsWithFilter;
- */
-
 "use client";
 import React, { useState, useMemo } from "react";
 import { useTranslations } from "next-intl";
@@ -49,7 +6,10 @@ import { ICountryAppsWithFilterProps } from "./CountryAppsWithFilter.types";
 import SelectComponent from "../SelectComponent/SelectComponent";
 import AppDetailCard from "../AppDetailCard/AppDetailCard";
 
-function CountryAppsWithFilter({ countryApps }: ICountryAppsWithFilterProps) {
+function CountryAppsWithFilter({
+  countryApps,
+  contributions,
+}: ICountryAppsWithFilterProps) {
   const countryAppsWithFilterTranslation = useTranslations(
     "CountryAppsWithFilter"
   );
@@ -135,7 +95,11 @@ function CountryAppsWithFilter({ countryApps }: ICountryAppsWithFilterProps) {
       >
         {filteredData.length > 0 ? (
           filteredData.map((appDetail) => (
-            <AppDetailCard appDetail={appDetail} key={appDetail.id} isTopApp={false}/>
+            <AppDetailCard
+              appDetail={appDetail}
+              key={appDetail.id}
+              isTopApp={false}
+            />
           ))
         ) : (
           <div className="col-span-full text-center py-12 border border-purple-500/30 rounded-xl bg-slate-900/50">
@@ -145,6 +109,28 @@ function CountryAppsWithFilter({ countryApps }: ICountryAppsWithFilterProps) {
           </div>
         )}
       </div>
+      {contributions.length > 0 ? (
+        <>
+          <h1 className="text-white my-5 text-2xl font-bold">Contributors</h1>
+          <div
+            className={
+              viewMode === "grid"
+                ? "grid grid-cols-1 sm:grid-cols-2 gap-5"
+                : "flex flex-col gap-4"
+            }
+          >
+            {contributions
+              .map((item) => ({ ...item, logo_url: item.app_logo }))
+              .map((appDetail) => (
+                <AppDetailCard
+                  appDetail={appDetail}
+                  key={appDetail.id}
+                  isTopApp={false}
+                />
+              ))}
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
