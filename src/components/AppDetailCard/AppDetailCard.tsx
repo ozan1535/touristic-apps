@@ -1,57 +1,3 @@
-/* import { Apple, ArrowUpRight, Play } from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
-import React from "react";
-import { IAppDetail } from "../AppsAccordion/types";
-import { getLinks } from "./AppDetailCard.helpers";
-import { IApp } from "../TopApps/TopApps.types";
-
-function AppDetailCard({ appDetail }: { appDetail: IApp }) {
-  return (
-    <article className="rounded-sm border-secondary border p-5 bg-[#040b21] hover:border-purple-primary transition-colors">
-      <div className="flex items-start gap-4 mb-3">
-        {appDetail.logo_url && (
-          <div className="relative w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden flex-shrink-0 border-2 border-purple-primary/30">
-            <Image
-              src={appDetail?.logo_url || "/english-flag.png"}
-              alt={`${appDetail.app_name} logo`}
-              fill
-              className="object-contain"
-            />
-          </div>
-        )}
-        <div className="flex-1 min-w-0">
-          <h3 className="text-lg md:text-xl font-black text-white mb-1">
-            {appDetail.app_name}
-          </h3>
-          <p className="text-secondary text-sm md:text-base line-clamp-2">
-            {appDetail.description}
-          </p>
-        </div>
-      </div>
-      <div className="flex justify-end gap-3">
-        {getLinks(appDetail, ArrowUpRight, Play, Apple).map(
-          ({ href, Icon, label }) =>
-            href && (
-              <Link
-                key={label}
-                target="_blank"
-                href={href}
-                aria-label={label}
-                className="text-secondary hover:text-purple-primary transition-colors"
-              >
-                <Icon size={20} />
-              </Link>
-            )
-        )}
-      </div>
-    </article>
-  );
-}
-
-export default AppDetailCard; */
-
-
 import { Apple, ArrowUpRight, Play } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -108,7 +54,7 @@ function AppDetailCard({
           `}
           >
             <Image
-              src={appDetail.logo_url || "/english-flag.png"}
+              src={appDetail.logo_url || "/profile.webp"}
               alt={`${appDetail.app_name} logo`}
               fill
               className="object-contain p-2"

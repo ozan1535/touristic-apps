@@ -1,24 +1,3 @@
-/* import React from "react";
-import AppDetailCard from "../AppDetailCard/AppDetailCard";
-
-function TopApps({ topApps }: { topApps: any[] }) {
-  return (
-    <section className="mb-8">
-      <h2 className="text-xl md:text-2xl font-black text-secondary mb-5">
-        Top Apps
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
-        {topApps.map((app) => (
-          <AppDetailCard appDetail={app} key={app.id} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export default TopApps;
- */
-
 import React from "react";
 import AppDetailCard from "../AppDetailCard/AppDetailCard";
 import { Star } from "lucide-react";
