@@ -5,11 +5,13 @@ import { Grid3x3, List } from "lucide-react";
 import { ICountryAppsWithFilterProps } from "./CountryAppsWithFilter.types";
 import SelectComponent from "../SelectComponent/SelectComponent";
 import AppDetailCard from "../AppDetailCard/AppDetailCard";
+import { useParams } from "next/navigation";
 
 function CountryAppsWithFilter({
   countryApps,
   contributions,
 }: ICountryAppsWithFilterProps) {
+  const { locale } = useParams();
   const countryAppsWithFilterTranslation = useTranslations(
     "CountryAppsWithFilter"
   );
@@ -111,7 +113,9 @@ function CountryAppsWithFilter({
       </div>
       {contributions.length > 0 ? (
         <>
-          <h1 className="text-white my-5 text-2xl font-bold">Contributors</h1>
+          <h1 className="text-white my-5 text-2xl font-bold">
+            {locale === "en" ? "Contributors" : "Katkılar"}
+          </h1>
           <div
             className={
               viewMode === "grid"

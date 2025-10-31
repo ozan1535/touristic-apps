@@ -10,8 +10,10 @@ import { useParams, useRouter } from "next/navigation";
 import { handlePost } from "./MyPosts.helpers";
 import { IMyPostsProps, IPost } from "./MyPosts.types";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
+  const t = useTranslations("Profile");
   const router = useRouter();
   const { locale } = useParams();
   const [newPost, setNewPost] = useState("");
@@ -32,14 +34,14 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
       <div className="mb-6">
         <h1 className="text-white font-bold text-2xl mb-1 flex items-center gap-2">
           <MessageSquare className="text-purple-400" size={28} />
-          {isOwner ? "My Posts" : "Posts"}
+          {isOwner ? t("myPosts") : t("Posts")}
         </h1>
       </div>
 
       {isOwner && (
         <div className="mb-6 bg-slate-800/30 border border-purple-500/20 rounded-lg p-4">
           <Textarea
-            placeholder="Share a travel tip or experience..."
+            placeholder={t("shareTip")}
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
             className="bg-slate-800/50 border-purple-500/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400 min-h-[100px] mb-3"
@@ -72,12 +74,12 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
               {isPosting ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
-                  Posting...
+                  {t("posting")}
                 </>
               ) : (
                 <>
                   <Send className="mr-2" size={18} />
-                  Post
+                  {t("post")}
                 </>
               )}
             </Button>
@@ -97,7 +99,7 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
                   {userData.picture ? (
                     <Image
                       src={userData.picture}
-                      alt="Profile Picture"
+                      alt={t("profilePicture")}
                       fill
                       className="object-cover"
                       sizes="40px"
@@ -117,7 +119,6 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
                         locale: locale === "tr" ? tr : enUS,
                       })}
                     </span>
-                    {/* TODO: is not being removed automatically */}
                     {isOwner && (
                       <Trash2
                         size={24}
@@ -139,7 +140,7 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
               className="mx-auto mb-4 text-purple-400 opacity-50"
               size={48}
             />
-            <p className="text-gray-400">No posts yet.</p>
+            <p className="text-gray-400">{t("noPosts")}</p>
           </div>
         )}
       </div>

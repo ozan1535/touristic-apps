@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 
 interface QuillEditorProps {
   value?: string;
@@ -9,6 +10,7 @@ interface QuillEditorProps {
 }
 
 function QuillEditorComponent({ onChange, value }: QuillEditorProps) {
+  const t = useTranslations("Profile");
   const editorRef = useRef<HTMLDivElement>(null);
   const quillRef = useRef<any>(null);
 
@@ -23,7 +25,7 @@ function QuillEditorComponent({ onChange, value }: QuillEditorProps) {
 
       quillRef.current = new Quill(editorRef.current, {
         theme: "snow",
-        placeholder: "Write something amazing...",
+        placeholder: t("quillPlaceholder"),
         modules: {
           toolbar: [
             [{ header: [1, 2, 3, false] }],

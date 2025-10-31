@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useParams } from "next/navigation";
 
 function SelectComponent({
   categories,
@@ -22,14 +23,16 @@ function SelectComponent({
   customStyle?: string;
   customPlaceholder?: string;
 }) {
+  const { locale } = useParams();
+  const allText = locale === "en" ? "All" : "Tümü";
   return (
     <Select onValueChange={handleValueChange}>
       <SelectTrigger className={customStyle || "w-[180px]"}>
-        <SelectValue placeholder={customPlaceholder || "All"} />
+        <SelectValue placeholder={customPlaceholder || allText} />
       </SelectTrigger>
       <SelectContent className="bg-slate-900 text-secondary">
         <SelectGroup>
-          {canShowAll && <SelectItem value="All">All</SelectItem>}
+          {canShowAll && <SelectItem value="All">{allText}</SelectItem>}
           {categories.map((item) => (
             <SelectItem value={item} key={item}>
               {item}

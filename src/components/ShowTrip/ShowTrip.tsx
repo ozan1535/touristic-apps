@@ -7,6 +7,7 @@ import { useState } from "react";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import Link from "next/link";
 import { TripData } from "../MyTrips/MyTrips.types";
+import { useTranslations } from "next-intl";
 
 interface ShowTripProps {
   isOpen: boolean;
@@ -19,7 +20,7 @@ interface ShowTripProps {
 
 function ShowTrip({ isOpen, tripData, onClose }: ShowTripProps) {
   const [imageError, setImageError] = useState(false);
-
+  const t = useTranslations("Profile");
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:h-[90vh] sm:max-w-[900px] p-0 overflow-hidden bg-slate-900 border-purple-400/30 flex flex-col">
@@ -128,7 +129,7 @@ function ShowTrip({ isOpen, tripData, onClose }: ShowTripProps) {
             onClick={onClose}
             className="border-purple-400/30"
           >
-            Close
+            {t("close")}
           </Button>
         </DialogFooter>
       </DialogContent>

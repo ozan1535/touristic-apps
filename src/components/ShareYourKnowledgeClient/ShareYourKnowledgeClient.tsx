@@ -163,7 +163,7 @@ function ShareYourKnowledgeClient() {
             <p className="text-gray-500 text-xs">
               {form.userTip.length} {t("character")}
             </p>
-            <p className="text-gray-500 text-xs">Minimum 20 characters</p>
+            <p className="text-gray-500 text-xs">Minimum 20</p>
           </div>
         </div>
 

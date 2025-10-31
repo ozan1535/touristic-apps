@@ -3,8 +3,10 @@
 import React from "react";
 import ReactECharts from "echarts-for-react";
 import { Plane } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function CheapFlightChart({ value = 50 }) {
+  const t = useTranslations("CheapFlightChart");
   const option = {
     backgroundColor: "transparent",
     series: [
@@ -62,20 +64,20 @@ export default function CheapFlightChart({ value = 50 }) {
           fontSize: 14,
           fontWeight: "bold",
           formatter: function (value: number) {
-            if (value === 0) return "Expensive";
-            if (value === 50) return "Average";
-            if (value === 100) return "Cheap";
+            if (value === 0) return t("expensive");
+            if (value === 50) return t("average");
+            if (value === 100) return t("cheap");
             return "";
           },
         },
         detail: {
           valueAnimation: true,
           formatter: function (value: number) {
-            if (value < 20) return "Very Expensive";
-            if (value < 40) return "Expensive";
-            if (value < 60) return "Average";
-            if (value < 80) return "Affordable";
-            return "Very Affordable";
+            if (value < 20) return t("veryExpensive");
+            if (value < 40) return t("expensive");
+            if (value < 60) return t("average");
+            if (value < 80) return t("affordable");
+            return t("veryAffordable");
           },
           color: "#ffffff",
           fontSize: 20,
@@ -90,7 +92,7 @@ export default function CheapFlightChart({ value = 50 }) {
         },
         data: [
           {
-            value: value,
+            value,
             // name: "Flight Price Level",
           },
         ],
@@ -101,7 +103,7 @@ export default function CheapFlightChart({ value = 50 }) {
   return (
     <div className="w-full border border-purple-400/25 rounded-xl p-6 bg-slate-700/20 backdrop-blur-sm shadow-xl mt-5">
       <h1 className="text-center text-white font-bold text-2xl flex justify-center items-center gap-2">
-        <Plane size={24} /> <span>Current Flight Prices</span>
+        <Plane size={24} /> <span>{t("title")}</span>
       </h1>
       <ReactECharts
         option={option}

@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { EditProfile } from "../EditProfile/EditProfile";
 import { IProfileSidebarProps } from "./ProfileSidebar.types";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from "next-intl";
 
 function ProfileSidebar({
   userData,
@@ -12,6 +13,7 @@ function ProfileSidebar({
   postsLength,
   tripsLength,
 }: IProfileSidebarProps) {
+  const t = useTranslations("Profile");
   const [isEditOpen, setIsEditOpen] = useState(false);
 
   const handleEditProfile = () => {
@@ -27,7 +29,7 @@ function ProfileSidebar({
               src={userData?.picture || "/profile.webp"}
               width={128}
               height={128}
-              alt={`${userData.name}'s profile picture`}
+              alt={t("pictureAlt", { name: userData.name })}
               className="w-full h-full object-cover"
               priority
             />
@@ -52,14 +54,14 @@ function ProfileSidebar({
           <div className="text-2xl font-bold text-white">
             {tripsLength || 0}
           </div>
-          <div className="text-xs text-gray-400">Trips</div>
+          <div className="text-xs text-gray-400">{t("trips")}</div>
         </div>
         <div className="bg-slate-800/50 rounded-lg p-3 border border-purple-500/20 text-center">
           <Heart className="mx-auto mb-1 text-pink-400" size={20} />
           <div className="text-2xl font-bold text-white">
             {postsLength || 0}
           </div>
-          <div className="text-xs text-gray-400">Posts</div>
+          <div className="text-xs text-gray-400">{t("posts")}</div>
         </div>
       </div>
       {isOwner && (
@@ -68,7 +70,7 @@ function ProfileSidebar({
           className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 font-bold border-0 shadow-lg"
         >
           <SquarePen className="mr-2" size={18} />
-          Edit Profile
+          {t("editProfile")}
         </Button>
       )}
       {isEditOpen && (

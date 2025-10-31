@@ -1,4 +1,6 @@
+"use client";
 import { Activity, Ambulance, Flame, Siren } from "lucide-react";
+import { useParams } from "next/navigation";
 import React from "react";
 
 function ImportantNumbers({
@@ -10,22 +12,23 @@ function ImportantNumbers({
   police: string;
   fireFighting: string;
 }) {
+  const { locale } = useParams();
   const emergencyNumbers = [
     {
       icon: <Ambulance className="w-6 h-6" />,
-      label: "Ambulance",
+      label: locale === "en" ? "Ambulance" : "Ambulans",
       number: ambulance || "-",
       color: "from-red-500 to-red-600",
     },
     {
       icon: <Flame className="w-6 h-6" />,
-      label: "Fire",
+      label: locale === "en" ? "Fire" : "İtfaiye",
       number: fireFighting || "-",
       color: "from-orange-500 to-orange-600",
     },
     {
       icon: <Siren className="w-6 h-6" />,
-      label: "Police",
+      label: locale === "en" ? "Police" : "Polis",
       number: police || "-",
       color: "from-blue-500 to-blue-600",
     },
@@ -33,7 +36,10 @@ function ImportantNumbers({
   return (
     <div className="w-full border border-purple-400/25 rounded-xl p-6 bg-slate-700/20 backdrop-blur-sm shadow-xl mt-5">
       <h1 className="text-center text-white font-bold text-2xl flex justify-center items-center gap-2 mb-5">
-        <Activity size={24} /> <span>Emergency Numbers</span>
+        <Activity size={24} />
+        <span>
+          {locale === "en" ? "Emergency Numbers" : "Önemli Numaralar"}
+        </span>
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

@@ -7,8 +7,10 @@ import { TripDialog } from "../AddTrip/AddTrip";
 import ShowTrip from "../ShowTrip/ShowTrip";
 import TripsCards from "../TripsCards/TripsCards";
 import { MyTripsProps, TripData } from "./MyTrips.types";
+import { useTranslations } from "next-intl";
 
 function MyTrips({ trips, isOwner, userData }: MyTripsProps) {
+  const t = useTranslations("Profile");
   const { locale } = useParams();
   const [dialogItems, setDialogItems] = useState<{
     isOpen: boolean;
@@ -35,7 +37,7 @@ function MyTrips({ trips, isOwner, userData }: MyTripsProps) {
         <div>
           <h1 className="text-white font-bold text-2xl mb-1 flex items-center gap-2">
             <MapPin className="text-purple-400" size={28} />
-            {isOwner ? "My Trips" : "Trips"}
+            {isOwner ? t("myTrips") : t("trips")}
           </h1>
         </div>
         {isOwner && (
@@ -44,7 +46,7 @@ function MyTrips({ trips, isOwner, userData }: MyTripsProps) {
             className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 font-bold border-0 shadow-lg whitespace-nowrap"
           >
             <CirclePlus className="mr-2" size={18} />
-            Add Trip
+            {t("addTrip")}
           </Button>
         )}
       </div>
@@ -62,7 +64,7 @@ function MyTrips({ trips, isOwner, userData }: MyTripsProps) {
             className="mx-auto mb-4 text-purple-400 opacity-50"
             size={48}
           />
-          <p className="text-gray-400 mb-4">No trips yet</p>
+          <p className="text-gray-400 mb-4">{t("noTrips")}</p>
           {isOwner && (
             <Button
               onClick={handleAddTrip}
@@ -70,7 +72,7 @@ function MyTrips({ trips, isOwner, userData }: MyTripsProps) {
               className="border-purple-500/30 cursor-pointer"
             >
               <CirclePlus className="mr-2" size={18} />
-              Add Your First Trip
+              {t("addFirstTrip")}
             </Button>
           )}
         </div>

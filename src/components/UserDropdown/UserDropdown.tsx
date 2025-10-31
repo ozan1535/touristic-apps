@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
+import { useParams } from "next/navigation";
 import { User, LogOut, LogIn, UserPlus } from "lucide-react";
 import {
   DropdownMenu,
@@ -13,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 function UserDropdown({ user }: { user: any }) {
+  const { locale } = useParams();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -47,7 +50,7 @@ function UserDropdown({ user }: { user: any }) {
                   className="flex items-center gap-2"
                 >
                   <User size={16} className="text-purple-400" />
-                  Profile
+                  {locale === "en" ? "Profile" : "Profil"}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
@@ -62,7 +65,7 @@ function UserDropdown({ user }: { user: any }) {
           >
             <LogoutLink className="flex items-center gap-2">
               <LogOut size={16} />
-              Logout
+              {locale === "en" ? "Logout" : "Çıkış"}
             </LogoutLink>
           </DropdownMenuItem>
         ) : (
@@ -76,7 +79,7 @@ function UserDropdown({ user }: { user: any }) {
                 className="flex items-center gap-2 hover:text-secondary"
               >
                 <LogIn size={16} className="text-purple-400" />
-                Login
+                {locale === "en" ? "Login" : "Giriş"}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem
@@ -88,7 +91,7 @@ function UserDropdown({ user }: { user: any }) {
                 className="flex items-center gap-2 hover:text-white"
               >
                 <UserPlus size={16} className="text-purple-400" />
-                Register
+                {locale === "en" ? "Register" : "Kayıt Ol"}
               </Link>
             </DropdownMenuItem>
           </>

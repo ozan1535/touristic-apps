@@ -9,6 +9,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useParams } from "next/navigation";
 
 interface FileUploadProps {
   onFileSelect?: (file: File | null) => void;
@@ -23,12 +24,14 @@ interface FileUploadProps {
 export default function ImageUpload({
   onFileSelect,
   isLoading = false,
-  label = "Choose File",
-  description = "PNG, JPEG, or WebP (max 1MB)",
+  description = "PNG, JPEG, WebP (max 1MB)",
   initialPreviewUrl = null,
   onFileSizeError,
   onFileTypeError,
 }: FileUploadProps) {
+  const { locale } = useParams();
+  const label = locale === "en" ? "Choose File" : "Resim Seçin";
+  const uploadingText = locale === "en" ? "Uploading" : "Yükleniyor";
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(
     initialPreviewUrl
@@ -104,7 +107,7 @@ export default function ImageUpload({
             htmlFor="fileUpload"
             className="flex items-center justify-center bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-400/30 rounded-lg px-4 py-2 text-sm font-semibold cursor-pointer"
           >
-            {isLoading ? "Uploading..." : label}
+            {isLoading ? uploadingText : label}
           </Label>
           {description && (
             <p className="text-xs text-gray-400 mt-2">{description}</p>
