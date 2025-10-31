@@ -57,6 +57,15 @@
     "cost": "Average costs in {currency}",
     "estimate": "Prices are estimates and may vary by location and season"
   },
+  "CheapFlightChart": {
+    "expensive": "Expensive",
+    "average": "Average",
+    "cheap": "Cheap",
+    "veryExpensive": "Very Expensive",
+    "affordable": "Affordable",
+    "veryAffordable": "Very Affordable",
+    "title": "Current Flight Prices"
+  },
   "ShareYourKnowledge": {
     "mainTitle": "Share Your Knowledge",
     "description": "Help fellow travelers by sharing your experiences with local apps and services. Your insights make a difference!",
@@ -114,180 +123,107 @@
     "list4Strong": "Be Respectful:",
     "list4Desc": "Keep your feedback constructive and helpful"
   },
-  "AboutUs": {
-    "title": "Hakkımızda",
-    "subtitle": "İzmir Burada Nedir?",
-    "mission": "🎯 Misyonumuz",
-    "p1": "İzmir Burada, İzmir ve çevresindeki yaşamı kolaylaştırmak amacıyla kurulmuş kapsamlı bir dijital platformdur. Şehrin sunduğu tüm hizmetler, etkinlikler ve fırsatları tek bir çatı altında toplayarak, İzmir'de yaşayan veya ziyaret eden herkesin ihtiyaçlarına cevap vermeyi hedefliyoruz.",
-    "p2": "İzmir'deki günlük yaşamı kolaylaştırmak, şehrin sunduğu tüm imkanları vatandaşlara ve ziyaretçilere en kolay şekilde ulaştırmak. Bilgiye erişimi demokratikleştirerek, herkesin İzmir'den en iyi şekilde faydalanmasını sağlamak.",
-    "title2": "🚀 Vizyonumuz",
-    "p3": "İzmir'in dijital rehberi olmak, şehrin tüm kaynaklarını tek platformda birleştirerek Türkiye'nin en kullanışlı şehir rehberi haline gelmek. Teknoloji ile şehir yaşamını entegre ederek modern yaşamın gereksinimlerini karşılamak.",
-    "title3": "Hizmetlerimiz",
-    "title4": "Ulaşım",
-    "p4": "Otobüs, vapur saatleri ve rota bilgileri",
-    "title5": "Sağlık",
-    "p5": "Hastaneler, eczaneler ve sağlık hizmetleri",
-    "title6": "Kültür & Sanat",
-    "p6": "Etkinlikler, müzeler ve kültürel mekanlar",
-    "title7": "Doğa",
-    "p7": "Plajlar, parklar ve doğal alanlar"
-  },
-  "PrivacyPolicy": {
-    "title": "Gizlilik Politikası",
-    "lastUpdate": "Son güncelleme: 5 Ekim 2025",
-    "p1": "olarak ziyaretçilerimizin gizliliğine önem veriyoruz. Bu Gizlilik Politikası, web sitemizi ziyaret ettiğinizde hangi bilgilerin toplandığını, bu bilgilerin nasıl kullanıldığını ve korunduğunu açıklar.",
-    "title2": "1. Toplanan Veriler",
-    "p2": "izmir-burada.com, kullanıcıların kişisel bilgilerini doğrudan toplamaz. Ancak, web sitemizi geliştirmek ve kullanıcı deneyimini iyileştirmek amacıyla Google Analytics hizmetinden yararlanıyoruz.",
-    "p3": "Google Analytics, ziyaretçi etkileşimlerini analiz etmek için çerezleri (cookies) kullanır. Bu veriler arasında şunlar yer alabilir:",
-    "list": "Ziyaret edilen sayfalar",
-    "list2": "Ziyaret süresi",
-    "list3": "Tarayıcı ve işletim sistemi bilgileri",
-    "list4": "IP adresi (anonimleştirilmiş)",
-    "p4": "Bu bilgiler, kimliğinizi belirlemek için değil, yalnızca istatistiksel analiz amacıyla kullanılmaktadır.",
-    "title3": "2. Çerezler ve Üçüncü Taraf Hizmetler",
-    "p5": "Web sitemiz, aşağıdaki üçüncü taraf hizmetleri kullanmaktadır:",
-    "list5": "Web sitesi trafiğini analiz etmek için",
-    "list6": "Reklam göstermek ve reklam performansını ölçmek için",
-    "p6": "Bu hizmetler çerezler kullanır. Çerezler, tarayıcınızda saklanan küçük veri dosyalarıdır ve web sitemizin performansını analiz etmemize yardımcı olur. Dilerseniz tarayıcı ayarlarınızdan çerezleri devre dışı bırakabilirsiniz.",
-    "p7": "Sitemizde Google AdSense reklamları gösterilmektedir. Google, bu reklamları göstermek için çerezler kullanabilir. Google'ın reklam ve içerik ağının gizlilik politikası için",
-    "title4": "3. Veri Paylaşımı",
-    "p8": "Toplanan veriler, üçüncü taraflarla paylaşılmamaktadır. Sadece Google Analytics ile sınırlı olan bu veriler, Google’ın kendi gizlilik politikaları çerçevesinde işlenir.",
-    "title5": "4. Veri Saklama",
-    "p9": "izmir-burada.com, herhangi bir şekilde kendi sunucularında, veri tabanında veya local storage üzerinde kullanıcı verilerini saklamaz.",
-    "link": "Google Gizlilik Politikası'nı inceleyebilirsiniz."
-  },
-  "TermsOfUse": {
-    "title": "Kullanım Şartları",
-    "lastUpdate": "Son güncelleme: 5 Ekim 2025",
-    "p1": "Bu web sitesini kullanarak aşağıdaki şartları kabul etmiş sayılırsınız. Lütfen siteyi kullanmadan önce bu şartları dikkatlice okuyunuz.",
-    "title2": "1. Hizmet Tanımı",
-    "p2": "izmir-burada.com, kullanıcılarına İzmir ve çevresiyle ilgili bilgi, içerik ve rehberlik hizmeti sunan bir web sitesidir. Sitedeki içerikler bilgilendirme amaçlıdır ve zaman zaman değişebilir.",
-    "title3": "2. Kullanım Koşulları",
-    "p3": "Web sitesini yalnızca yasal amaçlar için kullanabilirsiniz. izmir-burada.com üzerinde yer alan içerikleri izinsiz kopyalamak, çoğaltmak veya ticari amaçlarla kullanmak yasaktır.",
-    "title4": "3. Fikri Mülkiyet",
-    "p4": "Web sitesinde yer alan tüm yazılar, görseller, logolar ve diğer içerikler izmir-burada.com’a aittir ya da yasal kullanım izni alınmıştır. Herhangi bir içerik, izinsiz olarak kullanılamaz veya dağıtılamaz.",
-    "title5": "4. Sorumluluğun Sınırlandırılması",
-    "p5": "izmir-burada.com, sitedeki bilgilerin doğruluğu ve güncelliği konusunda azami özen gösterse de, bilgilerin kullanımı sonucu doğabilecek zararlardan sorumlu tutulamaz.",
-    "title6": "5. Dış Bağlantılar",
-    "p6": "Web sitemiz, harici sitelere bağlantılar içerebilir. Bu sitelerin içeriklerinden izmir-burada.com sorumlu değildir.",
-    "title7": "6. Şartlarda Değişiklik",
-    "p7": "izmir-burada.com, kullanım şartlarını dilediği zaman güncelleme hakkını saklı tutar. Güncellenmiş şartlar bu sayfada yayımlandığı andan itibaren geçerli olur."
-  },
-  "NamazVakitleri": {
-    "title": "İzmir Namaz Vakitleri"
-  },
-  "NobetciEczaneler": { "title": "İzmir Nöbetçi Eczaneler" },
-  "SonDepremler": { "title": "İzmir Son Depremler" },
-  "SuKesintileri": { "title": "İzmir Su Kesintileri" },
-  "OtobusSaatleri": {
-    "title": "İzmir Otobüs Saatleri",
-    "information": "OTOBÜS SAATLERİNİ GÖRMEK İÇİN LÜTFEN BİR OTOBÜS HATTI SEÇİNİZ.",
-    "placeholder": "Hat seçiniz"
-  },
-  "VapurSaatleri": {
-    "title": "İzmir Vapur Saatleri",
-    "alertEmpty": "Lütfen tüm alanları doldurun.",
-    "alertSameInputs": "Kalkış ve varış iskeleleri aynı olamaz.",
-    "departure": "Kalkış",
-    "arrival": "Varış",
-    "day": "Gün",
-    "search": "Ara"
-  },
-  "OtobusumNerede": {
-    "title": "Otobüsüm Nerede",
-    "placeholder": "Durak numarasını giriniz"
-  },
-  "Etkinlikler": {
-    "title": "İzmir Etkinlikler",
-    "details": "Detaylar",
-    "buyTicket": "Bilet Al",
-    "free": "Ücretsiz",
-    "noTicketInfo": "Bilet bilgisi yok"
-  },
-  "tuvaletKonumlari": { "title": "Tuvalet Konumları" },
-  "wifiNoktalari": { "title": "Ücretsiz Wi-Fi Noktaları" },
-  "Discover": { "title": " İZMİR'İ KEŞFET" },
-  "UsefulInformation": {
-    "trends": "TRENDLER",
-    "transportation": "ULAŞIM",
-    "locations": "KONUMLAR"
+  "Profile": {
+    "pictureAlt": "{name}'s profile picture",
+    "trips": "Trips",
+    "posts": "Posts",
+    "editProfile": "Edit Profile",
+    "editDescription": "Make changes to your profile here. Your changes will be visible to others",
+    "profileUpdated": "Profile Updated!",
+    "redirecting": "Redirecting to your new profile...",
+    "changesSaved": "Your changes have been saved.",
+    "profilePicture": "Profile Picture",
+    "displayName": "Display Name",
+    "name": "Name",
+    "characters": "characters",
+    "username": "Username",
+    "tellUs": "Tell us about yourself...",
+    "cancel": "Cancel",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes",
+    "noUser": "There is no such user.",
+    "myTrips": "My Trips",
+    "addTrip": "Add Trip",
+    "noTrips": "No trips yet",
+    "addFirstTrip": "Add Your First Trip",
+    "validationFailed": "Validation failed",
+    "failedToSaveTrip": "Failed to save trip",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
+    "addNewTrip": "Add New Trip",
+    "editTrip": "Edit Trip",
+    "addTripSuccess": "Your changes have been saved successfully.",
+    "currentPhoto": "Current photo will be kept unless you upload a new one",
+    "country": "Country",
+    "tripTitle": "Trip Title",
+    "tripTitlePlaceholder": "e.g. Cherry Blossoms in Japan",
+    "tripDescription": "Trip Description",
+    "quillPlaceholder": "Write something amazing...",
+    "quillLoading": "Loading editor...",
+    "close": "Close",
+    "posting": "Posting...",
+    "post": "Post",
+    "noPosts": "No posts yet.",
+    "myPosts": "My Posts",
+    "selectCountry": "Select the country you visited",
+    "shareYourExperience": "Share your travel experience with the community",
+    "updateTrip": "Update your trip details",
+    "shareTip": "Share a travel tip or experience..."
   },
   "Footer": {
-    "pages": "Sayfalar",
-    "prayingTimes": "Namaz vakitleri",
-    "recentEarthquakes": "Son Depremler",
-    "followus": "TAKİP ET",
-    "legal": "Yasal",
-    "privacyPolicy": "Gizlilik Politikası",
-    "termsOfUse": "Kullanım Şartları",
-    "aboutUs": "Hakkımızda",
-    "copyright": "Tüm hakları saklıdır."
+    "travelPlanner": "AI Travel Planner",
+    "culturalInsights": "Cultural Insights",
+    "contribute": "Contribute",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "description": "Your ultimate companion for navigating life abroad. Discover essential apps, local prices, and travel insights for any country worldwide.",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "rights": "All rights reserved."
   },
   "Metadata": {
-    "HomePage": {
-      "title": "Anasayfa - İzmir Burada",
-      "description": "İzmir Burada, İzmir’de yaşam ve seyahat için ulaşım, sağlık, etkinlikler ve hizmetler hakkında güncel bilgiler sunan kapsamlı bir rehber.",
-      "tags": "İzmir Burada, İzmir depremler, İzmir namaz vakitleri, İzmir rehberi, İzmir ulaşım, İzmir sağlık, İzmir etkinlikler, İzmir hizmetler, İzmir yaşam, İzmir gezilecek yerler"
+    "homepage": {
+      "title": "Homepage - GlobalAppGuide",
+      "description": "Your ultimate companion for navigating life abroad. Discover essential apps, local prices, and travel insights for any country worldwide.",
+      "keywords": "travel apps, local prices, country guide, tourist apps, travel planner, essential apps, travel insights, expat guide"
     },
-    "NamazVakitleri": {
-      "title": "Namaz Vakitleri - İzmir Burada",
-      "description": "İzmir için günlük namaz vakitlerini öğrenin. İzmir Burada ile imsakiye bilgilerine, ezan saatlerine ve tüm vakitlere kolayca ulaşabilirsiniz.",
-      "tags": "İzmir namaz vakitleri, İzmir ezan saatleri, İzmir imsakiye, İzmir sabah namazı, İzmir akşam ezanı, İzmir yatsı vakti, İzmir cuma namazı, İzmir Burada namaz saatleri, günlük namaz saatleri İzmir"
+    "countryDetail": {
+      "title": "{country} - GlobalAppGuide",
+      "description": "Discover essential apps and local prices for {country}. Find the best transportation, food delivery, and local service apps trusted by travelers.",
+      "keywords": "{country} apps, {country} travel guide, {country} local prices, {country} essential apps, travel to {country}"
     },
-    "NobetciEczaneler": {
-      "title": "Nöbetçi Eczaneler - İzmir Burada",
-      "description": "İzmir'deki güncel nöbetçi eczane listesine ulaşın. İzmir Burada ile geceleri ve tatil günlerinde açık olan eczaneleri kolayca bulun.",
-      "tags": "İzmir nöbetçi eczaneler, İzmir eczane listesi, İzmir gece açık eczane, İzmir tatil eczaneleri, İzmir acil eczaneler, nöbetçi eczane İzmir, İzmir sağlık hizmetleri, İzmir Burada eczaneler"
+    "aiTravelPlanner": {
+      "title": "AI Travel Planner - GlobalAppGuide",
+      "description": "Craft your perfect itinerary in seconds with our AI-powered travel planner. Get personalized travel routes based on your preferences, budget, and interests.",
+      "keywords": "AI travel planner, trip planner, itinerary generator, travel route planner, personalized travel, AI trip planning"
     },
-    "SonDepremler": {
-      "title": "İzmir Son Depremler - İzmir Burada",
-      "description": "İzmir'deki son depremler hakkında anlık bilgilere ulaşın. İzmir Burada ile şehrin deprem geçmişi, son depremler ve afet durumunu takip edin.",
-      "tags": "İzmir son depremler, İzmir deprem durumu, İzmir deprem bilgisi, İzmir Burada son depremler, İzmir deprem verileri, İzmir afet durumu, İzmir deprem raporu, İzmir sismik faaliyet"
+    "culturalInsights": {
+      "title": "Cultural Insights - GlobalAppGuide",
+      "description": "Discover cultural insights, local customs, and essential etiquette tips for countries around the world. Travel smarter with cultural knowledge.",
+      "keywords": "cultural insights, local customs, travel etiquette, cultural differences, travel tips, cultural awareness"
     },
-    "SuKesintileri": {
-      "title": "İzmir Su Kesintileri - İzmir Burada",
-      "description": "İzmir'deki su kesintileri hakkında güncel bilgilere ulaşın. İzmir Burada ile su kesintileri, planlı kesintiler ve su hizmetleri hakkında detaylı bilgiye erişin.",
-      "tags": "İzmir su kesintileri, İzmir su kesintisi durumu, İzmir su kesintisi bilgisi, İzmir Burada su kesintileri, İzmir su hizmetleri, İzmir su kesintisi planı, İzmir altyapı, İzmir su yönetimi"
+    "shareKnowledge": {
+      "title": "Share Your Knowledge - GlobalAppGuide",
+      "description": "Help fellow travelers by sharing your experiences with local apps and services. Contribute your tips and become part of our community.",
+      "keywords": "share travel tips, contribute, travel community, travel experiences, app recommendations, travel advice"
     },
-    "OtobusSaatleri": {
-      "title": "Otobüs Saatleri - İzmir Burada",
-      "description": "İzmir'deki otobüs saatlerini kolayca öğrenin. İzmir Burada ile ESHOT hatlarına ait sefer saatlerine ve güzergah bilgilerine hızlıca ulaşabilirsiniz.",
-      "tags": "İzmir otobüs saatleri, İzmir ESHOT saatleri, İzmir otobüs güzergahları, İzmir toplu taşıma, İzmir otobüs durakları, İzmir ulaşım, ESHOT saatleri, İzmir Burada otobüs bilgileri"
+    "signIn": {
+      "title": "Sign In - GlobalAppGuide",
+      "description": "Sign in to GlobalAppGuide to save your favorite apps, create trip itineraries, and share your travel experiences with the community.",
+      "keywords": "sign in, login, user account, member login"
     },
-    "VapurSaatleri": {
-      "title": "İzmir Vapur Saatleri - İzmir Burada",
-      "description": "İzmir'in vapur saatlerini öğrenin. İzmir Burada ile vapur seferlerini takip ederek, şehir içi deniz ulaşımını kolayca planlayın.",
-      "tags": "İzmir vapur saatleri, İzmir vapur seferleri, İzmir deniz ulaşımı, İzmir vapur, İzmir Burada vapur saatleri, vapur tarifesi İzmir, İzmir vapur güzergahları, deniz yolu İzmir"
+    "register": {
+      "title": "Create Account - GlobalAppGuide",
+      "description": "Join GlobalAppGuide community and unlock exclusive features. Create your account to save favorites, plan trips, and share your experiences.",
+      "keywords": "register, sign up, create account, join, new member"
     },
-    "OtobusumNerede": {
-      "title": "Otobüsüm Nerede - İzmir Burada",
-      "description": "İzmir'deki otobüslerin konumlarını anında öğrenin. İzmir Burada ile otobüslerinizi takip ederek, zaman kaybı yaşamadan hedefinize kolayca ulaşın.",
-      "tags": "İzmir otobüs konumları, İzmir otobüs, İzmir ulaşım, İzmir Burada otobüs, İzmir otobüs takibi, otobüs konumları İzmir, otobüs nerede, otobüs güzergahları İzmir"
-    },
-    "Etkinlikler": {
-      "title": "Etkinlikler - İzmir Burada",
-      "description": "İzmir'deki etkinlikler hakkında güncel bilgiler. İzmir Burada, konserler, festivaller, sergiler ve diğer kültürel etkinlikler hakkında bilgilendirme sağlar.",
-      "tags": "İzmir etkinlikler, İzmir konserleri, İzmir festivaller, İzmir sergiler, İzmir kültürel etkinlikler, İzmir Burada etkinlikler, İzmir sosyal etkinlikler, İzmir gezilecek yerler, İzmir kültür"
-    },
-    "tuvaletKonumlari": {
-      "title": "Tuvalet Konumları - İzmir Burada",
-      "description": "İzmir’deki tuvalet konumlarına kolay erişim sağlayın. İzmir Burada uygulamasıyla şehirdeki tüm tuvalet noktalarını keşfedin.",
-      "tags": "İzmir tuvalet konumları, İzmir tuvaletleri, İzmir ücretsiz tuvalet, İzmir Burada tuvalet, şehirde tuvalet, tuvalet noktaları İzmir"
-    },
-    "wifiNoktalari": {
-      "title": "Ücretsiz Wifi Noktaları - İzmir Burada",
-      "description": "İzmir’deki ücretsiz wifi noktalarına kolay erişim sağlayın. İzmir Burada uygulamasıyla şehirdeki tüm ücretsiz internet bağlantı noktalarını keşfedin.",
-      "tags": "Ücretsiz wifi, İzmir wifi noktaları, İzmir ücretsiz internet, wifi erişimi, İzmir Burada wifi, İzmir ücretsiz wifi, şehirde wifi, wifi noktaları İzmir"
-    },
-    "Discover": {
-      "title": "Keşfet - İzmir Burada",
-      "description": "İzmir'in güzelliklerini keşfedin! İzmir Burada ile plajlardan tarihi ve kültürel mekanlara, doğa harikalarından etkinliklere kadar şehri adım adım keşfedin.",
-      "tags": "İzmir keşfet, İzmir plajları, İzmir tarihi, İzmir kültür, İzmir doğa, İzmir etkinlikleri, İzmir gezilecek yerler, İzmir tatil, İzmir gezisi, İzmir Burada keşfet"
-    },
-    "UsefulInformation": {
-      "title": "Faydalı Bilgiler - İzmir Burada",
-      "description": "İzmir hakkında faydalı bilgiler. İzmir Burada, şehri keşfederken ihtiyacınız olabilecek pratik bilgiler, tavsiyeler ve ipuçlarını sunar.",
-      "tags": "İzmir faydalı bilgiler, İzmir ipuçları, İzmir tavsiyeler, İzmir pratik bilgiler, İzmir gezilecek yerler, İzmir yemek yerleri, İzmir alışveriş, İzmir ulaşım bilgileri, İzmir kültür, İzmir etkinlikler"
+    "profile": {
+      "title": "{userId}'s Profile | GlobalAppGuide",
+      "description": "View {userId}'s travel experiences, trip itineraries, and shared tips on GlobalAppGuide. Discover their favorite destinations and recommendations.",
+      "keywords": "user profile, traveler profile, travel experiences, trip itineraries, {userId}"
     }
   }
 }
