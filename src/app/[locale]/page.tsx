@@ -5,13 +5,31 @@ import { getTranslations } from "next-intl/server";
 import RotatingWorldChart from "@/components/RotatingWorldChart/RotatingWorldChart";
 import { SearchCountry } from "@/components/SearchCountry/SearchCountry";
 
-export const metadata: Metadata = {
-  title: "GlobalAppGuide - Essential Apps & Local Prices for Every Country",
-  description:
-    "Your ultimate companion for navigating life abroad. Discover essential apps, local prices, and travel insights for any country worldwide.",
-  keywords:
-    "travel apps, local prices, country guide, tourist apps, travel planner",
-};
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("Metadata.homepage");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+      siteName: "GlobalAppGuide",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+    },
+  };
+}
 
 export default async function Home() {
   const searchCountryTranslation = await getTranslations("SearchCountry");

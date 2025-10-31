@@ -2,6 +2,25 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import Login from "@/components/Login/Login";
 import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("Metadata.signIn");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
+}
 
 async function page() {
   const signInTranslation = await getTranslations("SignIn");

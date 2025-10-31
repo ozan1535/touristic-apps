@@ -3,6 +3,28 @@ import { CirclePlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import ShareYourKnowledgeClient from "@/components/ShareYourKnowledgeClient/ShareYourKnowledgeClient";
 import ContributeGuide from "@/components/ContributeGuide/ContributeGuide";
+import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("Metadata.shareKnowledge");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+    },
+  };
+}
 
 function ShareYourKnowledgePage() {
   const shareYourKnowledgeTranslation = useTranslations("ShareYourKnowledge");

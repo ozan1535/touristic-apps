@@ -1,8 +1,6 @@
 import React from "react";
 import { getTranslations } from "next-intl/server";
 import { AlertCircle } from "lucide-react";
-import { supabase } from "@/lib/supabase/client";
-
 import CountryBanner from "@/components/CountryBanner/CountryBanner";
 import TopApps from "@/components/TopApps/TopApps";
 import CountryAppsWithFilter from "@/components/CountryAppsWithFilter/CountryAppsWithFilter";
@@ -11,13 +9,42 @@ import CheapFlightChart from "@/components/CheapFlightChart/CheapFlightChart";
 import ImportantNumbers from "@/components/ImportantNumbers/ImportantNumbers";
 import { allCountries, getCountryApps, getTopApps } from "@/lib/helpers";
 import { getCountryData, getFlightValue } from "./countryApps.helpers";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params: { locale, countryId },
+}: {
+  params: { locale: string; countryId: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("Metadata.countryDetail");
+
+  const country = allCountries.find((c) => c.cca2.toLowerCase() === countryId);
+  const countryName = country?.name[locale as "en" | "tr"] || countryId;
+
+  return {
+    title: t("title", { country: countryName }),
+    description: t("description", { country: countryName }),
+    keywords: t("keywords", { country: countryName }),
+    openGraph: {
+      title: t("title", { country: countryName }),
+      description: t("description", { country: countryName }),
+      type: "website",
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title", { country: countryName }),
+      description: t("description", { country: countryName }),
+    },
+  };
+}
 
 export default async function CountryPage({
   params,
 }: {
   params: { countryId: string; locale: "tr" | "en" };
 }) {
-  const { countryId, locale } = params;
+  const { countryId, locale } = await params;
   const t = await getTranslations("CountryApps");
 
   const currentCountry = allCountries.find(
@@ -77,7 +104,7 @@ export default async function CountryPage({
 
             <aside className="w-full lg:w-1/3">
               {priceGuide.length > 0 && <PriceGuide priceGuide={priceGuide} />}
-              <CheapFlightChart value={flightValue} />
+              <CheapFlightChart value={flightValue || 50} />
               <ImportantNumbers
                 ambulance={countryInfo?.ambulance}
                 police={countryInfo?.police}

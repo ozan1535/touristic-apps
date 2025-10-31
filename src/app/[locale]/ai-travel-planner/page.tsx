@@ -2,6 +2,32 @@ import React from "react";
 import { Zap } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import TravelPlannerClient from "@/components/TravelPlannerClient/TravelPlannerClient";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("Metadata.aiTravelPlanner");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: t("title"),
+      description: t("description"),
+    },
+  };
+}
 
 const TravelPlannerPage = async () => {
   const aiTravelPlannerTranslation = await getTranslations("AiTravelPlanner");

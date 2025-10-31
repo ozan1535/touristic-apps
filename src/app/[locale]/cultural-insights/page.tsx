@@ -2,6 +2,28 @@ import React from "react";
 import { Lightbulb } from "lucide-react";
 import { useTranslations } from "next-intl";
 import CulturalInsightsClient from "@/components/CulturalInsightsClient/CulturalInsightsClient";
+import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("Metadata.culturalInsights");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    keywords: t("keywords"),
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      type: "website",
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+    },
+  };
+}
 
 function page() {
   const CulturalInsightsTranslation = useTranslations("CulturalInsights");

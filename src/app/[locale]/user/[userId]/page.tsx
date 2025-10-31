@@ -6,14 +6,42 @@ import MyTrips from "@/components/MyTrips/MyTrips";
 import MyPosts from "@/components/MyPosts/MyPosts";
 import { getUserProfile } from "@/lib/supabase/sync-user";
 import { fetchUserPosts, fetchUserTrips } from "./user.helpers";
+import { getTranslations } from "next-intl/server";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params: { locale, userId },
+}: {
+  params: { locale: string; userId: string };
+}): Promise<Metadata> {
+  const t = await getTranslations("Metadata.profile");
+
+  return {
+    title: t("title", { userId }),
+    description: t("description", { userId }),
+    keywords: t("keywords", { userId }),
+    openGraph: {
+      title: t("title", { userId }),
+      description: t("description", { userId }),
+      type: "profile",
+      locale: locale === "tr" ? "tr_TR" : "en_US",
+    },
+    twitter: {
+      card: "summary",
+      title: t("title", { userId }),
+      description: t("description", { userId }),
+    },
+  };
+}
 
 // TODO: fix type
 export default async function ProfilePage({ params }: { params: any }) {
+  const t = await getTranslations("Profile");
   const { userId } = await params;
 
   const { data: pageOwner } = await getUserProfile(userId);
   if (!pageOwner) {
-    return <NoUserFound />;
+    return <NoUserFound t={t} />;
   }
 
   const { getUser } = getKindeServerSession();
@@ -52,11 +80,12 @@ export default async function ProfilePage({ params }: { params: any }) {
   );
 }
 
-function NoUserFound() {
+// TODO: Fix type
+function NoUserFound({ t }: { t: any }) {
   return (
     <div className="w-96 mx-auto mt-10 text-center py-12 border-2 border-dashed border-purple-500/30 rounded-lg">
       <User className="mx-auto mb-4 text-purple-400 opacity-50" size={48} />
-      <p className="text-gray-400">There is no such user.</p>
+      <p className="text-gray-400">{t("noUser")}</p>
     </div>
   );
 }
