@@ -75,7 +75,6 @@ function TripsCards({ trips, setDialogItems, locale, isOwner = false }) {
                       }));
                     }}
                   />
-                  {/* TODO: card does not disappear automatically */}
 
                   <Trash2
                     size={24}
