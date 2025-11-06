@@ -36,8 +36,8 @@ export default function CheapFlightChart({ value = 50 }) {
           width: 6,
           offsetCenter: [0, 0],
           itemStyle: {
-            color: "#ffffff",
-            shadowColor: "rgba(0, 0, 0, 0.3)",
+            color: "#1e3a8a",
+            shadowColor: "rgba(0, 0, 0, 0.15)",
             shadowBlur: 8,
             shadowOffsetY: 2,
           },
@@ -46,7 +46,7 @@ export default function CheapFlightChart({ value = 50 }) {
           distance: -30,
           length: 8,
           lineStyle: {
-            color: "#fff",
+            color: "#1e293b",
             width: 2,
           },
         },
@@ -54,13 +54,13 @@ export default function CheapFlightChart({ value = 50 }) {
           distance: -30,
           length: 15,
           lineStyle: {
-            color: "#fff",
+            color: "#1e293b",
             width: 3,
           },
         },
         axisLabel: {
           distance: 50,
-          color: "#ffffff",
+          color: "#1e293b",
           fontSize: 14,
           fontWeight: "bold",
           formatter: function (value: number) {
@@ -79,7 +79,7 @@ export default function CheapFlightChart({ value = 50 }) {
             if (value < 80) return t("affordable");
             return t("veryAffordable");
           },
-          color: "#ffffff",
+          color: "#1e293b",
           fontSize: 20,
           fontWeight: "bold",
           offsetCenter: [0, "20%"],
@@ -87,7 +87,7 @@ export default function CheapFlightChart({ value = 50 }) {
         title: {
           offsetCenter: [0, "-30%"],
           fontSize: 16,
-          color: "#ffffff",
+          color: "#334155",
           fontWeight: "500",
         },
         data: [
@@ -101,8 +101,8 @@ export default function CheapFlightChart({ value = 50 }) {
   };
 
   return (
-    <div className="w-full border border-purple-400/25 rounded-xl p-6 bg-slate-700/20 backdrop-blur-sm shadow-xl mt-5">
-      <h1 className="text-center text-white font-bold text-2xl flex justify-center items-center gap-2">
+    <div className="border border-blue-200 rounded-xl p-6 bg-blue-50/50 backdrop-blur-sm shadow-xl mt-5 w-full lg:w-auto lg:absolute lg:top-20 lg:right-5">
+      <h1 className="text-center text-slate-900 font-bold text-2xl flex justify-center items-center gap-2">
         <Plane size={24} /> <span>{t("title")}</span>
       </h1>
       <ReactECharts

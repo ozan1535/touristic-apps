@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -44,6 +45,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-dynapuff: var(--font-dynapuff);
 }
 
 :root {
@@ -82,6 +84,7 @@
   --text-secondary: #7792ae;
   --purple-primary: #7b3ee0;
   --bg-primary: #020916;
+  --font-dynapuff: "DynaPuff", cursive;
 }
 
 .dark {

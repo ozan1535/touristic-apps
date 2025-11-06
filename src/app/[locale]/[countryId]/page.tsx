@@ -1,4 +1,5 @@
 import React from "react";
+import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { AlertCircle } from "lucide-react";
 import CountryBanner from "@/components/CountryBanner/CountryBanner";
@@ -9,7 +10,9 @@ import CheapFlightChart from "@/components/CheapFlightChart/CheapFlightChart";
 import ImportantNumbers from "@/components/ImportantNumbers/ImportantNumbers";
 import { allCountries, getCountryApps, getTopApps } from "@/lib/helpers";
 import { getCountryData, getFlightValue } from "./countryApps.helpers";
-import { Metadata } from "next";
+import { fetchCulturalInsightsAndTrips } from "@/components/CulturalInsightsClient/culturalInsights.helpers";
+import CulturalInsightsAndTrips from "@/components/CulturalInsightsAndTrips/CulturalInsightsAndTrips";
+import ShareYourKnowledgeClient from "@/components/ShareYourKnowledgeClient/ShareYourKnowledgeClient";
 
 export async function generateMetadata({
   params: { locale, countryId },
@@ -47,19 +50,26 @@ export default async function CountryPage({
   const { countryId, locale } = await params;
   const t = await getTranslations("CountryApps");
 
+  const { insights, trips } = await fetchCulturalInsightsAndTrips(
+    // selection,
+    // sortedCountries,
+    countryId.toUpperCase(),
+    locale
+  );
+
   const currentCountry = allCountries.find(
     (c) => c.cca2.toLowerCase() === countryId
   );
 
   if (!currentCountry) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-blue-50 to-indigo-50">
         <div className="text-center">
           <AlertCircle className="mx-auto mb-4 text-red-400" size={64} />
-          <h1 className="text-2xl font-bold text-white mb-2">
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">
             {t("notFound")}
           </h1>
-          <p className="text-gray-400">{t("notExist")}</p>
+          <p className="text-slate-500">{t("notExist")}</p>
         </div>
       </div>
     );
@@ -72,11 +82,17 @@ export default async function CountryPage({
     ]);
 
   const topApps = getTopApps(countryApps);
-  const hasData = countryApps.length > 0 || contributions.length > 0;
+  const hasData =
+    countryApps.length > 0 ||
+    contributions.length > 0 ||
+    insights?.length > 0 ||
+    trips?.length > 0;
+  const hasImportantNumber =
+    countryInfo?.ambulance || countryInfo?.police || countryInfo?.fire_fighting;
   const flightValue = getFlightValue(countryInfo);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-slate-950 via-purple-950/10 to-slate-950">
+    <div className="w-full min-h-screen bg-gradient-to-br from-white via-blue-50 to-indigo-50">
       <CountryBanner
         picture={countryInfo?.banner_picture}
         country={currentCountry}
@@ -88,12 +104,19 @@ export default async function CountryPage({
           <div className="flex flex-col lg:flex-row gap-8">
             <main className="w-full lg:w-2/3">
               {topApps.length > 0 && <TopApps topApps={topApps} />}
-
               {hasData ? (
-                <CountryAppsWithFilter
-                  countryApps={countryApps}
-                  contributions={contributions}
-                />
+                <>
+                  <CountryAppsWithFilter
+                    countryApps={countryApps}
+                    contributions={contributions}
+                  />
+                  <CulturalInsightsAndTrips
+                    currentCountry={currentCountry}
+                    culturalInsightsData={insights}
+                    tripsData={trips}
+                    locale={locale}
+                  />
+                </>
               ) : (
                 <EmptyState
                   message={t("noAppData")}
@@ -105,12 +128,17 @@ export default async function CountryPage({
             <aside className="w-full lg:w-1/3">
               {priceGuide.length > 0 && <PriceGuide priceGuide={priceGuide} />}
               <CheapFlightChart value={flightValue || 50} />
-              <ImportantNumbers
-                ambulance={countryInfo?.ambulance}
-                police={countryInfo?.police}
-                fireFighting={countryInfo?.fire_fighting}
-              />
+              {hasImportantNumber ? (
+                <ImportantNumbers
+                  ambulance={countryInfo?.ambulance}
+                  police={countryInfo?.police}
+                  fireFighting={countryInfo?.fire_fighting}
+                />
+              ) : null}
             </aside>
+          </div>
+          <div className="border border-indigo-200 mt-5 rounded-2xl p-6 md:p-10 bg-white backdrop-blur-sm shadow-xl">
+            <ShareYourKnowledgeClient />
           </div>
         </div>
       </div>
@@ -126,10 +154,10 @@ function EmptyState({
   subMessage: string;
 }) {
   return (
-    <div className="border border-purple-500/30 rounded-xl p-8 bg-slate-900/50 backdrop-blur-sm text-center">
-      <AlertCircle className="mx-auto mb-4 text-purple-400" size={48} />
-      <p className="text-gray-300 text-lg font-semibold">{message}</p>
-      <p className="text-gray-400 text-sm mt-2">{subMessage}</p>
+    <div className="border border-indigo-200 rounded-xl p-8 bg-white backdrop-blur-sm text-center">
+      <AlertCircle className="mx-auto mb-4 text-blue-300" size={48} />
+      <p className="text-slate-700 text-lg font-semibold">{message}</p>
+      <p className="text-slate-500 text-sm mt-2">{subMessage}</p>
     </div>
   );
 }

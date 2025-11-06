@@ -28,11 +28,11 @@ export async function generateMetadata({
 function page() {
   const CulturalInsightsTranslation = useTranslations("CulturalInsights");
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 p-4 md:p-10">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-blue-950/20 to-slate-950 p-4 md:p-10">
       <div className="max-w-7xl mx-auto mb-12 text-center">
         <h1 className="flex items-center justify-center text-2xl md:text-6xl font-black text-center mb-4">
-          <Lightbulb size={50} className="mr-4 text-purple-400" />
-          <span className="text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">
+          <Lightbulb size={50} className="mr-4 text-blue-300" />
+          <span className="text-transparent bg-gradient-to-r from-blue-300 to-indigo-400 bg-clip-text">
             {CulturalInsightsTranslation("title")}
           </span>
         </h1>

@@ -11,9 +11,12 @@ import { handlePost } from "./MyPosts.helpers";
 import { IMyPostsProps, IPost } from "./MyPosts.types";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
 function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
   const t = useTranslations("Profile");
+  const client = useKindeBrowserClient();
+  const user = client.getUser();
   const router = useRouter();
   const { locale } = useParams();
   const [newPost, setNewPost] = useState("");
@@ -30,29 +33,32 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
     }
   };
   return (
-    <div className="bg-slate-900/50 backdrop-blur-sm border border-purple-500/30 rounded-xl p-6 shadow-xl">
+    <div className="bg-white backdrop-blur-sm border border-indigo-200 rounded-xl p-6 shadow-xl">
       <div className="mb-6">
-        <h1 className="text-white font-bold text-2xl mb-1 flex items-center gap-2">
-          <MessageSquare className="text-purple-400" size={28} />
-          {isOwner ? t("myPosts") : t("Posts")}
+        <h1 className="text-slate-900 font-bold text-2xl mb-1 flex items-center gap-2">
+          <MessageSquare className="text-blue-500" size={28} />
+          {isOwner ? t("myPosts") : t("posts")}
         </h1>
       </div>
 
       {isOwner && (
-        <div className="mb-6 bg-slate-800/30 border border-purple-500/20 rounded-lg p-4">
+        <div className="mb-6 bg-slate-50 border border-indigo-200 rounded-lg p-4">
           <Textarea
             placeholder={t("shareTip")}
             value={newPost}
             onChange={(e) => setNewPost(e.target.value)}
-            className="bg-slate-800/50 border-purple-500/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400 min-h-[100px] mb-3"
+            className="bg-slate-50 border-indigo-200 text-slate-900 placeholder:text-gray-500 focus:border-indigo-400 min-h-[100px] mb-3"
             disabled={isPosting}
           />
           {error && (
-            <div className="bg-gradient-to-r from-red-500/10 to-rose-500/10 border border-red-400/50 rounded-xl px-4 py-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
+            <div className="bg-gradient-to-r from-red-500/10 to-rose-500/10 border border-rose-400/50 rounded-xl px-4 py-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
               <div className="p-1 bg-red-500/20 rounded-lg">
-                <AlertCircle className="text-red-300 flex-shrink-0" size={20} />
+                <AlertCircle
+                  className="text-rose-500 flex-shrink-0"
+                  size={20}
+                />
               </div>
-              <p className="text-sm text-red-200">{error}</p>
+              <p className="text-sm text-rose-600">{error}</p>
             </div>
           )}
           <div className="flex justify-end">
@@ -65,11 +71,12 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
                   userData,
                   setPostsList,
                   setNewPost,
-                  router
+                  router,
+                  user
                 )
               }
               disabled={isPosting || !newPost.trim()}
-              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 font-bold border-0 shadow-lg"
+              className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 font-bold border-0 shadow-lg"
             >
               {isPosting ? (
                 <>
@@ -92,10 +99,10 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
           postsList.map((post) => (
             <div
               key={post.id}
-              className="bg-slate-800/30 border border-purple-500/20 rounded-lg p-4 hover:border-purple-500/40 transition-colors"
+              className="bg-slate-50 border border-indigo-200 rounded-lg p-4 hover:border-indigo-300 transition-colors"
             >
               <div className="flex items-start gap-3 mb-3">
-                <div className="relative w-10 h-10 rounded-full bg-purple-600/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                <div className="relative w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
                   {userData.picture ? (
                     <Image
                       src={userData.picture}
@@ -105,15 +112,15 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
                       sizes="40px"
                     />
                   ) : (
-                    <User className="text-purple-400" size={20} />
+                    <User className="text-blue-500" size={20} />
                   )}
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-white font-bold text-sm">
+                    <h3 className="text-slate-900 font-bold text-sm">
                       {userData.name}
                     </h3>
-                    <span className="text-gray-400 text-xs">
+                    <span className="text-slate-900 text-xs">
                       {formatDistanceToNow(new Date(post.created_at), {
                         addSuffix: true,
                         locale: locale === "tr" ? tr : enUS,
@@ -122,12 +129,12 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
                     {isOwner && (
                       <Trash2
                         size={24}
-                        color="white"
+                        color="black"
                         onClick={() => handleRemovePost(post)}
                       />
                     )}
                   </div>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <p className="text-slate-900 text-sm leading-relaxed">
                     {post.post}
                   </p>
                 </div>
@@ -135,9 +142,9 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
             </div>
           ))
         ) : (
-          <div className="text-center py-12 border-2 border-dashed border-purple-500/30 rounded-lg">
+          <div className="text-center py-12 border-2 border-dashed border-indigo-200 rounded-lg">
             <MessageSquare
-              className="mx-auto mb-4 text-purple-400 opacity-50"
+              className="mx-auto mb-4 text-blue-500 opacity-50"
               size={48}
             />
             <p className="text-gray-400">{t("noPosts")}</p>
@@ -150,15 +157,15 @@ function MyPosts({ posts, userData, isOwner }: IMyPostsProps) {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(15, 23, 42, 0.5);
+          background: rgba(99, 102, 241, 0.1);
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(168, 85, 247, 0.4);
+          background: rgba(99, 102, 241, 0.3);
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(168, 85, 247, 0.6);
+          rgba(99, 102, 241, 0.5)
         }
       `}</style>
     </div>

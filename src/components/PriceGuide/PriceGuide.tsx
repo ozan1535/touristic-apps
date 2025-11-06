@@ -9,16 +9,16 @@ function PriceGuide({ priceGuide }: IPriceGuideProps) {
   const priceGuideTranslation = useTranslations("PriceGuide");
 
   return (
-    <div className="w-full border border-purple-400/25 rounded-xl p-6 bg-slate-700/20 backdrop-blur-sm shadow-xl">
+    <div className="w-full border border-blue-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl">
       <div className="flex items-center gap-3 mb-6">
-        <div className="p-2 bg-green-400/15 rounded-lg">
-          <DollarSign className="text-green-300" size={24} />
+        <div className="p-2 bg-blue-100 rounded-lg">
+          <DollarSign className="text-blue-600" size={24} />
         </div>
         <div>
-          <h2 className="text-xl font-bold text-white">
+          <h2 className="text-xl font-bold text-slate-900">
             {priceGuideTranslation("guide")}
           </h2>
-          <p className="text-gray-300 text-xs">
+          <p className="text-slate-500 text-xs">
             {priceGuideTranslation("cost", {
               currency: "USD",
             })}
@@ -33,20 +33,20 @@ function PriceGuide({ priceGuide }: IPriceGuideProps) {
           return (
             <li
               key={index}
-              className="flex items-center justify-between p-3 rounded-lg bg-slate-600/20 border border-purple-400/25 hover:border-purple-300/40 transition-colors"
+              className="flex items-center justify-between p-3 rounded-lg bg-indigo-50 border border-blue-200 hover:border-indigo-400 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <div className="text-purple-300">
+                <div className="text-indigo-600">
                   <Icon size={20} />
                 </div>
                 <div>
-                  <p className="text-gray-100 font-medium">{item.title}</p>
+                  <p className="text-slate-700 font-medium">{item.title}</p>
                   {item.description && (
-                    <p className="text-gray-400 text-xs">{item.description}</p>
+                    <p className="text-slate-400 text-xs">{item.description}</p>
                   )}
                 </div>
               </div>
-              <p className="font-bold text-white text-lg">
+              <p className="font-bold text-slate-900 text-lg">
                 {Number(item.price).toFixed(2)}
               </p>
             </li>
@@ -54,8 +54,8 @@ function PriceGuide({ priceGuide }: IPriceGuideProps) {
         })}
       </ul>
 
-      <div className="mt-6 pt-4 border-t border-purple-400/20">
-        <p className="text-gray-400 text-xs text-center">
+      <div className="mt-6 pt-4 border-t border-indigo-200">
+        <p className="text-slate-400 text-xs text-center">
           {priceGuideTranslation("estimate")}
         </p>
       </div>

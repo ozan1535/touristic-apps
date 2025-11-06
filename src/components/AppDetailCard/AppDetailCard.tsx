@@ -22,15 +22,15 @@ function AppDetailCard({
         group relative rounded-xl border transition-all duration-300
         ${
           isTopApp
-            ? "bg-gradient-to-br from-purple-400/15 via-slate-700/25 to-pink-400/15 border-purple-300/50 hover:border-purple-200/70 hover:shadow-lg hover:shadow-purple-400/15"
-            : "bg-slate-700/20 border-purple-400/25 hover:border-purple-300/40 hover:bg-slate-700/30"
+            ? "bg-gradient-to-br from-blue-100 via-blue-50 to-indigo-100 border-indigo-300 hover:border-indigo-200 hover:shadow-md hover:shadow-blue-300"
+            : "bg-blue-50 border-indigo-200 hover:border-indigo-400 hover:bg-blue-100"
         }
         ${viewMode === "list" ? "p-4" : "p-5"}
         hover:transform hover:scale-[1.02]
       `}
     >
       {isTopApp && (
-        <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+        <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
           <span>⭐</span>
           <span>Top Pick</span>
         </div>
@@ -45,11 +45,9 @@ function AppDetailCard({
           <div
             className={`
             relative rounded-2xl overflow-hidden flex-shrink-0 
-            bg-white/5 backdrop-blur-sm
-            border-2 ${
-              isTopApp ? "border-purple-400/40" : "border-purple-500/20"
-            }
-            group-hover:border-purple-400/60 transition-all duration-300
+            bg-white backdrop-blur-sm
+            border-2 ${isTopApp ? "border-indigo-200" : "border-indigo-200"}
+            group-hover:border-indigo-200 transition-all duration-300
             ${viewMode === "list" ? "w-14 h-14" : "w-16 h-16 md:w-20 md:h-20"}
           `}
           >
@@ -65,8 +63,8 @@ function AppDetailCard({
         <div className="flex-1 min-w-0">
           <h3
             className={`
-            font-bold text-white mb-1 
-            group-hover:text-purple-300 transition-colors
+            font-bold text-slate-900 mb-1 
+            group-hover:text-indigo-600 transition-colors
             ${
               viewMode === "list"
                 ? "text-base md:text-lg"
@@ -78,7 +76,7 @@ function AppDetailCard({
           </h3>
           <p
             className={`
-            text-gray-300 line-clamp-2
+            text-slate-700 line-clamp-2
             ${
               viewMode === "list"
                 ? "text-xs md:text-sm"
@@ -99,7 +97,7 @@ function AppDetailCard({
                       target="_blank"
                       href={href}
                       aria-label={label}
-                      className="flex items-center gap-1 text-xs text-purple-300 hover:text-purple-200 transition-colors bg-purple-500/10 px-2 py-1 rounded-md"
+                      className="flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-600 transition-colors bg-blue-500 px-2 py-1 rounded-md"
                     >
                       <Icon size={14} />
                       <span className="hidden sm:inline">{label}</span>
@@ -124,14 +122,14 @@ function AppDetailCard({
                   className="
                     flex items-center justify-center
                     w-9 h-9 rounded-lg
-                    bg-purple-500/10 border border-purple-400/30
-                    text-purple-300 hover:text-white
-                    hover:bg-purple-500/20 hover:border-purple-400/50
+                    bg-blue-500 border border-indigo-200
+                    text-indigo-600 hover:text-slate-900
+                    hover:bg-blue-500 hover:border-indigo-200
                     transition-all duration-200
                     hover:scale-110 transform
                   "
                 >
-                  <Icon size={18} />
+                  <Icon size={18} color="white" />
                 </Link>
               )
           )}

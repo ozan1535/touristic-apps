@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, DynaPuff, DynaPuff } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header/Header";
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full min-h-screen bg-primary flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full min-h-screen bg-white flex flex-col`}
       >
         <Suspense>
           <NextIntlClientProvider>

@@ -43,51 +43,54 @@ function CountryAppsWithFilter({
 
   return (
     <div className="mt-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <div>
-          <h2 className="text-2xl md:text-3xl font-black text-white mb-1">
-            {countryAppsWithFilterTranslation("allApps")}
-          </h2>
-          <p className="text-gray-400 text-sm">
-            {countryAppsWithFilterTranslation("appsAvailable", {
-              count: filteredData.length,
-            })}
-          </p>
-        </div>
+      {filteredData.length > 0 ? (
+        <>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-1">
+                {countryAppsWithFilterTranslation("allApps")}
+              </h2>
+              <p className="text-slate-600 text-sm">
+                {countryAppsWithFilterTranslation("appsAvailable", {
+                  count: filteredData.length,
+                })}
+              </p>
+            </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 bg-slate-800/50 rounded-lg p-1 border border-purple-500/30">
-            <button
-              onClick={() => setViewMode("grid")}
-              className={`p-2 rounded transition-colors ${
-                viewMode === "grid"
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-400 hover:text-white"
-              }`}
-              aria-label="Grid view"
-            >
-              <Grid3x3 size={18} />
-            </button>
-            <button
-              onClick={() => setViewMode("list")}
-              className={`p-2 rounded transition-colors ${
-                viewMode === "list"
-                  ? "bg-purple-600 text-white"
-                  : "text-gray-400 hover:text-white"
-              }`}
-              aria-label="List view"
-            >
-              <List size={18} />
-            </button>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 bg-indigo-100/50 rounded-lg p-1 border border-indigo-300/40">
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`p-2 rounded transition-colors ${
+                    viewMode === "grid"
+                      ? "bg-blue-600 text-white"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                  aria-label="Grid view"
+                >
+                  <Grid3x3 size={18} />
+                </button>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`p-2 rounded transition-colors ${
+                    viewMode === "list"
+                      ? "bg-blue-600 text-white"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                  aria-label="List view"
+                >
+                  <List size={18} />
+                </button>
+              </div>
+
+              <SelectComponent
+                categories={categories}
+                handleValueChange={handleFilterChange}
+              />
+            </div>
           </div>
-
-          <SelectComponent
-            categories={categories}
-            handleValueChange={handleFilterChange}
-          />
-        </div>
-      </div>
-
+        </>
+      ) : null}
       <div
         className={
           viewMode === "grid"
@@ -95,25 +98,26 @@ function CountryAppsWithFilter({
             : "flex flex-col gap-4"
         }
       >
-        {filteredData.length > 0 ? (
-          filteredData.map((appDetail) => (
-            <AppDetailCard
-              appDetail={appDetail}
-              key={appDetail.id}
-              isTopApp={false}
-            />
-          ))
-        ) : (
-          <div className="col-span-full text-center py-12 border border-purple-500/30 rounded-xl bg-slate-900/50">
-            <p className="text-gray-400 text-lg">
-              {countryAppsWithFilterTranslation("noAppsFound")}
-            </p>
-          </div>
-        )}
+        {
+          filteredData.length > 0
+            ? filteredData.map((appDetail) => (
+                <AppDetailCard
+                  appDetail={appDetail}
+                  key={appDetail.id}
+                  isTopApp={false}
+                />
+              ))
+            : null
+          // <div className="col-span-full text-center py-12 border border-indigo-300/40 rounded-xl bg-slate-900/50">
+          //   <p className="text-slate-600 text-lg">
+          //     {countryAppsWithFilterTranslation("noAppsFound")}
+          //   </p>
+          // </div>
+        }
       </div>
       {contributions.length > 0 ? (
         <>
-          <h1 className="text-white my-5 text-2xl font-bold">
+          <h1 className="text-slate-900 my-5 text-2xl font-bold">
             {locale === "en" ? "Contributors" : "Katkılar"}
           </h1>
           <div

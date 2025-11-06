@@ -46,7 +46,7 @@ export default async function ProfilePage({ params }: { params: any }) {
 
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-
+  //console.log(user, "usersrsr");
   const [currentUserData, postsData, tripsData] = await Promise.all([
     getUserProfile(user?.id as string),
     fetchUserPosts(pageOwner.kinde_user_id),
@@ -60,7 +60,7 @@ export default async function ProfilePage({ params }: { params: any }) {
   const isOwner = currentUser?.username === userId;
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 p-4 md:p-10">
+    <div className="min-h-screen w-full bg-gradient-to-br from-white via-blue-50 to-indigo-50 p-4 md:p-10">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
         <aside className="lg:w-80 flex-shrink-0">
           <ProfileSidebar
@@ -83,9 +83,9 @@ export default async function ProfilePage({ params }: { params: any }) {
 // TODO: Fix type
 function NoUserFound({ t }: { t: any }) {
   return (
-    <div className="w-96 mx-auto mt-10 text-center py-12 border-2 border-dashed border-purple-500/30 rounded-lg">
-      <User className="mx-auto mb-4 text-purple-400 opacity-50" size={48} />
-      <p className="text-gray-400">{t("noUser")}</p>
+    <div className="w-96 mx-auto mt-10 text-center py-12 border-2 border-dashed border-blue-400 rounded-lg">
+      <User className="mx-auto mb-4 text-blue-300" size={48} />
+      <p className="text-slate-600">{t("noUser")}</p>
     </div>
   );
 }

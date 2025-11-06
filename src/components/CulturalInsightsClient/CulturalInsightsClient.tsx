@@ -30,6 +30,8 @@ function CulturalInsightsClient() {
     mode: "show",
   });
 
+  return <div>this component is unavailable for now.</div>;
+
   const handleFetchData = async (selection: string) => {
     const { insights, trips } = await fetchCulturalInsightsAndTrips(
       selection,
@@ -50,12 +52,12 @@ function CulturalInsightsClient() {
           setSelectedCountry(selection);
           handleFetchData(selection);
         }}
-        customStyle="w-full border-purple-500/30 bg-slate-800/50 hover:bg-slate-800/70"
+        customStyle="w-full border-blue-400/30 bg-slate-800/50 hover:bg-slate-800/70"
         customPlaceholder={culturalInsightsTranslation("selectText")}
       />
       {selectedCountry && !culturalInsightsData.length && (
-        <div className="border border-purple-500/30 rounded-xl p-8 bg-slate-900/50 backdrop-blur-sm text-center mt-5">
-          <AlertCircle className="mx-auto mb-4 text-purple-400" size={48} />
+        <div className="border border-blue-400/30 rounded-xl p-8 bg-slate-900/50 backdrop-blur-sm text-center mt-5">
+          <AlertCircle className="mx-auto mb-4 text-blue-300" size={48} />
           <p className="text-gray-300 text-lg font-semibold">
             There are no insights for {selectedCountry} yet
           </p>

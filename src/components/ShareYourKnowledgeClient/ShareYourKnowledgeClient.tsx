@@ -56,35 +56,35 @@ function ShareYourKnowledgeClient() {
   return (
     <div>
       <div className="flex items-center mb-6">
-        <div className="p-2 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl border border-purple-400/30 mr-3">
-          <PencilLine className="text-purple-300" size={28} />
+        <div className="p-2 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl border border-indigo-200 mr-3">
+          <PencilLine color="white" size={28} />
         </div>
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-100">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
             {t("title")}
           </h2>
-          <p className="text-gray-400 text-sm mt-1">{t("subtitle")}</p>
+          <p className="text-slate-600 text-sm mt-1">{t("subtitle")}</p>
         </div>
       </div>
 
       {success && (
-        <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-400/50 rounded-xl px-4 py-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
-          <div className="p-1 bg-green-500/20 rounded-lg">
-            <CheckCircle2 className="text-green-300 flex-shrink-0" size={20} />
+        <div className="bg-gradient-to-r from-blue-100 to-indigo-100 border border-indigo-300 rounded-xl px-4 py-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
+          <div className="p-1 bg-indigo-100 rounded-lg">
+            <CheckCircle2 className="text-indigo-600 flex-shrink-0" size={20} />
           </div>
           <div>
-            <p className="font-semibold text-green-300">{t("successTitle")}</p>
-            <p className="text-sm mt-1 text-green-200">{t("successMessage")}</p>
+            <p className="font-semibold text-indigo-600">{t("successTitle")}</p>
+            <p className="text-sm mt-1 text-indigo-500">{t("successMessage")}</p>
           </div>
         </div>
       )}
 
       {error && (
         <div className="bg-gradient-to-r from-red-500/10 to-rose-500/10 border border-red-400/50 rounded-xl px-4 py-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
-          <div className="p-1 bg-red-500/20 rounded-lg">
+          <div className="p-1 bg-red-500 rounded-lg">
             <AlertCircle className="text-red-300 flex-shrink-0" size={20} />
           </div>
-          <p className="text-sm text-red-200">{error}</p>
+          <p className="text-sm text-rose-600">{error}</p>
         </div>
       )}
 
@@ -92,9 +92,9 @@ function ShareYourKnowledgeClient() {
         <div>
           <Label
             htmlFor="country"
-            className="text-gray-200 mb-3 flex items-center gap-2 font-semibold"
+            className="text-slate-800 mb-3 flex items-center gap-2 font-semibold"
           >
-            <Earth size={18} className="text-purple-400" />
+            <Earth size={18} className="text-blue-300" />
             <span>{t("country")}</span>
             <span className="text-red-400">*</span>
           </Label>
@@ -104,7 +104,7 @@ function ShareYourKnowledgeClient() {
             handleValueChange={(selection) =>
               handleInputChange("country", selection, setForm, setError)
             }
-            customStyle="w-full border-purple-400/30 bg-slate-700/20 hover:bg-slate-700/30"
+            customStyle="w-full border-indigo-200 bg-blue-50 hover:bg-blue-50"
             customPlaceholder={t("countryPlaceholder")}
           />
         </div>
@@ -112,9 +112,9 @@ function ShareYourKnowledgeClient() {
         <div>
           <Label
             htmlFor="appName"
-            className="text-gray-200 mb-3 flex items-center gap-2 font-semibold"
+            className="text-slate-800 mb-3 flex items-center gap-2 font-semibold"
           >
-            <LayoutGrid size={18} className="text-purple-400" />
+            <LayoutGrid size={18} className="text-blue-300" />
             <span>{t("appName")}</span>
             <span className="text-red-400">*</span>
           </Label>
@@ -122,7 +122,7 @@ function ShareYourKnowledgeClient() {
             id="appName"
             type="text"
             placeholder={t("appNamePlaceholder")}
-            className="bg-slate-700/20 border-purple-400/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400 h-12"
+            className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400 h-12"
             onChange={(e) =>
               handleInputChange("appName", e.target.value, setForm, setError)
             }
@@ -143,16 +143,16 @@ function ShareYourKnowledgeClient() {
         <div>
           <Label
             htmlFor="tip"
-            className="text-gray-200 mb-3 flex items-center gap-2 font-semibold"
+            className="text-slate-800 mb-3 flex items-center gap-2 font-semibold"
           >
-            <Heart size={18} className="text-purple-400" />
+            <Heart size={18} className="text-blue-300" />
             <span>{t("tip")}</span>
             <span className="text-red-400">*</span>
           </Label>
           <Textarea
             id="tip"
             placeholder={t("tipPlaceholder")}
-            className="bg-slate-700/20 border-purple-400/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400 min-h-[150px] resize-y"
+            className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400 min-h-[150px] resize-y"
             onChange={(e) =>
               handleInputChange("userTip", e.target.value, setForm, setError)
             }
@@ -160,10 +160,10 @@ function ShareYourKnowledgeClient() {
             disabled={isLoading}
           />
           <div className="flex justify-between items-center mt-2">
-            <p className="text-gray-500 text-xs">
+            <p className="text-slate-500 text-xs">
               {form.userTip.length} {t("character")}
             </p>
-            <p className="text-gray-500 text-xs">Minimum 20</p>
+            <p className="text-slate-500 text-xs">Minimum 20</p>
           </div>
         </div>
 
@@ -183,7 +183,7 @@ function ShareYourKnowledgeClient() {
             )
           }
           disabled={isLoading}
-          className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-6 rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transform"
+          className="w-full mt-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-6 rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transform"
         >
           {isLoading ? (
             <>

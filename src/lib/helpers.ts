@@ -1351,6 +1351,7 @@ Tercihler:
 - İlgi Alanları: ${form.interests}
 - Bütçe: ${form.budget}
 - Seyahat Tarzı: ${form.travelStyle}
+- Detaylar: ${form.details}
 `
       : `
 You are a travel planner AI. Based on the following user preferences, plan a detailed day-by-day travel itinerary. 
@@ -1376,6 +1377,7 @@ Preferences:
 - Interests: ${form.interests}
 - Budget: ${form.budget}
 - Travel Style: ${form.travelStyle}
+- Details: ${form.details}
 `;
 
   return prompt;

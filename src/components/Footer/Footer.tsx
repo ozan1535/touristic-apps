@@ -73,19 +73,19 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-slate-950 border-t border-purple-400/20 mt-auto">
+    <footer className="w-full bg-blue-100 border-t border-indigo-200 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
-              <div className="p-1.5 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-lg border border-purple-400/30 group-hover:border-purple-400/50 transition-all">
-                <Globe className="text-purple-300" size={24} />
+              <div className="p-1.5 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg border border-indigo-600/20 group-hover:border-blue-500/40 transition-all">
+                <Globe className="text-indigo-600" size={20} />
               </div>
-              <span className="text-xl font-black text-transparent bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text">
+              <span className="text-xl font-black text-transparent bg-gradient-to-r from-indigo-700 via-indigo-400 to-indigo-700 bg-clip-text hidden sm:inline">
                 GlobalAppGuide
               </span>
             </Link>
-            <p className="text-gray-400 text-sm mb-4 max-w-sm">
+            <p className="text-slate-600 text-sm mb-4 max-w-sm">
               {t("description")}
             </p>
             <div className="flex items-center gap-3">
@@ -96,7 +96,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="p-2 rounded-lg bg-slate-800/50 border border-purple-400/20 hover:border-purple-400/40 hover:bg-slate-800 text-gray-400 hover:text-purple-300 transition-all"
+                  className="p-2 rounded-lg bg-slate-50 border border-indigo-200 hover:border-indigo-300 hover:bg-indigo-50 text-slate-600 hover:text-indigo-500 transition-all"
                 >
                   {social.icon}
                 </a>
@@ -105,13 +105,15 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">{t("product")}</h3>
+            <h3 className="text-slate-900 font-semibold mb-4">
+              {t("product")}
+            </h3>
             <ul className="space-y-2">
               {footerLinks.product.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-purple-300 text-sm transition-colors"
+                    className="text-slate-600 hover:text-indigo-500 text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -121,13 +123,15 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">{t("company")}</h3>
+            <h3 className="text-slate-900 font-semibold mb-4">
+              {t("company")}
+            </h3>
             <ul className="space-y-2">
               {footerLinks.company.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-purple-300 text-sm transition-colors"
+                    className="text-slate-600 hover:text-indigo-500 text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -137,13 +141,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-white font-semibold mb-4">{t("legal")}</h3>
+            <h3 className="text-slate-900 font-semibold mb-4">{t("legal")}</h3>
             <ul className="space-y-2">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-purple-300 text-sm transition-colors"
+                    className="text-slate-600 hover:text-indigo-500 text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -153,10 +157,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-400/20 to-transparent mb-8" />
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent mb-8" />
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm text-center sm:text-left">
+          <p className="text-slate-500 text-sm text-center sm:text-left">
             © {currentYear} GlobalAppGuide. {t("rights")}
           </p>
         </div>

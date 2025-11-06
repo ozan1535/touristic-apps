@@ -7,7 +7,8 @@ export const handlePost = async (
   userData,
   setPostsList,
   setNewPost,
-  router
+  router,
+  user
 ) => {
   if (!newPost.trim()) return;
 
@@ -17,7 +18,7 @@ export const handlePost = async (
   try {
     const { error: insertError } = await supabase.from("posts").insert({
       post: newPost.trim(),
-      user_id: userData.kinde_user_id,
+      user_id: user.id,
     });
 
     if (insertError) {

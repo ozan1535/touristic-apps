@@ -26,26 +26,26 @@ function Login({
   const [email, setEmail] = useState("");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-950 px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-white px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="bg-slate-800/40 backdrop-blur-sm border border-purple-400/25 rounded-2xl p-8 shadow-2xl">
+        <div className="bg-white backdrop-blur-sm border border-indigo-200 rounded-2xl p-8 shadow-2xl">
           <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl border border-purple-400/30">
-              <Lock className="text-purple-300" size={32} />
+            <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl border border-indigo-200">
+              <Lock className="text-indigo-500" size={32} />
             </div>
           </div>
 
-          <h2 className="text-3xl font-black text-center text-transparent bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text mb-2">
+          <h2 className="text-3xl font-black text-center text-transparent bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text mb-2">
             {text1}
           </h2>
-          <p className="text-center text-gray-300 mb-8 text-sm">{text2}</p>
+          <p className="text-center text-slate-600 mb-8 text-sm">{text2}</p>
 
           <div className="mb-6">
             <label
               htmlFor="email"
-              className="text-sm font-semibold text-gray-200 mb-3 flex items-center gap-2"
+              className="text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2"
             >
-              <Mail size={16} className="text-purple-400" />
+              <Mail size={16} className="text-indigo-500" />
               E-mail
             </label>
             <input
@@ -54,7 +54,7 @@ function Login({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-3.5 rounded-xl border border-purple-400/30 bg-slate-700/30 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-purple-400/50 transition-all"
+              className="w-full px-4 py-3.5 rounded-xl border border-indigo-200 bg-slate-50 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-300/50 focus:border-indigo-400 transition-all"
               placeholder="you@example.com"
             />
           </div>
@@ -67,7 +67,7 @@ function Login({
           >
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02] transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+              className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-[1.02] transform disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
             >
               <span>{loginTranslation("continue")}</span>
               <ArrowRight
@@ -77,30 +77,30 @@ function Login({
             </button>
           </LinkComponent>
 
-          <p className="text-center text-sm text-gray-300 mt-6">
+          <p className="text-center text-sm text-slate-600 mt-6">
             {text3}{" "}
             <Link
               href={link}
-              className="text-purple-300 hover:text-purple-200 font-semibold underline decoration-purple-400/30 hover:decoration-purple-300 transition-colors"
+              className="text-indigo-500 hover:text-indigo-400 font-semibold underline decoration-indigo-300/30 hover:decoration-purple-300 transition-colors"
             >
               {text4}
             </Link>
           </p>
         </div>
 
-        <div className="text-center text-xs text-gray-400 mt-8 bg-slate-800/20 border border-purple-400/20 rounded-xl p-4">
+        <div className="text-center text-xs text-slate-600 mt-8 bg-slate-50 border border-indigo-200 rounded-xl p-4">
           <p className="mb-2">{loginTranslation("info")}</p>
           <div className="flex items-center justify-center gap-2 flex-wrap">
             <Link
               href="/kullanim-sartlari"
-              className="text-purple-300 hover:text-purple-200 underline decoration-purple-400/30 transition-colors"
+              className="text-indigo-500 hover:text-indigo-400 underline decoration-indigo-300/30 transition-colors"
             >
               {loginTranslation("terms")}
             </Link>
             <span className="text-gray-500">{loginTranslation("and")}</span>
             <Link
               href="/gizlilik-politikasi"
-              className="text-purple-300 hover:text-purple-200 underline decoration-purple-400/30 transition-colors"
+              className="text-indigo-500 hover:text-indigo-400 underline decoration-indigo-300/30 transition-colors"
             >
               {loginTranslation("privacy")}
             </Link>

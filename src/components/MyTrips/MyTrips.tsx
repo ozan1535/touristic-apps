@@ -32,23 +32,23 @@ function MyTrips({ trips, isOwner, userData }: MyTripsProps) {
   };
 
   return (
-    <div className="bg-slate-900/50 backdrop-blur-sm border border-purple-500/30 rounded-xl p-6 shadow-xl">
+    <div className="bg-white backdrop-blur-sm border border-indigo-200 rounded-xl p-6 shadow-xl">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-white font-bold text-2xl mb-1 flex items-center gap-2">
-            <MapPin className="text-purple-400" size={28} />
+          <h1 className="text-slate-900 font-bold text-2xl mb-1 flex items-center gap-2">
+            <MapPin className="text-blue-500" size={28} />
             {isOwner ? t("myTrips") : t("trips")}
           </h1>
         </div>
-        {isOwner && (
-          <Button
-            onClick={handleAddTrip}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 font-bold border-0 shadow-lg whitespace-nowrap"
-          >
-            <CirclePlus className="mr-2" size={18} />
-            {t("addTrip")}
-          </Button>
-        )}
+        {/*  {isOwner && ( */}
+        <Button
+          onClick={handleAddTrip}
+          className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 font-bold border-0 shadow-lg whitespace-nowrap"
+        >
+          <CirclePlus className="mr-2" size={18} />
+          {t("addTrip")}
+        </Button>
+        {/*    )} */}
       </div>
 
       {trips.length > 0 ? (
@@ -59,17 +59,14 @@ function MyTrips({ trips, isOwner, userData }: MyTripsProps) {
           isOwner={isOwner}
         />
       ) : (
-        <div className="text-center py-12 border-2 border-dashed border-purple-500/30 rounded-lg">
-          <MapPin
-            className="mx-auto mb-4 text-purple-400 opacity-50"
-            size={48}
-          />
-          <p className="text-gray-400 mb-4">{t("noTrips")}</p>
+        <div className="text-center py-12 border-2 border-dashed border-indigo-200 rounded-lg">
+          <MapPin className="mx-auto mb-4 text-blue-500 opacity-50" size={48} />
+          <p className="text-slate-600 mb-4">{t("noTrips")}</p>
           {isOwner && (
             <Button
               onClick={handleAddTrip}
               variant="outline"
-              className="border-purple-500/30 cursor-pointer"
+              className="border-indigo-200 cursor-pointer"
             >
               <CirclePlus className="mr-2" size={18} />
               {t("addFirstTrip")}

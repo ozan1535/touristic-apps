@@ -15,7 +15,7 @@ function TripsCards({ trips, setDialogItems, locale, isOwner = false }) {
       {trips.map((trip) => (
         <Card
           key={trip.id}
-          className="cursor-pointer bg-slate-800/50 border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 overflow-hidden"
+          className="cursor-pointer bg-blue-50 border-blue-200 hover:border-indigo-300 transition-all duration-300 overflow-hidden"
           onClick={() =>
             setDialogItems((prev) => ({
               ...prev,
@@ -32,25 +32,25 @@ function TripsCards({ trips, setDialogItems, locale, isOwner = false }) {
               alt={trip.title}
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
-            <div className="absolute bottom-3 left-3 flex items-center gap-2 text-white text-xs font-semibold bg-purple-600/80 px-3 py-1 rounded-full">
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-800/20 to-transparent" />
+            <div className="absolute bottom-3 left-3 flex items-center gap-2 text-slate-900 text-xs font-semibold bg-indigo-500/80 px-3 py-1 rounded-full">
               <MapPin size={12} />
               {trip.country}
             </div>
           </div>
           <CardContent className="p-4">
-            <h2 className="text-white font-bold text-lg mb-2 line-clamp-1">
+            <h2 className="text-slate-900 font-bold text-lg mb-2 line-clamp-1">
               {trip.title}
             </h2>
 
             <div
-              className="text-gray-300 text-sm mb-3 line-clamp-2"
+              className="text-slate-700 text-sm mb-3 line-clamp-2"
               dangerouslySetInnerHTML={{
                 __html: trip.description.slice(0, 200),
               }}
             />
 
-            <div className="flex justify-between items-center gap-4 text-gray-400 text-xs">
+            <div className="flex justify-between items-center gap-4 text-slate-500 text-xs">
               <div className="flex items-center gap-1">
                 <Calendar size={12} />
                 <span>
@@ -64,7 +64,7 @@ function TripsCards({ trips, setDialogItems, locale, isOwner = false }) {
                 <div className="flex">
                   <Edit
                     size={24}
-                    color="white"
+                    color="black"
                     onClick={(e) => {
                       e.stopPropagation();
                       setDialogItems((prev) => ({
@@ -78,7 +78,7 @@ function TripsCards({ trips, setDialogItems, locale, isOwner = false }) {
 
                   <Trash2
                     size={24}
-                    color="white"
+                    color="black"
                     onClick={async (e) => {
                       e.stopPropagation();
                       const response = await supabase

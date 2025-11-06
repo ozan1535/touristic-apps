@@ -76,7 +76,7 @@ export default function ImageUpload({
   return (
     <div className="relative">
       {previewUrl ? (
-        <div className="relative w-32 h-32 rounded-xl overflow-hidden border-2 border-purple-400/30 bg-slate-700/20">
+        <div className="relative w-32 h-32 rounded-xl overflow-hidden border-2 border-indigo-200 bg-blue-50">
           <Image
             src={previewUrl}
             alt="Preview"
@@ -87,7 +87,7 @@ export default function ImageUpload({
           <Button
             type="button"
             onClick={handleRemove}
-            className="absolute top-2 right-2 p-1.5 bg-red-500 hover:bg-red-600 rounded-full transition-colors shadow-lg"
+            className="absolute top-2 right-2 p-1.5 bg-rose-500 hover:bg-rose-600 rounded-full transition-colors shadow-lg"
           >
             <X size={16} className="text-white" />
           </Button>
@@ -105,12 +105,12 @@ export default function ImageUpload({
           />
           <Label
             htmlFor="fileUpload"
-            className="flex items-center justify-center bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-400/30 rounded-lg px-4 py-2 text-sm font-semibold cursor-pointer"
+            className="flex items-center justify-center bg-blue-100 hover:bg-blue-200 text-indigo-600 border border-indigo-200 rounded-lg px-4 py-2 text-sm font-semibold cursor-pointer"
           >
             {isLoading ? uploadingText : label}
           </Label>
           {description && (
-            <p className="text-xs text-gray-400 mt-2">{description}</p>
+            <p className="text-xs text-slate-500 mt-2">{description}</p>
           )}
         </>
       )}

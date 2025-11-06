@@ -159,25 +159,25 @@ export default function RotatingWorldChart({
       tooltipText: "{name}",
       toggleKey: "active",
       interactive: true,
-      fill: am5.color(0x6366f1),
-      stroke: am5.color(0x312e81),
+      fill: am5.color(0x4d9be6),
+      stroke: am5.color(0x4d65b4),
       strokeWidth: 0.5,
     });
 
     polygonSeries.mapPolygons.template.states.create("hover", {
-      fill: am5.color(0xec4899),
+      fill: am5.color(0x4d65b4),
       strokeWidth: 1,
     });
 
     polygonSeries.mapPolygons.template.states.create("active", {
-      fill: am5.color(0xf472b6),
+      fill: am5.color(0xf8f8f8),
     });
 
     const backgroundSeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {})
     );
     backgroundSeries.mapPolygons.template.setAll({
-      fill: am5.color(0x1e1b4b), // Purple-900
+      fill: am5.color(0x4d65b4),
       fillOpacity: 0.2,
       strokeOpacity: 0,
     });
@@ -228,7 +228,7 @@ export default function RotatingWorldChart({
           minHeight: "400px",
         }}
       />
-      <p className="text-center text-gray-500 text-sm mt-4">{clickShortText}</p>
+      <p className="text-center text-slate-500 text-sm mt-4">{clickShortText}</p>
     </div>
   );
 }

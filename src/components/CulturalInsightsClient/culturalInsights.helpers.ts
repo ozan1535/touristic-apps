@@ -1,13 +1,14 @@
 import { supabase } from "@/lib/supabase/client";
 
 export async function fetchCulturalInsightsAndTrips(
-  selection: string,
-  sortedCountries: any[],
+  // selection: string,
+  // sortedCountries: any[],
+  countryCca2: string,
   locale: string
 ) {
-  const countryCca2 = sortedCountries.find(
-    (item) => item.label === selection
-  )?.cca2;
+  // const countryCca2 = sortedCountries.find(
+  //   (item) => item.label === selection
+  // )?.cca2;
 
   if (!countryCca2) return { insights: [], trips: [] };
 

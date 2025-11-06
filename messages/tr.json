@@ -32,7 +32,8 @@
     "craftingJourney": "Mükemmel seyahat planınız oluşturuluyor...",
     "yourTravelPlan": "İşte kişiselleştirilmiş seyahat planınız",
     "yourGeneratedPlan": "Oluşturulan seyahat planınız burada görünecek",
-    "fillTheForm": "Formu doldurun ve seyahat planınızı oluşturun"
+    "fillTheForm": "Formu doldurun ve seyahat planınızı oluşturun",
+    "details": "Detaylar"
   },
   "CountryApps": {
     "notFound": "Ülke Bulunamadı",
@@ -106,7 +107,10 @@
     "title": "Kültürel Görüşler",
     "description": "Genellikle sadece yerlilerin bildiği şeyler. Saygı ve güvenle seyahat edin.",
     "selectText": "Bir ülke seçin",
-    "insightFor": "{country} için görüşler"
+    "insightFor": "{country} için görüşler",
+    "noInsight": "{country} için henüz görüşler yok",
+    "checkBackSoon": "Yakında tekrar kontrol edin.",
+    "touristInsights": "Turist görüşleri"
   },
   "ContributeGuide": {
     "title": "Katkı Kuralları",

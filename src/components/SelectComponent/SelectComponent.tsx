@@ -30,7 +30,7 @@ function SelectComponent({
       <SelectTrigger className={customStyle || "w-[180px]"}>
         <SelectValue placeholder={customPlaceholder || allText} />
       </SelectTrigger>
-      <SelectContent className="bg-slate-900 text-secondary">
+      <SelectContent className="bg-white text-slate-900">
         <SelectGroup>
           {canShowAll && <SelectItem value="All">{allText}</SelectItem>}
           {categories.map((item) => (

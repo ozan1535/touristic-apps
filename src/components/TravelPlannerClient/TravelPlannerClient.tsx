@@ -1,7 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
-import { Zap, Plane, Calendar, Heart, Wallet, Compass } from "lucide-react";
+import {
+  Zap,
+  Plane,
+  Calendar,
+  Heart,
+  Wallet,
+  Compass,
+  NotepadText,
+  AlertCircle,
+} from "lucide-react";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -24,8 +33,10 @@ function TravelPlannerClient() {
     interests: "",
     budget: "",
     travelStyle: "",
+    details: "",
   });
-  const { destination, duration, interests, budget, travelStyle } = form;
+  const { destination, duration, interests, budget, travelStyle, details } =
+    form;
   const [data, setData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -43,6 +54,7 @@ function TravelPlannerClient() {
         travel_style: travelStyle,
         user_id: user?.id,
         ai_response: response,
+        details,
       });
     }
   };
@@ -56,20 +68,25 @@ function TravelPlannerClient() {
     };
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div className="border border-purple-500/30 rounded-xl p-6 bg-slate-900/50 backdrop-blur-sm shadow-xl">
+      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl">
         <div className="flex items-center mb-4">
-          <Plane className="mr-2 text-purple-400" size={24} />
-          <h2 className="text-2xl font-bold text-gray-100">
+          <div className="p-2 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl border border-indigo-200 mr-3">
+            <Plane className="text-white" size={24} />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-900">
             {aiTravelPlannerTranslation("preferences")}
           </h2>
         </div>
-        <p className="text-gray-400 mb-6 text-sm">
+        <p className="text-slate-600 mb-6 text-sm">
           {aiTravelPlannerTranslation("tellUs")}
         </p>
 
         {error && (
-          <div className="bg-red-500/10 border border-red-500/50 text-red-300 px-4 py-3 rounded-lg mb-4 text-sm">
-            {error}
+          <div className="bg-gradient-to-r from-red-500/10 to-rose-500/10 border border-red-400/50 rounded-xl px-4 py-4 mb-6 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
+            <div className="p-1 bg-red-500 rounded-lg">
+              <AlertCircle className="text-red-300 flex-shrink-0" size={20} />
+            </div>
+            <p className="text-sm text-rose-600">{error}</p>
           </div>
         )}
 
@@ -77,15 +94,15 @@ function TravelPlannerClient() {
           <div>
             <Label
               htmlFor="destination"
-              className="text-gray-200 mb-2 flex items-center"
+              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
             >
-              <Compass size={16} />
+              <Compass size={18} className="text-blue-500" />
               {aiTravelPlannerTranslation("destination")}
             </Label>
             <Input
               id="destination"
               placeholder={aiTravelPlannerTranslation("destinationPlaceholder")}
-              className="bg-slate-800/50 border-purple-500/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400"
+              className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
               onChange={handleChange("destination")}
               value={form.destination}
             />
@@ -94,9 +111,9 @@ function TravelPlannerClient() {
           <div>
             <Label
               htmlFor="duration"
-              className="text-gray-200 mb-2 flex items-center"
+              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
             >
-              <Calendar size={16} />
+              <Calendar size={18} className="text-blue-500" />
               {aiTravelPlannerTranslation("duration")}
             </Label>
             <Input
@@ -105,7 +122,7 @@ function TravelPlannerClient() {
               min="1"
               max="10"
               placeholder="5"
-              className="bg-slate-800/50 border-purple-500/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400"
+              className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
               onChange={handleChange("duration")}
               value={form.duration || ""}
             />
@@ -114,17 +131,34 @@ function TravelPlannerClient() {
           <div>
             <Label
               htmlFor="interests"
-              className="text-gray-200 mb-2 flex items-center"
+              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
             >
-              <Heart size={16} />
+              <Heart size={18} className="text-blue-500" />
               {aiTravelPlannerTranslation("interests")}
             </Label>
             <Textarea
               id="interests"
               placeholder={aiTravelPlannerTranslation("interestsPlaceholder")}
-              className="bg-slate-800/50 border-purple-500/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400 min-h-[80px]"
+              className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400 min-h-[80px]"
               onChange={handleChange("interests")}
               value={form.interests}
+            />
+          </div>
+
+          <div>
+            <Label
+              htmlFor="details"
+              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
+            >
+              <NotepadText size={18} className="text-blue-500" />
+              {aiTravelPlannerTranslation("details")}
+            </Label>
+            <Textarea
+              id="details"
+              placeholder={aiTravelPlannerTranslation("details")}
+              className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400 min-h-[80px]"
+              onChange={handleChange("details")}
+              value={form.details}
             />
           </div>
 
@@ -132,15 +166,15 @@ function TravelPlannerClient() {
             <div>
               <Label
                 htmlFor="budget"
-                className="text-gray-200 mb-2 flex items-center"
+                className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
               >
-                <Wallet size={16} />
+                <Wallet size={18} className="text-blue-500" />
                 {aiTravelPlannerTranslation("budget")}
               </Label>
               <Input
                 id="budget"
                 placeholder={aiTravelPlannerTranslation("budgetPlaceholder")}
-                className="bg-slate-800/50 border-purple-500/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400"
+                className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
                 onChange={handleChange("budget")}
                 value={form.budget}
               />
@@ -148,9 +182,9 @@ function TravelPlannerClient() {
             <div>
               <Label
                 htmlFor="travelStyle"
-                className="text-gray-200 mb-2 flex items-center"
+                className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
               >
-                <Plane size={16} />
+                <Plane size={18} className="text-blue-500" />
                 {aiTravelPlannerTranslation("travelStyle")}
               </Label>
               <Input
@@ -158,7 +192,7 @@ function TravelPlannerClient() {
                 placeholder={aiTravelPlannerTranslation(
                   "travelStylePlaceholder"
                 )}
-                className="bg-slate-800/50 border-purple-500/30 text-gray-100 placeholder:text-gray-500 focus:border-purple-400"
+                className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
                 onChange={handleChange("travelStyle")}
                 value={form.travelStyle}
               />
@@ -178,7 +212,7 @@ function TravelPlannerClient() {
               )
             }
             disabled={isLoading}
-            className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-6 rounded-lg shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full mt-6 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-6 rounded-xl shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] transform"
           >
             {isLoading ? (
               <>
@@ -187,7 +221,7 @@ function TravelPlannerClient() {
               </>
             ) : (
               <>
-                <Zap className="mr-2" size={20} />
+                <Zap size={20} className="mr-2" />
                 {aiTravelPlannerTranslation("generateItinerary")}
               </>
             )}
@@ -195,11 +229,11 @@ function TravelPlannerClient() {
         </div>
       </div>
 
-      <div className="border border-purple-500/30 rounded-xl p-6 bg-slate-900/50 backdrop-blur-sm shadow-xl">
-        <h2 className="text-2xl font-bold text-gray-100 mb-2">
+      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl">
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">
           {aiTravelPlannerTranslation("yourItinerary")}
         </h2>
-        <p className="text-gray-400 mb-6 text-sm">
+        <p className="text-slate-600 mb-6 text-sm">
           {isLoading
             ? `${aiTravelPlannerTranslation("craftingJourney")}`
             : data
@@ -212,7 +246,7 @@ function TravelPlannerClient() {
             {[...Array(12)].map((_, i) => (
               <Skeleton
                 key={i}
-                className={`h-4 bg-slate-700/50 ${
+                className={`h-4 bg-blue-100 ${
                   i % 3 === 0 ? "w-3/4" : i % 3 === 1 ? "w-full" : "w-5/6"
                 }`}
               />
@@ -221,33 +255,34 @@ function TravelPlannerClient() {
         ) : data ? (
           <div className="max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
             <div
-              className="prose prose-invert prose-purple max-w-none prose-headings:text-purple-300 prose-p:text-gray-300 prose-li:text-gray-300 prose-strong:text-purple-200"
+              className="prose prose-indigo max-w-none prose-headings:text-indigo-700 prose-p:text-slate-700 prose-li:text-slate-700 prose-strong:text-indigo-600"
               dangerouslySetInnerHTML={{ __html: data }}
             />
           </div>
         ) : (
-          <div className="flex items-center justify-center h-64 text-gray-500">
+          <div className="flex items-center justify-center h-64 text-slate-500">
             <div className="text-center">
-              <Compass size={48} className="mx-auto mb-4 opacity-50" />
+              <Compass size={48} className="mx-auto mb-4 text-blue-500" />
               <p>{aiTravelPlannerTranslation("fillTheForm")}</p>
             </div>
           </div>
         )}
       </div>
+
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: rgba(15, 23, 42, 0.5);
+          background: rgba(191, 219, 254, 0.4);
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(168, 85, 247, 0.4);
+          background: rgba(79, 70, 229, 0.4);
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(168, 85, 247, 0.6);
+          background: rgba(79, 70, 229, 0.6);
         }
       `}</style>
     </div>

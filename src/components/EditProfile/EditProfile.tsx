@@ -88,7 +88,7 @@ export function EditProfile({
   return (
     <div>
       <Dialog open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="sm:max-w-[500px] bg-slate-900/95 border-purple-400/30 backdrop-blur-xl">
+        <DialogContent className="sm:max-w-[500px] bg-white border-indigo-200 backdrop-blur-xl">
           <form
             onSubmit={(e) =>
               handleSave(
@@ -104,10 +104,10 @@ export function EditProfile({
             }
           >
             <DialogHeader className="space-y-3">
-              <DialogTitle className="text-2xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text">
+              <DialogTitle className="text-2xl font-bold text-transparent bg-gradient-to-r from-indigo-500 to-pink-400 bg-clip-text">
                 {t("editProfile")}
               </DialogTitle>
-              <DialogDescription className="text-gray-400">
+              <DialogDescription className="text-slate-600">
                 {t("editDescription")}.
               </DialogDescription>
             </DialogHeader>
@@ -117,15 +117,15 @@ export function EditProfile({
                 <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-400/50 rounded-xl px-4 py-3 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
                   <div className="p-1 bg-green-500/20 rounded-lg">
                     <CheckCircle2
-                      className="text-green-300 flex-shrink-0"
+                      className="text-green-600 flex-shrink-0"
                       size={18}
                     />
                   </div>
                   <div>
-                    <p className="font-semibold text-green-300 text-sm">
+                    <p className="font-semibold text-green-600 text-sm">
                       {t("profileUpdated")}
                     </p>
-                    <p className="text-xs text-green-200 mt-0.5">
+                    <p className="text-xs text-green-500 mt-0.5">
                       {formData.username !== userData.username
                         ? t("redirecting")
                         : t("changesSaved")}
@@ -142,12 +142,12 @@ export function EditProfile({
                       size={18}
                     />
                   </div>
-                  <p className="text-sm text-red-200">{error}</p>
+                  <p className="text-sm text-rose-600">{error}</p>
                 </div>
               )}
               <Label
                 htmlFor="username"
-                className="text-gray-200 flex items-center gap-2 font-semibold"
+                className="text-slate-800 flex items-center gap-2 font-semibold"
               >
                 {t("profilePicture")}
               </Label>
@@ -166,11 +166,11 @@ export function EditProfile({
               <div className="space-y-2">
                 <Label
                   htmlFor="name"
-                  className="text-gray-200 flex items-center gap-2 font-semibold"
+                  className="text-slate-800 flex items-center gap-2 font-semibold"
                 >
-                  <User size={16} className="text-purple-400" />
+                  <User size={16} className="text-blue-500" />
                   {t("displayName")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-rose-500">*</span>
                 </Label>
                 <Input
                   id="name"
@@ -188,9 +188,9 @@ export function EditProfile({
                   maxLength={50}
                   required
                   disabled={isLoading}
-                  className="bg-slate-800/50 border-purple-400/30 text-gray-100 focus:border-purple-400 h-11"
+                  className="bg-slate-50 border-indigo-200 text-slate-900 focus:border-indigo-400 h-11"
                 />
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-slate-600">
                   {formData.name.length}/50 {t("characters")}
                 </p>
               </div>
@@ -198,11 +198,11 @@ export function EditProfile({
               <div className="space-y-2">
                 <Label
                   htmlFor="username"
-                  className="text-gray-200 flex items-center gap-2 font-semibold"
+                  className="text-slate-800 flex items-center gap-2 font-semibold"
                 >
-                  <AtSign size={16} className="text-purple-400" />
+                  <AtSign size={16} className="text-blue-500" />
                   {t("username")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-rose-500">*</span>
                 </Label>
                 <Input
                   id="username"
@@ -224,10 +224,10 @@ export function EditProfile({
                   minLength={3}
                   required
                   disabled={isLoading}
-                  className="bg-slate-800/50 border-purple-400/30 text-gray-100 focus:border-purple-400 h-11"
+                  className="bg-slate-50 border-indigo-200 text-slate-900 focus:border-indigo-400 h-11"
                 />
                 <div className="flex justify-between items-center">
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-slate-600">
                     {formData.username.length}/20 {t("characters")} (min 3)
                   </p>
                 </div>
@@ -236,9 +236,9 @@ export function EditProfile({
               <div className="space-y-2">
                 <Label
                   htmlFor="bio"
-                  className="text-gray-200 flex items-center gap-2 font-semibold"
+                  className="text-slate-800 flex items-center gap-2 font-semibold"
                 >
-                  <FileText size={16} className="text-purple-400" />
+                  <FileText size={16} className="text-blue-500" />
                   Bio
                 </Label>
                 <Textarea
@@ -256,9 +256,9 @@ export function EditProfile({
                   placeholder={t("tellUs")}
                   maxLength={150}
                   disabled={isLoading}
-                  className="bg-slate-800/50 border-purple-400/30 text-gray-100 focus:border-purple-400 min-h-[100px] resize-none"
+                  className="bg-slate-50 border-indigo-200 text-slate-900 focus:border-indigo-400 min-h-[100px] resize-none"
                 />
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-slate-600">
                   {formData.bio.length}/150 {t("characters")}
                 </p>
               </div>
@@ -270,14 +270,14 @@ export function EditProfile({
                 variant="outline"
                 onClick={handleClose}
                 disabled={isLoading}
-                className="border-purple-400/30 hover:bg-slate-800/50"
+                className="border-indigo-200 hover:bg-slate-50"
               >
                 {t("cancel")}
               </Button>
               <Button
                 type="submit"
                 disabled={isLoading || !hasChanges}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>

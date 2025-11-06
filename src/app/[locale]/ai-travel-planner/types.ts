@@ -4,4 +4,5 @@ export interface ITripForm {
   interests: string;
   budget: string;
   travelStyle: string;
+  details: string;
 }

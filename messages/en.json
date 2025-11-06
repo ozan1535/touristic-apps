@@ -32,7 +32,8 @@
     "craftingJourney": "Crafting your perfect journey...",
     "yourTravelPlan": "Here's your personalized travel plan",
     "yourGeneratedPlan": "Your generated travel plan will appear here",
-    "fillTheForm": "Fill out the form and generate your itinerary"
+    "fillTheForm": "Fill out the form and generate your itinerary",
+    "details": "Details"
   },
   "CountryApps": {
     "notFound": "Country Not Found",
@@ -110,7 +111,10 @@
     "title": "Cultural Insights",
     "description": "Things only locals usually know. Travel with respect and confidence.",
     "selectText": "Select for a country",
-    "insightFor": "Insights for {country}"
+    "insightFor": "Insights for {country}",
+    "noInsight": "There are no insights for {country} yet",
+    "checkBackSoon": "Check back soon.",
+    "touristInsights": "Tourists Insights"
   },
   "ContributeGuide": {
     "title": "Contribution Guidelines",

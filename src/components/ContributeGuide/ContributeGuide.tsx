@@ -4,13 +4,13 @@ import React from "react";
 function ContributeGuide() {
   const contributeGuideTranslation = useTranslations("ContributeGuide");
   return (
-    <div className="mt-8 border border-purple-500/20 rounded-xl p-6 bg-slate-900/30 backdrop-blur-sm">
+    <div className="mt-8 border border-blue-400/20 rounded-xl p-6 bg-slate-900/30 backdrop-blur-sm">
       <h3 className="text-xl font-bold text-white mb-4">
         💡 {contributeGuideTranslation("title")}
       </h3>
       <ul className="space-y-3 text-gray-300">
         <li className="flex items-start gap-3">
-          <span className="text-purple-400 font-bold">•</span>
+          <span className="text-blue-300 font-bold">•</span>
           <span>
             <strong className="text-white">
               {contributeGuideTranslation("list1Strong")}
@@ -19,7 +19,7 @@ function ContributeGuide() {
           </span>
         </li>
         <li className="flex items-start gap-3">
-          <span className="text-purple-400 font-bold">•</span>
+          <span className="text-blue-300 font-bold">•</span>
           <span>
             <strong className="text-white">
               {contributeGuideTranslation("list2Strong")}
@@ -28,7 +28,7 @@ function ContributeGuide() {
           </span>
         </li>
         <li className="flex items-start gap-3">
-          <span className="text-purple-400 font-bold">•</span>
+          <span className="text-blue-300 font-bold">•</span>
           <span>
             <strong className="text-white">
               {" "}
@@ -38,7 +38,7 @@ function ContributeGuide() {
           </span>
         </li>
         <li className="flex items-start gap-3">
-          <span className="text-purple-400 font-bold">•</span>
+          <span className="text-blue-300 font-bold">•</span>
           <span>
             <strong className="text-white">
               {" "}

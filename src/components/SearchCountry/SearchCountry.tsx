@@ -46,13 +46,13 @@ export function SearchCountry({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between h-14 text-base bg-slate-900/50 border-purple-500/30 hover:border-purple-500/50 hover:bg-slate-900/70 hover:text-secondary text-gray-300"
+          className="w-full justify-between h-14 text-base bg-white border-indigo-200 hover:border-indigo-400 hover:bg-blue-50 text-slate-800 hover:text-slate-800"
         >
           <div className="flex items-center gap-3">
-            <Search size={20} className="text-purple-400" />
+            <Search size={20} className="text-blue-500" />
             {selectedCountry ? (
               <>
-                <span className="text-white">{selectedCountry.label}</span>
+                <span className="text-slate-900">{selectedCountry.label}</span>
               </>
             ) : (
               <span>{placeholderTranslation}</span>
@@ -62,16 +62,16 @@ export function SearchCountry({
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="p-0 bg-slate-900 border-purple-500/30"
+        className="p-0 bg-white border-indigo-200"
         style={{ width: "var(--radix-popover-trigger-width)" }}
       >
-        <Command className="bg-slate-900">
+        <Command className="bg-white">
           <CommandInput
             placeholder={placeholderTranslation}
-            className="text-gray-300"
+            className="text-slate-800"
           />
           <CommandList>
-            <CommandEmpty className="text-gray-400 py-6 text-center">
+            <CommandEmpty className="text-slate-500 py-6 text-center">
               {emptyTranslation}
             </CommandEmpty>
             <CommandGroup>
@@ -89,7 +89,7 @@ export function SearchCountry({
                       language
                     )
                   }
-                  className="cursor-pointer text-gray-300"
+                  className="cursor-pointer text-slate-800"
                 >
                   <CheckIcon
                     className={cn(

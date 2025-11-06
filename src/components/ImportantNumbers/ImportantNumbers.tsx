@@ -34,8 +34,8 @@ function ImportantNumbers({
     },
   ];
   return (
-    <div className="w-full border border-purple-400/25 rounded-xl p-6 bg-slate-700/20 backdrop-blur-sm shadow-xl mt-5">
-      <h1 className="text-center text-white font-bold text-2xl flex justify-center items-center gap-2 mb-5">
+    <div className="w-full border border-blue-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl mt-5">
+      <h1 className="text-center text-slate-900 font-bold text-2xl flex justify-center items-center gap-2 mb-5">
         <Activity size={24} />
         <span>
           {locale === "en" ? "Emergency Numbers" : "Önemli Numaralar"}
@@ -46,17 +46,17 @@ function ImportantNumbers({
         {emergencyNumbers.map((item, index) => (
           <div
             key={index}
-            className="group relative bg-slate-800/50 rounded-xl p-5 border border-slate-600/50 hover:border-purple-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20"
+            className="group relative bg-white rounded-xl p-5 border border-indigo-200 hover:border-indigo-400 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-200"
           >
             <div className="flex flex-col items-center space-y-3">
               <div
-                className={`bg-gradient-to-br ${item.color} p-3 rounded-full text-white shadow-lg`}
+                className={`bg-gradient-to-br ${item.color} p-3 rounded-full text-slate-900 shadow-lg`}
               >
                 {item.icon}
               </div>
-              <p className="text-slate-300 text-sm font-medium">{item.label}</p>
-              <div className="w-full bg-slate-700/50 rounded-lg py-3">
-                <p className="text-white font-bold text-xl text-center">
+              <p className="text-slate-600 text-sm font-medium">{item.label}</p>
+              <div className="w-full bg-indigo-50 rounded-lg py-3">
+                <p className="text-slate-900 font-bold text-xl text-center">
                   {item.number}
                 </p>
               </div>

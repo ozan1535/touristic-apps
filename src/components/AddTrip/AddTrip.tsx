@@ -23,6 +23,10 @@ import { IFormData, ITripDialogProps } from "./AddTrip.types";
 import { useAlert } from "@/hooks/useAlert";
 import AlertComponent from "../AlertComponent/AlertComponent";
 import { useTranslations } from "next-intl";
+import {
+  useKindeAuth,
+  useKindeBrowserClient,
+} from "@kinde-oss/kinde-auth-nextjs";
 
 export function TripDialog({
   isOpen,
@@ -31,6 +35,8 @@ export function TripDialog({
   tripData = null,
   mode = "add",
 }: ITripDialogProps) {
+  const client = useKindeBrowserClient();
+  const user = client.getUser();
   const t = useTranslations("Profile");
   const router = useRouter();
   const { locale } = useParams<{ locale: "tr" | "en" }>();
@@ -102,7 +108,7 @@ export function TripDialog({
           )?.cca2,
         },
         originalPicture: tripData?.picture || null,
-        userId: userData.kinde_user_id,
+        userId: user?.id || "",
         tripId: tripData?.id,
         mode,
       });
@@ -135,13 +141,13 @@ export function TripDialog({
   return (
     <div>
       <Dialog open={isOpen} onOpenChange={handleClose}>
-        <DialogContent className="sm:h-[90vh] sm:max-w-[800px] overflow-y-auto bg-slate-900 border-purple-400/30">
+        <DialogContent className="sm:h-[90vh] sm:max-w-[800px] overflow-y-auto bg-white border-indigo-200">
           <form onSubmit={handleSave}>
-            <DialogHeader className="space-y-3 bg-slate-900/95 backdrop-blur-xl pb-4 z-10">
-              <DialogTitle className="text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text">
+            <DialogHeader className="space-y-3 bg-white/95 backdrop-blur-xl pb-4 z-10">
+              <DialogTitle className="text-2xl md:text-3xl font-bold text-transparent bg-gradient-to-r from-indigo-500 to-pink-400 bg-clip-text">
                 {mode === "add" ? t("addNewTrip") : t("editTrip")}
               </DialogTitle>
-              <DialogDescription className="text-gray-400">
+              <DialogDescription className="text-slate-600">
                 {mode === "add" ? t("shareYourExperience") : t("updateTrip")}
               </DialogDescription>
             </DialogHeader>
@@ -151,15 +157,15 @@ export function TripDialog({
                 <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-400/50 rounded-xl px-4 py-3 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
                   <div className="p-1 bg-green-500/20 rounded-lg">
                     <CheckCircle2
-                      className="text-green-300 flex-shrink-0"
+                      className="text-green-600 flex-shrink-0"
                       size={18}
                     />
                   </div>
                   <div>
-                    <p className="font-semibold text-green-300 text-sm">
+                    <p className="font-semibold text-green-600 text-sm">
                       {mode === "add" ? "Trip Added!" : "Trip Updated!"}
                     </p>
-                    <p className="text-xs text-green-200 mt-0.5">
+                    <p className="text-xs text-green-500 mt-0.5">
                       {t("addTripSuccess")}
                     </p>
                   </div>
@@ -174,7 +180,7 @@ export function TripDialog({
                       size={18}
                     />
                   </div>
-                  <p className="text-sm text-red-200">{error}</p>
+                  <p className="text-sm text-rose-600">{error}</p>
                 </div>
               )}
 
@@ -191,15 +197,15 @@ export function TripDialog({
                 {mode === "edit" &&
                   !(formData.picture instanceof File) &&
                   tripData?.picture && (
-                    <p className="text-xs text-gray-400">{t("currentPhoto")}</p>
+                    <p className="text-xs text-slate-600">{t("currentPhoto")}</p>
                   )}
               </div>
 
               <div className="space-y-2">
-                <Label className="text-gray-200 flex items-center gap-2 font-semibold">
-                  <Globe size={18} className="text-purple-400" />
+                <Label className="text-slate-800 flex items-center gap-2 font-semibold">
+                  <Globe size={18} className="text-blue-500" />
                   {t("country")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-rose-500">*</span>
                 </Label>
                 <SelectComponent
                   canShowAll={false}
@@ -212,7 +218,7 @@ export function TripDialog({
                       setError
                     )
                   }
-                  customStyle="w-full border-purple-400/30 bg-slate-700/20 hover:bg-slate-700/30"
+                  customStyle="w-full border-indigo-200 bg-slate-50 hover:bg-slate-100"
                   customPlaceholder={t("selectCountry")}
                 />
               </div>
@@ -220,11 +226,11 @@ export function TripDialog({
               <div className="space-y-2">
                 <Label
                   htmlFor="title"
-                  className="text-gray-200 flex items-center gap-2 font-semibold"
+                  className="text-slate-800 flex items-center gap-2 font-semibold"
                 >
-                  <FileText size={18} className="text-purple-400" />
+                  <FileText size={18} className="text-blue-500" />
                   {t("tripTitle")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-rose-500">*</span>
                 </Label>
                 <Input
                   id="title"
@@ -242,18 +248,18 @@ export function TripDialog({
                   maxLength={100}
                   required
                   disabled={isLoading}
-                  className="bg-slate-800/50 border-purple-400/30 text-gray-100 focus:border-purple-400 h-12"
+                  className="bg-slate-50 border-indigo-200 text-slate-900 focus:border-indigo-400 h-12"
                 />
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-slate-600">
                   {formData.title.length}/100 {t("characters")}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label className="text-gray-200 flex items-center gap-2 font-semibold">
-                  <FileText size={18} className="text-purple-400" />
+                <Label className="text-slate-800 flex items-center gap-2 font-semibold">
+                  <FileText size={18} className="text-blue-500" />
                   {t("tripDescription")}
-                  <span className="text-red-400">*</span>
+                  <span className="text-rose-500">*</span>
                 </Label>
                 <QuillEditor
                   value={formData.description}
@@ -269,20 +275,20 @@ export function TripDialog({
               </div>
             </div>
 
-            <DialogFooter className="gap-2 bg-slate-900/95 border-t border-purple-400/20">
+            <DialogFooter className="gap-2 bg-white/95 border-t border-indigo-100">
               <Button
                 type="button"
                 variant="outline"
                 onClick={handleClose}
                 disabled={isLoading}
-                className="border-purple-400/30"
+                className="border-indigo-200"
               >
                 {t("cancel")}
               </Button>
               <Button
                 type="submit"
                 disabled={isLoading || (mode === "edit" && !hasChanges)}
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                className="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600"
               >
                 {isLoading ? (
                   <>
