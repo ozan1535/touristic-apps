@@ -21,7 +21,7 @@ function ProfileSidebar({
   };
 
   return (
-    <div className="bg-white backdrop-blur-sm border border-indigo-200 rounded-xl p-6 shadow-xl sticky top-6">
+    <div className="bg-white backdrop-blur-sm border border-indigo-200 rounded-xl p-6 shadow-xl sticky top-20">
       <div className="flex justify-center mb-4">
         <div className="relative">
           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-indigo-200 shadow-lg">
@@ -48,7 +48,7 @@ function ProfileSidebar({
         {userData.bio}
       </p>
 
-      <div className="grid grid-cols-2 gap-4 mb-6">
+      {/* <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-blue-50 rounded-lg p-3 border border-indigo-200 text-center">
           <MapPin className="mx-auto mb-1 text-blue-500" size={20} />
           <div className="text-2xl font-bold text-slate-900">
@@ -63,7 +63,7 @@ function ProfileSidebar({
           </div>
           <div className="text-xs text-slate-500">{t("posts")}</div>
         </div>
-      </div>
+      </div> */}
       {isOwner && (
         <Button
           onClick={handleEditProfile}
