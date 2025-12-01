@@ -1,13 +1,22 @@
-import { Plane, MapPin } from "lucide-react";
+"use client";
+import { Plane, MapPin, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ICountryBannerProps } from "./CountryBanner.types";
+import { useRouter } from "next/navigation";
 
 function CountryBanner({ picture, country, locale }: ICountryBannerProps) {
+  const router = useRouter();
   const CountryBannerTranslation = useTranslations("CountryBanner");
 
   return (
-    <div className="relative w-full h-[45vh] md:h-[55vh] overflow-hidden">
+    <div className="relative w-full h-[35vh] md:h-[55vh] overflow-hidden">
+      <div
+        className="md:hidden p-2 bg-black opacity-60 z-50 absolute top-3 left-3 rounded-full"
+        onClick={() => router.back()}
+      >
+        <ArrowLeft size={30} color="white" />
+      </div>
       <div
         className="absolute inset-0 bg-cover bg-center scale-110"
         style={{
