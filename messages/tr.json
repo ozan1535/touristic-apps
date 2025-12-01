@@ -10,7 +10,10 @@
     "clickShortText": "Keşfetmek için herhangi bir ülkeye tıklayın",
     "planYourTrip": "Mükemmel Seyahatinizi Planlayın",
     "letOurAi": "Yapay zeka seyahat planlayıcımızın ilgi alanlarınıza, bütçenize ve seyahat tarzınıza göre kişiselleştirilmiş bir güzergah oluşturmasına izin verin.",
-    "tryButton": "AI Seyahat Planlayıcısını deneyin"
+    "tryButton": "AI Seyahat Planlayıcısını deneyin",
+    "exp": "Keşfet",
+    "openWorldMap": "Dünya Haritasını Açın",
+    "popularDestinations": "Popüler Rotalar"
   },
   "AiTravelPlanner": {
     "title": "AI Seyahat Planlayıcısı",
@@ -39,7 +42,8 @@
     "notFound": "Ülke Bulunamadı",
     "notExist": "Aradığınız ülke mevcut değil.",
     "noAppData": "Bu ülke için henüz uygulama verisi mevcut değil.",
-    "checkBackSoon": "Daha fazla ülke ekledikçe tekrar kontrol edin!"
+    "checkBackSoon": "Daha fazla ülke ekledikçe tekrar kontrol edin!",
+    "currencyConverter": "Döviz Dönüştürücü"
   },
   "TopApps": {
     "recommendedApps": "Önerilen Uygulamalar"
@@ -83,6 +87,29 @@
     "successMessage": "İpucunuz başarıyla gönderildi ve diğer gezginlere yardımcı olacak!",
     "loginRequired": "İpuçlarınızı paylaşmak için lütfen giriş yapın",
     "character": "karakter"
+  },
+  "RateAndReview": {
+    "title": "İncelemeler",
+    "outOf": "5 üzerinden",
+    "ratings": "{count} değerlendirme",
+    "noReviews": "Henüz yorum yok. İlk yorumu bırakan siz olun!",
+    "yourRating": "Puanınız",
+    "yourReview": "Yorumunuz",
+    "sendReview": "Gönder",
+    "writeReview": "Bir İnceleme Yazın",
+    "sharePlaceholder": "Deneyiminizi paylaşın..."
+  },
+  "Explore": {
+    "allCaughtUp": "Her şey tamam!",
+    "seenAllSpots": "{cityName} şehrindeki tüm en iyi yerleri gördünüz.",
+    "noLike": "Henüz beğendiğiniz bir yer yok.",
+    "explore": "Keşfet",
+    "selectCountry": "Başlamak için bir ülke seçin",
+    "selectCity": "Şehir Seçin",
+    "chooseCity": "Bir şehir seçin",
+    "swipeToExplore": "Keşfetmek için kaydırın",
+    "checkAnother": "Başka bir şehri kontrol edin",
+    "myList": "Listem"
   },
   "SignIn": {
     "welcome": "Hoş Geldiniz",
@@ -189,6 +216,11 @@
     "rights": "Tüm hakları saklıdır."
   },
   "Metadata": {
+    "explore": {
+      "title": "Keşfet - GlobalAppGuide",
+      "description": "Yurt dışında yaşam için nihai arkadaşınız. Dünyanın her yerindeki ülkeler için temel uygulamaları, yerel fiyatları ve seyahat içgörülerini keşfedin.",
+      "keywords": "seyahat uygulamaları, yerel fiyatlar, ülke rehberi, turist uygulamaları, seyahat planlayıcı, temel uygulamalar, seyahat bilgileri"
+    },
     "homepage": {
       "title": "Anasayfa - GlobalAppGuide",
       "description": "Yurt dışında yaşam için nihai arkadaşınız. Dünyanın her yerindeki ülkeler için temel uygulamaları, yerel fiyatları ve seyahat içgörülerini keşfedin.",

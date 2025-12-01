@@ -10,7 +10,10 @@
     "clickShortText": "Click on any country to explore",
     "planYourTrip": "Plan Your Perfect Trip",
     "letOurAi": "Let our AI travel planner create a personalized itinerary tailored to your interests, budget, and travel style.",
-    "tryButton": "Try AI Travel Planner"
+    "tryButton": "Try AI Travel Planner",
+    "exp": "Explore",
+    "openWorldMap": "Open the World Map",
+    "popularDestinations": "Popular Destinations"
   },
   "AiTravelPlanner": {
     "title": "AI Travel Planner",
@@ -39,7 +42,8 @@
     "notFound": "Country Not Found",
     "notExist": "The country you're looking for doesn't exist.",
     "noAppData": "No app data available yet for this country.",
-    "checkBackSoon": "Check back soon as we add more countries!"
+    "checkBackSoon": "Check back soon as we add more countries!",
+    "currencyConverter": "Currency Converter"
   },
   "CountryBanner": {
     "discoverApps": "Discover essential apps, local insights, and travel costs for your journey.",
@@ -87,6 +91,29 @@
     "successMessage": "Your tip has been submitted successfully and will help other travelers!",
     "loginRequired": "Please log in to share your tips",
     "character": "characters"
+  },
+  "RateAndReview": {
+    "title": "Ratings & Reviews",
+    "outOf": "out of 5",
+    "ratings": "{count, plural, =0 {No ratings} one {# rating} other {# ratings}}",
+    "noReviews": "No reviews yet. Be the first to leave a review!",
+    "yourRating": "Your Rating",
+    "yourReview": "Your Review",
+    "sendReview": "Send Review",
+    "writeReview": "Write a Review",
+    "sharePlaceholder": "Share your experience..."
+  },
+  "Explore": {
+    "allCaughtUp": "All caught up!",
+    "seenAllSpots": "You've seen all top spots in {cityName}.",
+    "noLike": "No places liked yet.",
+    "explore": "Keşfet",
+    "selectCountry": "Select a country to start",
+    "selectCity": "Select City",
+    "chooseCity": "Choose a city",
+    "swipeToExplore": "Swipe to explore",
+    "myList": "My List",
+    "checkAnother": "Check another city"
   },
   "SignIn": {
     "welcome": "Welcome",
@@ -189,6 +216,11 @@
     "rights": "All rights reserved."
   },
   "Metadata": {
+    "explore": {
+      "title": "Explore - GlobalAppGuide",
+      "description": "Your ultimate companion for navigating life abroad. Discover essential apps, local prices, and travel insights for any country worldwide.",
+      "keywords": "travel apps, local prices, country guide, tourist apps, travel planner, essential apps, travel insights, expat guide"
+    },
     "homepage": {
       "title": "Homepage - GlobalAppGuide",
       "description": "Your ultimate companion for navigating life abroad. Discover essential apps, local prices, and travel insights for any country worldwide.",
