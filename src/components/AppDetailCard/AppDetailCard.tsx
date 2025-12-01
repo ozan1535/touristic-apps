@@ -30,7 +30,7 @@ function AppDetailCard({
       `}
     >
       {isTopApp && (
-        <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+        <div className="absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
           <span>⭐</span>
           <span>Top Pick</span>
         </div>
