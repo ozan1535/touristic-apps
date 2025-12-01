@@ -1,5 +1,12 @@
 import React from "react";
-import { User } from "lucide-react";
+import {
+  Calendar,
+  ChevronRight,
+  Globe,
+  Heart,
+  User,
+  Wallet,
+} from "lucide-react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import ProfileSidebar from "@/components/ProfileSidebar/ProfileSidebar";
 import MyTrips from "@/components/MyTrips/MyTrips";
@@ -8,6 +15,7 @@ import { getUserProfile } from "@/lib/supabase/sync-user";
 import { fetchUserPosts, fetchUserTrips } from "./user.helpers";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
+import AchievementItems from "@/components/AchievementItems/AchievementItems";
 
 export async function generateMetadata({
   params: { locale, userId },
@@ -46,7 +54,6 @@ export default async function ProfilePage({ params }: { params: any }) {
 
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  //console.log(user, "usersrsr");
   const [currentUserData, postsData, tripsData] = await Promise.all([
     getUserProfile(user?.id as string),
     fetchUserPosts(pageOwner.kinde_user_id),
@@ -72,8 +79,102 @@ export default async function ProfilePage({ params }: { params: any }) {
         </aside>
 
         <main className="flex-1 flex flex-col gap-6">
-          <MyTrips trips={trips} isOwner={isOwner} userData={pageOwner} />
-          <MyPosts posts={posts} userData={pageOwner} isOwner={isOwner} />
+          {/* Digital Passport */}
+          <div className="flex justify-between items-end relative z-10 bg-white p-4 rounded-xl shadow-sm">
+            <div>
+              <span className="text-indigo-600 text-xs font-bold uppercase">
+                Digital Passport
+              </span>
+
+              <div className="text-3xl font-extrabold text-indigo-900 mt-1 flex items-baseline gap-2">
+                5
+                <span className="text-lg text-blue-600 font-medium">
+                  Countries
+                </span>
+              </div>
+            </div>
+
+            <Globe className="text-blue-500 opacity-80" size={48} />
+          </div>
+          {/* Achievements */}
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
+              Achievements
+            </h3>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                {
+                  id: "1",
+                  name: "Asia Explorer",
+                  iconName: "Globe",
+                  isLocked: false,
+                },
+                {
+                  id: "2",
+                  name: "Foodie",
+                  iconName: "Utensils",
+                  isLocked: false,
+                },
+                {
+                  id: "3",
+                  name: "Top Reviewer",
+                  iconName: "Star",
+                  isLocked: false,
+                },
+                {
+                  id: "4",
+                  name: "Adventurer",
+                  iconName: "Mountain",
+                  isLocked: true,
+                },
+                {
+                  id: "5",
+                  name: "Polyglot",
+                  iconName: "Languages",
+                  isLocked: true,
+                },
+                {
+                  id: "6",
+                  name: "Local Hero",
+                  iconName: "Award",
+                  isLocked: true,
+                },
+              ].map((badge) => (
+                <AchievementItems key={badge.id} badge={badge} />
+              ))}
+            </div>
+          </div>
+
+          {/* Menu List */}
+          <div className="space-y-3 mb-32 md:mb-0">
+            {[
+              { icon: Heart, label: "Favorites", color: "text-rose-500" },
+              { icon: Calendar, label: "Trip History", color: "text-blue-500" },
+              //{ icon: Wallet, label: "Wallet", color: "text-amber-500" },
+            ].map((item, idx) => (
+              <button
+                key={idx}
+                className="w-full bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between group active:scale-98 transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`p-2 bg-slate-50 dark:bg-slate-700/50 ${item.color} rounded-xl`}
+                  >
+                    <item.icon size={20} strokeWidth={2.5} />
+                  </div>
+                  <span className="font-semibold text-slate-700 dark:text-slate-200">
+                    {item.label}
+                  </span>
+                </div>
+                <ChevronRight
+                  size={18}
+                  className="text-slate-300 dark:text-slate-600 group-hover:text-slate-500"
+                />
+              </button>
+            ))}
+          </div>
+          {/*   <MyTrips trips={trips} isOwner={isOwner} userData={pageOwner} />
+          <MyPosts posts={posts} userData={pageOwner} isOwner={isOwner} /> */}
         </main>
       </div>
     </div>

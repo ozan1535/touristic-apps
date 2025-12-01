@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, ChevronRight, Wifi } from "lucide-react";
 import CountryBanner from "@/components/CountryBanner/CountryBanner";
 import TopApps from "@/components/TopApps/TopApps";
 import CountryAppsWithFilter from "@/components/CountryAppsWithFilter/CountryAppsWithFilter";
@@ -13,6 +13,12 @@ import { getCountryData, getFlightValue } from "./countryApps.helpers";
 import { fetchCulturalInsightsAndTrips } from "@/components/CulturalInsightsClient/culturalInsights.helpers";
 import CulturalInsightsAndTrips from "@/components/CulturalInsightsAndTrips/CulturalInsightsAndTrips";
 import ShareYourKnowledgeClient from "@/components/ShareYourKnowledgeClient/ShareYourKnowledgeClient";
+import CurrencyConverter from "@/components/CurrencyConverter/CurrencyConverter";
+import Link from "next/link";
+import AffiliateBanner from "@/components/AffiliateBanner/AffiliateBanner";
+import RatingsAndReviews from "@/components/RatingsAndReviews/RatingsAndReviews";
+import { supabase } from "@/lib/supabase/client";
+import { IReview } from "@/components/RatingsAndReviews/RatingsAndReviews.types";
 
 export async function generateMetadata({
   params: { locale, countryId },
@@ -50,6 +56,10 @@ export default async function CountryPage({
   const { countryId, locale } = await params;
   const t = await getTranslations("CountryApps");
 
+  const currentCountry = allCountries.find(
+    (c) => c.cca2.toLowerCase() === countryId
+  );
+
   const { insights, trips } = await fetchCulturalInsightsAndTrips(
     // selection,
     // sortedCountries,
@@ -57,9 +67,21 @@ export default async function CountryPage({
     locale
   );
 
-  const currentCountry = allCountries.find(
-    (c) => c.cca2.toLowerCase() === countryId
-  );
+  const { data: reviews, error } = await supabase
+    .from("reviews")
+    .select(
+      `
+      *,
+      profiles:user_id (
+        username,
+        name,
+        picture
+      )
+    `
+    )
+    .eq("country_cca2", currentCountry?.cca2)
+    .eq("is_approved", true)
+    .order("created_at", { ascending: false });
 
   if (!currentCountry) {
     return (
@@ -81,12 +103,11 @@ export default async function CountryPage({
       getCountryApps(countryId, locale),
     ]);
 
-  const topApps = getTopApps(countryApps);
-  const hasData =
-    countryApps.length > 0 ||
-    contributions.length > 0 ||
-    insights?.length > 0 ||
-    trips?.length > 0;
+  // const topApps = getTopApps(countryApps);
+  const hasData = countryApps.length > 0 || contributions.length > 0;
+  //  ||
+  // insights?.length > 0 ||
+  // trips?.length > 0;
   const hasImportantNumber =
     countryInfo?.ambulance || countryInfo?.police || countryInfo?.fire_fighting;
   const flightValue = getFlightValue(countryInfo);
@@ -99,23 +120,31 @@ export default async function CountryPage({
         locale={locale}
       />
 
+      <div className="w-full px-4 md:px-6 lg:px-10 pt-10">
+        <div className="max-w-7xl mx-auto">
+          <CurrencyConverter />
+        </div>
+      </div>
+
+      <AffiliateBanner />
+
       <div className="w-full px-4 md:px-6 lg:px-10 py-10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
             <main className="w-full lg:w-2/3">
-              {topApps.length > 0 && <TopApps topApps={topApps} />}
+              {/* {topApps.length > 0 && <TopApps topApps={topApps} />} */}
               {hasData ? (
                 <>
                   <CountryAppsWithFilter
                     countryApps={countryApps}
                     contributions={contributions}
                   />
-                  <CulturalInsightsAndTrips
+                  {/* <CulturalInsightsAndTrips
                     currentCountry={currentCountry}
                     culturalInsightsData={insights}
                     tripsData={trips}
                     locale={locale}
-                  />
+                  /> */}
                 </>
               ) : (
                 <EmptyState
@@ -133,13 +162,23 @@ export default async function CountryPage({
                   ambulance={countryInfo?.ambulance}
                   police={countryInfo?.police}
                   fireFighting={countryInfo?.fire_fighting}
+                  locale={locale}
                 />
               ) : null}
             </aside>
           </div>
-          <div className="border border-indigo-200 mt-5 rounded-2xl p-6 md:p-10 bg-white backdrop-blur-sm shadow-xl">
+          {/* <div className="border border-indigo-200 mt-5 rounded-2xl p-6 md:p-10 bg-white backdrop-blur-sm shadow-xl">
             <ShareYourKnowledgeClient />
-          </div>
+          </div> */}
+        </div>
+      </div>
+
+      <div className="w-full px-4 md:px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto">
+          <RatingsAndReviews
+            currentCountry={currentCountry}
+            reviews={reviews as IReview[]}
+          />
         </div>
       </div>
     </div>
