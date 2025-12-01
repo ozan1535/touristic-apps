@@ -10,6 +10,11 @@ export const navLinks = (
     label: { en: "AI Planner", tr: "AI Plan" },
     icon: sparkless,
   },
+  {
+    href: "/explore",
+    label: { en: "Explore", tr: "Keşfet" },
+    icon: globe,
+  },
   // {
   //   href: "/cultural-insights",
   //   label: { en: "Cultural Insights", tr: "Kültürel Görüşler" },
