@@ -1,11 +1,14 @@
-"use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Globe, Heart } from "lucide-react";
+import { Compass, Globe, Heart, Home, Sparkles, User } from "lucide-react";
 import { useTranslations } from "next-intl";
+import MobileBottomNav from "../Mobile/MobileBottomNav/MobileBottomNav";
+import { getTranslations } from "next-intl/server";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { getUserProfile } from "@/lib/supabase/sync-user";
 
-export function Footer() {
-  const t = useTranslations("Footer");
+export async function Footer() {
+  const t = await getTranslations("Footer");
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -72,9 +75,12 @@ export function Footer() {
     ],
   };
 
+  const client = getKindeServerSession();
+  const user = await client.getUser();
+  const { data: profile } = await getUserProfile(user?.id as string);
   return (
     <footer className="w-full bg-blue-100 border-t border-indigo-200 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="hidden md:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
@@ -165,6 +171,8 @@ export function Footer() {
           </p>
         </div>
       </div>
+
+      <MobileBottomNav profile={profile} />
     </footer>
   );
 }
