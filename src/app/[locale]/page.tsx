@@ -1,9 +1,14 @@
-import { Sparkles } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import RotatingWorldChart from "@/components/RotatingWorldChart/RotatingWorldChart";
 import { SearchCountry } from "@/components/SearchCountry/SearchCountry";
+import OpenWorldMap from "@/components/OpenWorldMap/OpenWorldMap";
+import Image from "next/image";
+import { supabase } from "@/lib/supabase/client";
+import PopularDestinations from "@/components/PopularDestinations/PopularDestinations";
+import CurrencyConverter from "@/components/CurrencyConverter/CurrencyConverter";
 
 export async function generateMetadata({
   params: { locale },
@@ -31,21 +36,30 @@ export async function generateMetadata({
   };
 }
 
-export default async function Home() {
+export default async function Home({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
   const searchCountryTranslation = await getTranslations("SearchCountry");
   const homePageTranslation = await getTranslations("HomePage");
 
+  const { data: popularDestinations } = await supabase
+    .from("countries")
+    .select("*")
+    .in("country_cca2", ["TR", "IT", "JP"]);
+
   return (
     <div className="min-h-screen w-full bg-white">
-      <section className="w-full px-4 py-12 md:py-20">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6">
+      <section className="w-full py-6 px-4 md:py-20">
+        <div className="max-w-6xl mx-auto md:text-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-2">
             <span className="text-transparent bg-gradient-to-r from-blue-400 to-indigo-600 bg-clip-text">
               GlobalAppGuide
             </span>
           </h1>
 
-          <p className="text-slate-900 font-dynapuff text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
+          <p className="text-slate-900 font-dynapuff text-lg md:text-xl max-w-3xl mx-auto mb-5 leading-relaxed">
             {homePageTranslation("description")}
           </p>
 
@@ -58,8 +72,8 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="w-full px-4 pb-12 md:pb-20">
-        <div className="max-w-6xl mx-auto">
+      <section className="w-full px-4 md:pb-20">
+        <div className="hidden md:block max-w-6xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
               {homePageTranslation("explore")}
@@ -75,9 +89,28 @@ export default async function Home() {
             />
           </div>
         </div>
+
+        <div className="block md:hidden max-w-6xl mx-auto h-40 bg-gradient-to-r from-blue-500 to-indigo-400 rounded-2xl">
+          <OpenWorldMap />
+        </div>
       </section>
 
-      <section className="w-full px-4 py-16 md:py-20">
+      <section className="w-full py-6 px-4 md:pb-20">
+        <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">
+          {homePageTranslation("popularDestinations")}
+        </h3>
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-3">
+          {popularDestinations?.map((country) => (
+            <PopularDestinations
+              country={country}
+              key={country.id}
+              locale={locale}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="w-full px-4 pt-6 pb-32 md:pb-6 md:py-20">
         <div className="max-w-4xl mx-auto text-center border border-indigo-200 rounded-2xl p-8 md:p-12 bg-gradient-to-br from-blue-50 to-indigo-100 backdrop-blur-sm">
           <Sparkles className="mx-auto mb-4 text-blue-500" size={40} />
           <h2 className="text-3xl md:text-4xl font-bold text-indigo-800 mb-4">
