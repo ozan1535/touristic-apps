@@ -1324,6 +1324,7 @@ export const getTopApps = (countryApps: any[]) => {
     .filter((app) => app.is_top);
 };
 
+//Removed from preferences - Travel Style: ${form.travelStyle}
 export const getAiPrompt = (locale: "en" | "tr", form: ITripForm) => {
   const prompt =
     locale === "tr"
@@ -1332,12 +1333,15 @@ Sen bir seyahat planlayıcısı yapay zekasısın. Aşağıdaki kullanıcı terc
 Önerilen şehirler, gezilecek yerler, yapılacak aktiviteler ve görülecek yerleri dahil et. Yanıtın HTML formatında olmalı ve bir web arayüzünde doğrudan kullanılabilir olmalı. Samimi ve bilgilendirici bir dil kullan.
 
 TASARIM VE RENK KURALLARI (önemli):
-- Arka plan rengi: #161528 (çok koyu).
-- Yazı rengi açık ve kontrastlı olmalı: varsayılan olarak #EAEAEA veya #FFFFFF kullan.
-- Başlıklar (#E0B3FF gibi açık mor tonları), vurgular (#FFD966 gibi açık altın tonları) ve bağlantılar (#8BE9FD gibi açık mavi tonları) için renk öner.
-- Koyu renkte veya okunması zor renkler kullanma.
-- Gerekirse inline style kullanabilirsin (örnek: <h2 style="color:#E0B3FF;">).
-- Modern, okunabilir bir görünüm oluştur.
+- Arka plan rengi açık olmalı: #FFFFFF veya #F7F9FC.
+- Varsayılan yazı rengi: #1A1A1A (koyu gri, yüksek okunabilirlik).
+- Tasarımda kullanılacak ana renkler:
+- Başlıklar: #1E40AF
+- Vurgular / butonlar: #3B82F6
+- Bağlantılar: #2563EB
+- Çok parlak, neon veya koyu arka plan renkleri kullanma.
+- Gerektiğinde inline style kullanılabilir (örn: <h2 style="color:#1E40AF;">Başlık</h2>).
+- Çıktı modern, temiz ve açık arka planda okunabilir olmalı.
 
 YAPISAL KURALLAR:
 - <html>, <head>, <body> veya genel <style> etiketleri kullanma.
@@ -1348,9 +1352,8 @@ YAPISAL KURALLAR:
 Tercihler:
 - Gidilecek Yer: ${form.destination}
 - Süre: ${form.duration} gün
-- İlgi Alanları: ${form.interests}
+- İlgi Alanları: ${form.interests.join(", ")}
 - Bütçe: ${form.budget}
-- Seyahat Tarzı: ${form.travelStyle}
 - Detaylar: ${form.details}
 `
       : `
@@ -1358,12 +1361,15 @@ You are a travel planner AI. Based on the following user preferences, plan a det
 Include recommended cities, activities, places to visit, and things to do. Your response should be in HTML format and directly usable in a web interface. Be friendly and informative.
 
 DESIGN & COLOR RULES (important):
-- Background color: #161528 (very dark).
-- Use **light, high-contrast text colors** — default text color should be #EAEAEA or #FFFFFF.
-- Use **accent colors** that stand out: headers in #E0B3FF (soft purple), highlights in #FFD966 (gold), links or special notes in #8BE9FD (light blue).
-- Do NOT use dark or low-contrast colors.
-- You may use inline styles if needed (e.g. <p style="color:#EAEAEA;">).
-- Make sure the output looks good and readable on a dark background.
+- Background must be light: #FFFFFF or #F7F9FC.
+- Default text color: #1A1A1A (dark gray for high readability).
+- Primary palette (matching blue + indigo branding):
+- Headers: #1E40AF
+- Highlights / buttons: #3B82F6
+- Links: #2563EB
+- Avoid dark backgrounds or low-contrast text.
+- Inline styles may be used when needed (e.g. <p style="color:#1A1A1A;">Text</p>).
+- Output must look clean, modern, and fully readable on a light theme.
 
 STRUCTURE RULES:
 - Do NOT include <html>, <head>, <body>, or global <style> tags.
@@ -1374,9 +1380,8 @@ STRUCTURE RULES:
 Preferences:
 - Destination: ${form.destination}
 - Duration: ${form.duration} days
-- Interests: ${form.interests}
+- Interests: ${form.interests.join(", ")}
 - Budget: ${form.budget}
-- Travel Style: ${form.travelStyle}
 - Details: ${form.details}
 `;
 

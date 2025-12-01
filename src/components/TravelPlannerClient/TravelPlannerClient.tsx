@@ -29,8 +29,8 @@ function TravelPlannerClient() {
   const { locale } = useParams<{ locale: "en" | "tr" }>();
   const [form, setForm] = useState<ITripForm>({
     destination: "",
-    duration: 0,
-    interests: "",
+    duration: 1,
+    interests: [],
     budget: "",
     travelStyle: "",
     details: "",
@@ -43,6 +43,32 @@ function TravelPlannerClient() {
 
   const { getUser } = useKindeBrowserClient();
   const user = getUser();
+  const interestItems = [
+    {
+      tr: "Tarih 🏛️",
+      en: "History 🏛️",
+    },
+    {
+      tr: "Yemek 🍜",
+      en: "Food 🍜",
+    },
+    {
+      tr: "Doğa 🌲",
+      en: "Nature 🌲",
+    },
+    {
+      tr: "Gece Hayatı 🎉",
+      en: "Nightlife 🎉",
+    },
+    {
+      tr: "Sanat 🎨",
+      en: "Art 🎨",
+    },
+    {
+      tr: "Alışveriş 🏛️",
+      en: "Shopping 🛍️",
+    },
+  ];
 
   const handleAddData = async (response: string) => {
     if (user) {
@@ -59,6 +85,22 @@ function TravelPlannerClient() {
     }
   };
 
+  const toggleInterest = (interest: string) => {
+    if (interests.includes(interest)) {
+      //  setSelectedInterests(selectedInterests.filter((i) => i !== interest));
+      setForm((prev) => ({
+        ...prev,
+        interests: prev.interests.filter((i) => i !== interest),
+      }));
+    } else {
+      setForm((prev) => ({
+        ...prev,
+        interests: [...prev.interests, interest],
+      }));
+      //setSelectedInterests([...selectedInterests, interest]);
+    }
+  };
+
   const handleChange =
     (field: keyof ITripForm) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -66,6 +108,8 @@ function TravelPlannerClient() {
       setForm((prev) => ({ ...prev, [field]: value }));
       setError("");
     };
+
+  console.log(form);
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl">
@@ -115,8 +159,11 @@ function TravelPlannerClient() {
             >
               <Calendar size={18} className="text-blue-500" />
               {aiTravelPlannerTranslation("duration")}
+              <span className="bg-blue-400 py-1 px-4 rounded font-bold text-white">
+                {duration}
+              </span>
             </Label>
-            <Input
+            {/* <Input
               id="duration"
               type="number"
               min="1"
@@ -125,7 +172,54 @@ function TravelPlannerClient() {
               className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
               onChange={handleChange("duration")}
               value={form.duration || ""}
+            /> */}
+            <input
+              type="range"
+              min="1"
+              max="7"
+              value={form.duration || ""}
+              onChange={handleChange("duration")}
+              className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
             />
+          </div>
+
+          <div>
+            <Label
+              htmlFor="budget"
+              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
+            >
+              <Wallet size={18} className="text-blue-500" />
+              {aiTravelPlannerTranslation("budget")}
+            </Label>
+            {/* <Input
+              id="budget"
+              placeholder={aiTravelPlannerTranslation("budgetPlaceholder")}
+              className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
+              onChange={handleChange("budget")}
+              value={form.budget}
+            /> */}
+
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                { tr: "Düşük", en: "Low" },
+                { tr: "Orta", en: "Medium" },
+                { tr: "Yüksek", en: "High" },
+              ].map((b) => (
+                <button
+                  key={b.en}
+                  onClick={() =>
+                    setForm((prev) => ({ ...prev, budget: b[locale] }))
+                  }
+                  className={`py-3 rounded-xl text-sm font-bold transition-all border ${
+                    form.budget === b[locale]
+                      ? "bg-blue-500 text-white border-transparent shadow-lg"
+                      : "bg-transparent border-slate-200 text-slate-500 hover:bg-slate-50"
+                  }`}
+                >
+                  {b[locale]}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -136,13 +230,28 @@ function TravelPlannerClient() {
               <Heart size={18} className="text-blue-500" />
               {aiTravelPlannerTranslation("interests")}
             </Label>
-            <Textarea
+            {/* <Textarea
               id="interests"
               placeholder={aiTravelPlannerTranslation("interestsPlaceholder")}
               className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400 min-h-[80px]"
               onChange={handleChange("interests")}
               value={form.interests}
-            />
+            /> */}
+            <div className="flex flex-wrap gap-2">
+              {interestItems.map((interest) => (
+                <button
+                  key={interest.tr}
+                  onClick={() => toggleInterest(interest[locale])}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
+                    interests.includes(interest[locale])
+                      ? "bg-indigo-50 dark:bg-indigo-900/30 border-indigo-200 dark:border-indigo-800 text-primary"
+                      : "bg-slate-50 dark:bg-slate-900 border-transparent text-slate-500 dark:text-slate-400"
+                  }`}
+                >
+                  {interest[locale]}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div>
@@ -163,7 +272,7 @@ function TravelPlannerClient() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+            {/* <div>
               <Label
                 htmlFor="budget"
                 className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
@@ -178,8 +287,8 @@ function TravelPlannerClient() {
                 onChange={handleChange("budget")}
                 value={form.budget}
               />
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <Label
                 htmlFor="travelStyle"
                 className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
@@ -196,7 +305,7 @@ function TravelPlannerClient() {
                 onChange={handleChange("travelStyle")}
                 value={form.travelStyle}
               />
-            </div>
+            </div> */}
           </div>
 
           <Button
@@ -229,7 +338,7 @@ function TravelPlannerClient() {
         </div>
       </div>
 
-      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl">
+      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl mb-32 md:mb-0">
         <h2 className="text-2xl font-bold text-slate-900 mb-2">
           {aiTravelPlannerTranslation("yourItinerary")}
         </h2>
