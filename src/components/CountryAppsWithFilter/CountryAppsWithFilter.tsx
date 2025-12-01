@@ -29,12 +29,20 @@ function CountryAppsWithFilter({
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const filteredData = useMemo(() => {
-    if (selectedCategory === "All") return allApps;
+    let data;
 
-    const categoryData = countryApps.find(
-      (item) => item.category === selectedCategory
+    if (selectedCategory === "All") {
+      data = allApps;
+    } else {
+      const categoryData = countryApps.find(
+        (item) => item.category === selectedCategory
+      );
+      data = categoryData?.apps || [];
+    }
+
+    return [...data].sort(
+      (a, b) => (b.is_top === true ? 1 : 0) - (a.is_top === true ? 1 : 0)
     );
-    return categoryData?.apps || [];
   }, [selectedCategory, countryApps, allApps]);
 
   const handleFilterChange = (selectedItem: string) => {
@@ -42,7 +50,7 @@ function CountryAppsWithFilter({
   };
 
   return (
-    <div className="mt-8">
+    <div>
       {filteredData.length > 0 ? (
         <>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -58,7 +66,7 @@ function CountryAppsWithFilter({
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1 bg-indigo-100/50 rounded-lg p-1 border border-indigo-300/40">
+              <div className="hidden md:flex items-center gap-1 bg-indigo-100/50 rounded-lg p-1 border border-indigo-300/40">
                 <button
                   onClick={() => setViewMode("grid")}
                   className={`p-2 rounded transition-colors ${
@@ -104,7 +112,7 @@ function CountryAppsWithFilter({
                 <AppDetailCard
                   appDetail={appDetail}
                   key={appDetail.id}
-                  isTopApp={false}
+                  isTopApp={appDetail.is_top}
                 />
               ))
             : null
@@ -115,7 +123,7 @@ function CountryAppsWithFilter({
           // </div>
         }
       </div>
-      {contributions.length > 0 ? (
+      {/* {contributions.length > 0 ? (
         <>
           <h1 className="text-slate-900 my-5 text-2xl font-bold">
             {locale === "en" ? "Contributors" : "Katkılar"}
@@ -138,7 +146,7 @@ function CountryAppsWithFilter({
               ))}
           </div>
         </>
-      ) : null}
+      ) : null} */}
     </div>
   );
 }
