@@ -10,7 +10,7 @@ function UserReviews({ reviews, t }: { reviews: IReview[]; t: any }) {
   const { locale } = useParams();
 
   return (
-    <div className="w-full mx-auto my-5">
+    <div className="w-full mx-auto my-5 md:my-0">
       <div className="space-y-4">
         {reviews.map((review) => (
           <div
