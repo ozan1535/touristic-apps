@@ -101,7 +101,9 @@
     "yourReview": "Your Review",
     "sendReview": "Send Review",
     "writeReview": "Write a Review",
-    "sharePlaceholder": "Share your experience..."
+    "sharePlaceholder": "Share your experience...",
+    "updateReview": "Update",
+    "deleteReview": "Delete"
   },
   "Explore": {
     "allCaughtUp": "All caught up!",
@@ -113,7 +115,8 @@
     "chooseCity": "Choose a city",
     "swipeToExplore": "Swipe to explore",
     "myList": "My List",
-    "checkAnother": "Check another city"
+    "checkAnother": "Check another city",
+    "saved": "Favorite Routes"
   },
   "SignIn": {
     "welcome": "Welcome",

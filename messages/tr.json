@@ -97,7 +97,9 @@
     "yourReview": "Yorumunuz",
     "sendReview": "Gönder",
     "writeReview": "Bir İnceleme Yazın",
-    "sharePlaceholder": "Deneyiminizi paylaşın..."
+    "sharePlaceholder": "Deneyiminizi paylaşın...",
+    "updateReview": "Güncelle",
+    "deleteReview": "Sil"
   },
   "Explore": {
     "allCaughtUp": "Her şey tamam!",
@@ -109,7 +111,8 @@
     "chooseCity": "Bir şehir seçin",
     "swipeToExplore": "Keşfetmek için kaydırın",
     "checkAnother": "Başka bir şehri kontrol edin",
-    "myList": "Listem"
+    "myList": "Listem",
+    "saved": "Favori Rotalar"
   },
   "SignIn": {
     "welcome": "Hoş Geldiniz",
