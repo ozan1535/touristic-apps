@@ -24,6 +24,7 @@ export interface ICity {
 
 export interface IRoute {
   id: string;
+  discoveryFavoritesId: string;
   title: string;
   location: string;
   tag: string;

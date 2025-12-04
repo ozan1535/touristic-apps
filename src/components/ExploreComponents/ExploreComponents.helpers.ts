@@ -17,10 +17,17 @@ export const loadCountries = async (setLoading, setCountries) => {
 export const loadCities = async (
   countryName: string,
   setLoading,
-  setCities
+  setCities,
+  isFavorite,
+  cities
 ) => {
   setLoading(true);
   try {
+    if (isFavorite) {
+      
+      setCities(cities);
+      return;
+    }
     const data = await DiscoveryService.getCitiesByCountry(countryName);
     setCities(data);
   } catch (error) {
@@ -30,11 +37,21 @@ export const loadCities = async (
   }
 };
 
-export const loadRoutes = async (cityName: string, setLoading, setRoutes) => {
+export const loadRoutes = async (
+  cityName: string,
+  setLoading,
+  setRoutes,
+  favoriteItems
+) => {
   setLoading(true);
   try {
     const data = await DiscoveryService.getRoutesByCity(cityName);
-    setRoutes(data);
+    setRoutes(
+      data.filter(
+        (route) => !favoriteItems.some((fav) => fav.route === route.id)
+      )
+    );
+    // setRoutes(data);
   } catch (error) {
     console.error("Error loading routes:", error);
   } finally {
@@ -74,12 +91,14 @@ export const handleBack = (
   setSelectedCity,
   setRoutes,
   setSelectedCountry,
-  setCities
+  setCities,
+  setLikedRoutes
 ) => {
-  if (step === "deck") {
+  if (step === "deck" || step === "show_favorites") {
     setStep("city_select");
     setSelectedCity(null);
     setRoutes([]);
+    setLikedRoutes([]);
   } else if (step === "city_select") {
     setStep("country_select");
     setSelectedCountry(null);
@@ -87,11 +106,25 @@ export const handleBack = (
   }
 };
 
-const handleInsertData = async (routeId, userId, setFavorites) => {
+const handleInsertData = async (
+  routeId,
+  userId,
+  setFavorites,
+  user,
+  setRoutes
+) => {
   const { error } = await supabase.from("discovery_favorites").insert({
     user_id: userId,
     route: routeId,
   });
+
+  if (error) throw error;
+  const data = await DiscoveryService.getAllDiscoveryFavorites(user);
+  setFavorites(data);
+
+  setRoutes((prev) =>
+    prev.filter((route) => !data.some((fav) => fav.route === route.id))
+  );
   //
   //setFavorites((prev) => prev);
 };
@@ -101,15 +134,28 @@ export const handleSwipe = (
   dir: "left" | "right",
   routes,
   setRoutes,
-  setFavorites,
-  // likedRoutes,
-  // setLikedRoutes,
-  user
+  setFavoriteItems,
+  likedRoutes,
+  setLikedRoutes,
+  user,
+  setLoading,
+  favoriteItems
 ) => {
   if (dir === "right") {
     const route = routes.find((r) => r.id === id);
-    handleInsertData(route.id, user.id, setFavorites);
-    // if (route) setLikedRoutes([...likedRoutes, route]);
+    handleInsertData(route.id, user.id, setFavoriteItems, user, setRoutes);
+    if (route) setLikedRoutes([...likedRoutes, route]);
+    // if (user) {
+    //loadFavorites(user, setLoading, setFavoriteItems);
+    // setRoutes((prev) =>
+    //   prev.filter(
+    //     (route) =>
+    //       ![...favoriteItems, { route: route.id }].some(
+    //         (fav) => fav.route === route.id
+    //       )
+    //   )
+    // );
+    // }
   }
   setTimeout(() => {
     setRoutes((prev) => prev.filter((r) => r.id !== id));
@@ -133,6 +179,12 @@ export const getHeaderConfig = (step, selectedCountry, selectedCity, t) => {
     case "deck":
       return {
         title: selectedCity?.name || t("explore"),
+        subtitle: t("swipeToExplore"),
+        showBack: true,
+      };
+    case "show_favorites":
+      return {
+        title: t("saved"),
         subtitle: t("swipeToExplore"),
         showBack: true,
       };

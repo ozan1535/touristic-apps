@@ -76,7 +76,7 @@ export class DiscoveryService {
     return data as IDiscoveryItem[];
   }
 
-  static async getAllDiscoveryFavorites(user): Promise<any[]> {
+  static async getAllDiscoveryFavorites(user: any): Promise<any[]> {
     const { data, error } = await supabase
       .from("discovery_favorites")
       .select(
@@ -98,6 +98,151 @@ export class DiscoveryService {
 
     if (error) throw error;
     return data as IDiscoveryItem[];
+  }
+
+  // static async getAllDiscoveryFavoritesWithUniqueItems(
+  //   user: any
+  // ): Promise<{ countries: ICountry[]; cities: ICity[] }> {
+  //   const { data, error } = await supabase
+  //     .from("discovery_favorites")
+  //     .select(
+  //       `
+  //     *,
+  //     discovery:route (
+  //       id,
+  //       route,
+  //       city,
+  //       country,
+  //       description,
+  //       tag,
+  //       route_image_url,
+  //       country_image_url,
+  //       city_image_url
+  //     )
+  //   `
+  //     )
+  //     .eq("user_id", user.id)
+  //     .order("created_at", { ascending: true });
+
+  //   if (error) throw error;
+
+  //   const uniqueCountries = new Map<string, ICountry>();
+  //   const uniqueCities = new Map<string, ICity>();
+
+  //   data?.forEach((item) => {
+  //     const d = item.discovery;
+  //     if (!d) return;
+
+  //     // Unique countries
+  //     if (!uniqueCountries.has(d.country)) {
+  //       uniqueCountries.set(d.country, {
+  //         name: d.country,
+  //         image_url: d.country_image_url,
+  //       });
+  //     }
+
+  //     // Unique cities
+  //     if (!uniqueCities.has(d.city)) {
+  //       uniqueCities.set(d.city, {
+  //         name: d.city,
+  //         image_url: d.city_image_url,
+  //         routes: [
+  //           {
+  //             id: d.id,
+  //             title: d.route,
+  //             location: d.description,
+  //             tag: d.tag,
+  //             image_url: d.route_image_url,
+  //           },
+  //         ],
+  //       });
+  //     }
+  //   });
+
+  //   return {
+  //     countries: Array.from(uniqueCountries.values()),
+  //     cities: Array.from(uniqueCities.values()),
+  //   };
+  // }
+
+  static async getAllDiscoveryFavoritesWithTree(user: any): Promise<any[]> {
+    const { data, error } = await supabase
+      .from("discovery_favorites")
+      .select(
+        `
+      *,
+      discovery:route (
+        id,
+        route,
+        city,
+        country,
+        description,
+        tag,
+        route_image_url,
+        country_image_url,
+        city_image_url
+      )
+    `
+      )
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: true });
+
+    if (error) throw error;
+
+    const countryMap = new Map<
+      string,
+      {
+        name: string;
+        image_url: string;
+        cities: Map<
+          string,
+          {
+            name: string;
+            image_url: string;
+            routes: IRoute[];
+          }
+        >;
+      }
+    >();
+
+    data?.forEach((item) => {
+      const d = item.discovery;
+      if (!d) return;
+
+      if (!countryMap.has(d.country)) {
+        countryMap.set(d.country, {
+          name: d.country,
+          image_url: d.country_image_url,
+          cities: new Map(),
+        });
+      }
+
+      const country = countryMap.get(d.country)!;
+
+      if (!country.cities.has(d.city)) {
+        country.cities.set(d.city, {
+          name: d.city,
+          image_url: d.city_image_url,
+          routes: [],
+        });
+      }
+
+      const city = country.cities.get(d.city)!;
+
+      city.routes.push({
+        id: d.id,
+        discoveryFavoritesId: item.id,
+        title: d.route,
+        location: d.description,
+        tag: d.tag,
+        image_url: d.route_image_url,
+      });
+    });
+
+    return Array.from(countryMap.values()).map((country) => ({
+      ...country,
+      cities: Array.from(country.cities.values()),
+    }));
   }
 
   static async getDiscoveryItemById(
