@@ -54,7 +54,7 @@ export default function CurrencyConverter() {
   }, [amount, toCurrency, rates]);
 
   return (
-    <div className="w-full max-w-3xl mx-auto py-5 px-2 bg-gradient-to-r from-indigo-600 to-blue-400 rounded-xl shadow-xl">
+    <div className="w-full mx-auto py-5 px-2 bg-gradient-to-r from-indigo-600 to-blue-400 rounded-xl shadow-xl">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold text-white">
           {t("currencyConverter")}
@@ -73,11 +73,11 @@ export default function CurrencyConverter() {
       )}
 
       <div className="flex flex-col sm:flex-row items-center gap-3">
-        <div className="flex-1 flex items-center gap-2">
+        <div className="w-full flex-1 flex items-center gap-2">
           <select
             value={fromCurrency}
             onChange={(e) => setFromCurrency(e.target.value)}
-            className="flex-1 px-1 py-2 bg-white text-black text-sm rounded-lg border border-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-1/2 flex-1  px-1 py-2 bg-white text-black text-sm rounded-lg border border-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {currencies.map((currency) => (
               <option key={currency.code} value={currency.code}>
@@ -90,7 +90,7 @@ export default function CurrencyConverter() {
             value={amount}
             onChange={(e) => handleAmountChange(e, setAmount)}
             placeholder="0.00"
-            className="w-20 px-3 py-2 bg-white text-black text-sm text-right rounded-lg border border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-1/2 px-3 py-2 bg-white text-black text-sm text-right rounded-lg border border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -109,11 +109,11 @@ export default function CurrencyConverter() {
           <ArrowRightLeft className="text-white" size={16} />
         </button>
 
-        <div className="flex-1 flex items-center gap-2">
+        <div className="w-full flex-1 flex items-center gap-2">
           <select
             value={toCurrency}
             onChange={(e) => setToCurrency(e.target.value)}
-            className="flex-1 px-1 py-2 bg-white text-black text-sm rounded-lg border border-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-1/2 flex-1 px-1 py-2 bg-white text-black text-sm rounded-lg border border-indigo-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {currencies.map((currency) => (
               <option key={currency.code} value={currency.code}>
@@ -121,7 +121,7 @@ export default function CurrencyConverter() {
               </option>
             ))}
           </select>
-          <div className="w-20 px-3 py-2 bg-white text-black text-sm text-right rounded-lg border border-indigo-600 flex items-center justify-end">
+          <div className="w-1/2 px-3 py-2 bg-white text-black text-sm text-right rounded-lg border border-indigo-600 flex items-center justify-end">
             {loading ? (
               <Loader2 className="animate-spin text-blue-500" size={16} />
             ) : (
