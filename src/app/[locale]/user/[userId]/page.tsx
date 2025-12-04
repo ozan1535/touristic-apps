@@ -16,6 +16,10 @@ import { fetchUserPosts, fetchUserTrips } from "./user.helpers";
 import { getTranslations } from "next-intl/server";
 import { Metadata } from "next";
 import AchievementItems from "@/components/AchievementItems/AchievementItems";
+import ProfileMenuList from "@/components/ProfileMenuList/ProfileMenuList";
+import { DiscoveryService } from "@/lib/supabase/discovery-service";
+import { supabase } from "@/lib/supabase/client";
+import { checkMobileRedirect } from "@/lib/server/checkMobileRedirect";
 
 export async function generateMetadata({
   params: { locale, userId },
@@ -44,6 +48,8 @@ export async function generateMetadata({
 
 // TODO: fix type
 export default async function ProfilePage({ params }: { params: any }) {
+  await checkMobileRedirect();
+
   const t = await getTranslations("Profile");
   const { userId } = await params;
 
@@ -54,18 +60,42 @@ export default async function ProfilePage({ params }: { params: any }) {
 
   const { getUser } = getKindeServerSession();
   const user = await getUser();
+  const countries = await DiscoveryService.getCountries();
+  const favorites = await DiscoveryService.getAllDiscoveryFavorites(user);
+  const favoriteItems = await DiscoveryService.getAllDiscoveryFavoritesWithTree(
+    user
+  );
   const [currentUserData, postsData, tripsData] = await Promise.all([
     getUserProfile(user?.id as string),
     fetchUserPosts(pageOwner.kinde_user_id),
     fetchUserTrips(pageOwner.kinde_user_id),
   ]);
 
+  const { data: reviews, error } = await supabase
+    .from("reviews")
+    .select(
+      `
+      *,
+      profiles:user_id (
+        username,
+        name,
+        picture
+      )
+    `
+    )
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
+  const { data: travelPlans } = await supabase
+    .from("ai_planner")
+    .select("*")
+    .eq("user_id", user.id);
+
   const currentUser = currentUserData?.data;
   const posts = postsData?.data || [];
   const trips = tripsData?.data || [];
 
   const isOwner = currentUser?.username === userId;
-
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-white via-blue-50 to-indigo-50 p-4 md:p-10">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
@@ -87,7 +117,7 @@ export default async function ProfilePage({ params }: { params: any }) {
               </span>
 
               <div className="text-3xl font-extrabold text-indigo-900 mt-1 flex items-baseline gap-2">
-                5
+                {reviews?.length}
                 <span className="text-lg text-blue-600 font-medium">
                   Countries
                 </span>
@@ -146,33 +176,15 @@ export default async function ProfilePage({ params }: { params: any }) {
           </div>
 
           {/* Menu List */}
-          <div className="space-y-3 mb-32 md:mb-0">
-            {[
-              { icon: Heart, label: "Favorites", color: "text-rose-500" },
-              { icon: Calendar, label: "Trip History", color: "text-blue-500" },
-              //{ icon: Wallet, label: "Wallet", color: "text-amber-500" },
-            ].map((item, idx) => (
-              <button
-                key={idx}
-                className="w-full bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between group active:scale-98 transition-all"
-              >
-                <div className="flex items-center gap-4">
-                  <div
-                    className={`p-2 bg-slate-50 dark:bg-slate-700/50 ${item.color} rounded-xl`}
-                  >
-                    <item.icon size={20} strokeWidth={2.5} />
-                  </div>
-                  <span className="font-semibold text-slate-700 dark:text-slate-200">
-                    {item.label}
-                  </span>
-                </div>
-                <ChevronRight
-                  size={18}
-                  className="text-slate-300 dark:text-slate-600 group-hover:text-slate-500"
-                />
-              </button>
-            ))}
-          </div>
+          <ProfileMenuList
+            userRoutes={favoriteItems}
+            countries={countries}
+            favorites={favorites}
+            user={user}
+            reviews={reviews}
+            travelPlans={travelPlans}
+          />
+
           {/*   <MyTrips trips={trips} isOwner={isOwner} userData={pageOwner} />
           <MyPosts posts={posts} userData={pageOwner} isOwner={isOwner} /> */}
         </main>

@@ -120,14 +120,6 @@ export default async function CountryPage({
         locale={locale}
       />
 
-      <div className="w-full px-4 md:px-6 lg:px-10 pt-10">
-        <div className="max-w-7xl mx-auto">
-          <CurrencyConverter />
-        </div>
-      </div>
-
-      <AffiliateBanner />
-
       <div className="w-full px-4 md:px-6 lg:px-10 py-10">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-8">
@@ -174,6 +166,14 @@ export default async function CountryPage({
       </div>
 
       <div className="w-full px-4 md:px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto">
+          <CurrencyConverter />
+        </div>
+      </div>
+
+      <AffiliateBanner />
+
+      <div className="w-full px-4 md:px-6 lg:px-10 mt-5">
         <div className="max-w-7xl mx-auto">
           <RatingsAndReviews
             currentCountry={currentCountry}

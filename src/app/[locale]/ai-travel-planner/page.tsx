@@ -3,6 +3,7 @@ import { Zap } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import TravelPlannerClient from "@/components/TravelPlannerClient/TravelPlannerClient";
 import { Metadata } from "next";
+import { checkMobileRedirect } from "@/lib/server/checkMobileRedirect";
 
 export async function generateMetadata({
   params: { locale },
@@ -30,6 +31,8 @@ export async function generateMetadata({
 }
 
 const TravelPlannerPage = async () => {
+  await checkMobileRedirect();
+
   const aiTravelPlannerTranslation = await getTranslations("AiTravelPlanner");
 
   return (
