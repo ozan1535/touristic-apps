@@ -9,7 +9,7 @@ export const DiscoveryHeader = ({
   onBack,
 }: IDiscoveryHeaderProps) => {
   return (
-    <header className="mb-4 px-2 flex justify-between items-center">
+    <header className="px-2 flex justify-between items-center mb-5">
       <div className="flex items-center gap-2">
         {showBack && (
           <button
