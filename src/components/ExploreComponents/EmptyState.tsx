@@ -11,9 +11,9 @@ export const EmptyState = ({
   const t = useTranslations("Explore");
   return (
     <div className="flex flex-col items-center justify-center h-full text-center animate-in fade-in zoom-in duration-500">
-      <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
+      {/* <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
         <Check size={40} className="text-green-600" />
-      </div>
+      </div> */}
       <h2 className="text-2xl font-bold text-blue-900 mb-2">
         {t("allCaughtUp")}
       </h2>
