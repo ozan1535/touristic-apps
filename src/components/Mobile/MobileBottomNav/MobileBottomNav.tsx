@@ -9,7 +9,7 @@ function MobileBottomNav({ profile }) {
   const path = usePathname();
 
   return (
-    <div className="md:hidden fixed bottom-6 left-4 right-4 bg-gradient-to-r from-blue-400 to-indigo-600 backdrop-blur-xl border border-slate-200 dark:border-slate-700 shadow-2xl rounded-3xl px-2 py-3 flex justify-between items-center z-50 safe-area-bottom">
+    <div className="md:hidden w-full fixed bottom-1 bg-gradient-to-r from-blue-400 to-indigo-600 backdrop-blur-xl border border-slate-200 dark:border-slate-700 shadow-2xl rounded-3xl p-2 flex justify-between items-center z-50 safe-area-bottom">
       {getTabs(profile).map((tab) =>
         tab.center ? (
           <CenterTabButton
