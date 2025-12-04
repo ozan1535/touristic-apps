@@ -1324,7 +1324,7 @@ export const getTopApps = (countryApps: any[]) => {
     .filter((app) => app.is_top);
 };
 
-//Removed from preferences - Travel Style: ${form.travelStyle}
+//Removed from preferences - Travel Style: ${form.travelStyle} - Bütçe: ${form.budget}
 export const getAiPrompt = (locale: "en" | "tr", form: ITripForm) => {
   const prompt =
     locale === "tr"
@@ -1353,7 +1353,7 @@ Tercihler:
 - Gidilecek Yer: ${form.destination}
 - Süre: ${form.duration} gün
 - İlgi Alanları: ${form.interests.join(", ")}
-- Bütçe: ${form.budget}
+
 - Detaylar: ${form.details}
 `
       : `
@@ -1381,7 +1381,6 @@ Preferences:
 - Destination: ${form.destination}
 - Duration: ${form.duration} days
 - Interests: ${form.interests.join(", ")}
-- Budget: ${form.budget}
 - Details: ${form.details}
 `;
 

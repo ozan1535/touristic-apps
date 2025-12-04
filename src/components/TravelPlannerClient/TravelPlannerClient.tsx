@@ -76,8 +76,8 @@ function TravelPlannerClient() {
         destination,
         duration,
         interests,
-        budget,
-        travel_style: travelStyle,
+        budget: "middle",
+        travel_style: "adventure",
         user_id: user?.id,
         ai_response: response,
         details,
@@ -109,7 +109,6 @@ function TravelPlannerClient() {
       setError("");
     };
 
-  console.log(form);
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl">
@@ -183,7 +182,7 @@ function TravelPlannerClient() {
             />
           </div>
 
-          <div>
+          {/* <div>
             <Label
               htmlFor="budget"
               className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
@@ -197,7 +196,7 @@ function TravelPlannerClient() {
               className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
               onChange={handleChange("budget")}
               value={form.budget}
-            /> */}
+            />  --->
 
             <div className="grid grid-cols-3 gap-3">
               {[
@@ -220,7 +219,7 @@ function TravelPlannerClient() {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
 
           <div>
             <Label
