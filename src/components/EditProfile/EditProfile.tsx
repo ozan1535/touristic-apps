@@ -27,6 +27,7 @@ import { handleInputChange } from "@/lib/helpers";
 import { useAlert } from "@/hooks/useAlert";
 import AlertComponent from "../AlertComponent/AlertComponent";
 import { useTranslations } from "next-intl";
+import SelectLanguage from "../SelectLanguage/SelectLanguage";
 
 export function EditProfile({
   isOpen,
@@ -113,6 +114,9 @@ export function EditProfile({
             </DialogHeader>
 
             <div className="grid gap-5 py-6">
+              <div className="sm:hidden">
+                <SelectLanguage />
+              </div>
               {success && (
                 <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-400/50 rounded-xl px-4 py-3 flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
                   <div className="p-1 bg-green-500/20 rounded-lg">
