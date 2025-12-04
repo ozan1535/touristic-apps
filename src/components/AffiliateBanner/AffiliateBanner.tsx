@@ -7,8 +7,8 @@ function AffiliateBanner() {
     <div className="w-full px-4 md:px-6 lg:px-10 pt-10">
       <div className="max-w-7xl mx-auto">
         <Link
-          href={"#12312"}
-          className="w-full max-w-3xl mx-auto bg-gradient-to-r from-amber-700 to-yellow-500 p-4 rounded-2xl flex items-center gap-4 shadow-sm"
+          href={"#"}
+          className="w-full mx-auto bg-gradient-to-r from-amber-700 to-yellow-500 p-4 rounded-2xl flex items-center gap-4 shadow-sm"
         >
           <div className="bg-white p-2 rounded-xl">
             <Wifi size={20} color="blue" />
