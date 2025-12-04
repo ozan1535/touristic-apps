@@ -3,6 +3,8 @@ import { ArrowRightLeft, Globe } from "lucide-react";
 import React, { useState } from "react";
 import WorldMap from "../Dialog/WorldMap/WorldMap";
 import { useTranslations } from "next-intl";
+import CustomDialog from "../Dialog/CustomDialog/CustomDialog";
+import RotatingWorldChart from "../RotatingWorldChart/RotatingWorldChart";
 
 function OpenWorldMap() {
   const [open, setOpen] = useState(false);
@@ -28,7 +30,9 @@ function OpenWorldMap() {
       >
         <ArrowRightLeft color="white" />
       </div>
-      <WorldMap open={open} setOpen={setOpen} />
+      <CustomDialog open={open} setOpen={setOpen}>
+        <RotatingWorldChart />
+      </CustomDialog>
     </div>
   );
 }

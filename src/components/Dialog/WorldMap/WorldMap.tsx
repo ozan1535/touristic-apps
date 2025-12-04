@@ -20,8 +20,6 @@ function WorldMap({
     setOpen(false);
   };
 
-  const homePageTranslation = useTranslations("HomePage");
-
   return (
     <Dialog
       open={open}
@@ -34,9 +32,7 @@ function WorldMap({
       <DialogContent className="w-full">
         <DialogTitle></DialogTitle>
 
-        <RotatingWorldChart
-          clickShortText={homePageTranslation("clickShortText")}
-        />
+        <RotatingWorldChart />
       </DialogContent>
     </Dialog>
   );
