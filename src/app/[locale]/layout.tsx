@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { NextIntlClientProvider } from "next-intl";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -29,15 +26,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full min-h-screen bg-white flex flex-col`}
+        className={`${outfit.variable} font-sans antialiased w-full min-h-screen bg-white dark:bg-slate-950 flex flex-col`}
       >
-        <Suspense>
-          <NextIntlClientProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </NextIntlClientProvider>
-        </Suspense>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Suspense>
+            <NextIntlClientProvider>
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </NextIntlClientProvider>
+          </Suspense>
+        </ThemeProvider>
       </body>
     </html>
   );
