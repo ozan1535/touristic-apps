@@ -1325,66 +1325,143 @@ export const getTopApps = (countryApps: any[]) => {
 };
 
 //Removed from preferences - Travel Style: ${form.travelStyle} - Bütçe: ${form.budget}
-export const getAiPrompt = (locale: "en" | "tr", form: ITripForm) => {
-  const prompt =
-    locale === "tr"
-      ? `
-Sen bir seyahat planlayıcısı yapay zekasısın. Aşağıdaki kullanıcı tercihlerini göz önünde bulundurarak, detaylı günlük bir seyahat planı oluştur. 
-Önerilen şehirler, gezilecek yerler, yapılacak aktiviteler ve görülecek yerleri dahil et. Yanıtın HTML formatında olmalı ve bir web arayüzünde doğrudan kullanılabilir olmalı. Samimi ve bilgilendirici bir dil kullan.
+// export const getAiPrompt = (
+//   locale: "en" | "tr",
+//   form: ITripForm,
+//   theme: string | undefined
+// ) => {
+//   const prompt =
+//     locale === "tr"
+//       ? `
+// Sen bir seyahat planlayıcısı yapay zekasısın. Aşağıdaki kullanıcı tercihlerini göz önünde bulundurarak, detaylı günlük bir seyahat planı oluştur.
+// Önerilen şehirler, gezilecek yerler, yapılacak aktiviteler ve görülecek yerleri dahil et. Yanıtın HTML formatında olmalı ve bir web arayüzünde doğrudan kullanılabilir olmalı. Samimi ve bilgilendirici bir dil kullan.
 
-TASARIM VE RENK KURALLARI (önemli):
-- Arka plan rengi açık olmalı: #FFFFFF veya #F7F9FC.
-- Varsayılan yazı rengi: #1A1A1A (koyu gri, yüksek okunabilirlik).
-- Tasarımda kullanılacak ana renkler:
-- Başlıklar: #1E40AF
-- Vurgular / butonlar: #3B82F6
-- Bağlantılar: #2563EB
-- Çok parlak, neon veya koyu arka plan renkleri kullanma.
-- Gerektiğinde inline style kullanılabilir (örn: <h2 style="color:#1E40AF;">Başlık</h2>).
-- Çıktı modern, temiz ve açık arka planda okunabilir olmalı.
+// TASARIM VE RENK KURALLARI (önemli):
+// - Arka plan rengi açık olmalı: #FFFFFF veya #F7F9FC.
+// - Varsayılan yazı rengi: #1A1A1A (koyu gri, yüksek okunabilirlik).
+// - Tasarımda kullanılacak ana renkler:
+// - Başlıklar: #1E40AF
+// - Vurgular / butonlar: #3B82F6
+// - Bağlantılar: #2563EB
+// - Çok parlak, neon veya koyu arka plan renkleri kullanma.
+// - Gerektiğinde inline style kullanılabilir (örn: <h2 style="color:#1E40AF;">Başlık</h2>).
+// - Çıktı modern, temiz ve açık arka planda okunabilir olmalı.
 
-YAPISAL KURALLAR:
-- <html>, <head>, <body> veya genel <style> etiketleri kullanma.
-- Sadece gömülebilir HTML içeriği üret (<div>, <h2>, <p>, <ul>, <li> vb.).
-- Tüm içeriği <div class="travel-itinerary"> içinde sar.
-- Cevap tamamen Türkçe olmalı.
+// YAPISAL KURALLAR:
+// - <html>, <head>, <body> veya genel <style> etiketleri kullanma.
+// - Sadece gömülebilir HTML içeriği üret (<div>, <h2>, <p>, <ul>, <li> vb.).
+// - Tüm içeriği <div class="travel-itinerary"> içinde sar.
+// - Cevap tamamen Türkçe olmalı.
 
-Tercihler:
+// Tercihler:
+// - Gidilecek Yer: ${form.destination}
+// - Süre: ${form.duration} gün
+// - İlgi Alanları: ${form.interests.join(", ")}
+
+// - Detaylar: ${form.details}
+// `
+//       : `
+// You are a travel planner AI. Based on the following user preferences, plan a detailed day-by-day travel itinerary.
+// Include recommended cities, activities, places to visit, and things to do. Your response should be in HTML format and directly usable in a web interface. Be friendly and informative.
+
+// DESIGN & COLOR RULES (important):
+// - Background must be light: #FFFFFF or #F7F9FC.
+// - Default text color: #1A1A1A (dark gray for high readability).
+// - Primary palette (matching blue + indigo branding):
+// - Headers: #1E40AF
+// - Highlights / buttons: #3B82F6
+// - Links: #2563EB
+// - Avoid dark backgrounds or low-contrast text.
+// - Inline styles may be used when needed (e.g. <p style="color:#1A1A1A;">Text</p>).
+// - Output must look clean, modern, and fully readable on a light theme.
+
+// STRUCTURE RULES:
+// - Do NOT include <html>, <head>, <body>, or global <style> tags.
+// - ONLY include embeddable HTML (<div>, <h2>, <p>, <ul>, <li>, etc.).
+// - Wrap the entire content in a single <div class="travel-itinerary">.
+// - Use a friendly, engaging tone.
+
+// Preferences:
+// - Destination: ${form.destination}
+// - Duration: ${form.duration} days
+// - Interests: ${form.interests.join(", ")}
+// - Details: ${form.details}
+// `;
+
+//   return prompt;
+// };
+
+export const getAiPrompt = (
+  locale: "en" | "tr",
+  form: ITripForm,
+  theme: string | undefined
+) => {
+  const isDark = theme === "dark";
+
+  // Shared colors based on theme
+  const colors = isDark
+    ? {
+        text: "#F1F5F9",
+        header: "#93C5FD",
+        highlight: "#3B82F6",
+        link: "#60A5FA",
+      }
+    : {
+        text: "#1A1A1A",
+        header: "#1E40AF",
+        highlight: "#3B82F6",
+        link: "#2563EB",
+      };
+
+  const promptTR = `
+Sen bir seyahat planlayıcısı yapay zekasısın. Aşağıdaki kullanıcı tercihlerini göz önünde bulundurarak günlük detaylı bir seyahat planı oluştur.
+
+Yanıtın HTML formatında olmalı ve web arayüzünde doğrudan kullanılabilir olmalı.
+
+TASARIM VE RENK KURALLARI (tema: ${isDark ? "Koyu" : "Açık"}):
+
+- Varsayılan yazı rengi: ${colors.text}
+- Başlıklar: ${colors.header}
+- Vurgular / butonlar: ${colors.highlight}
+- Bağlantılar: ${colors.link}
+- Inline style gerektiğinde kullanılabilir.
+- <html>, <body>, <style> kullanılmayacak.
+- Tüm içerik <div class="travel-itinerary"> içinde olmalı.
+
+KULLANICI TERCİHLERİ:
 - Gidilecek Yer: ${form.destination}
 - Süre: ${form.duration} gün
 - İlgi Alanları: ${form.interests.join(", ")}
+- Ek Detaylar: ${form.details}
 
-- Detaylar: ${form.details}
-`
-      : `
-You are a travel planner AI. Based on the following user preferences, plan a detailed day-by-day travel itinerary. 
-Include recommended cities, activities, places to visit, and things to do. Your response should be in HTML format and directly usable in a web interface. Be friendly and informative.
+Tamamen Türkçe, samimi ve bilgilendirici bir dille yaz.
+`;
 
-DESIGN & COLOR RULES (important):
-- Background must be light: #FFFFFF or #F7F9FC.
-- Default text color: #1A1A1A (dark gray for high readability).
-- Primary palette (matching blue + indigo branding):
-- Headers: #1E40AF
-- Highlights / buttons: #3B82F6
-- Links: #2563EB
-- Avoid dark backgrounds or low-contrast text.
-- Inline styles may be used when needed (e.g. <p style="color:#1A1A1A;">Text</p>).
-- Output must look clean, modern, and fully readable on a light theme.
+  const promptEN = `
+You are a travel planner AI. Based on the user's preferences, create a detailed day-by-day itinerary.
 
-STRUCTURE RULES:
-- Do NOT include <html>, <head>, <body>, or global <style> tags.
-- ONLY include embeddable HTML (<div>, <h2>, <p>, <ul>, <li>, etc.).
-- Wrap the entire content in a single <div class="travel-itinerary">.
-- Use a friendly, engaging tone.
+Your answer must be in embeddable HTML and ready for direct UI rendering.
 
-Preferences:
+DESIGN & COLOR RULES (theme: ${isDark ? "Dark" : "Light"}):
+
+- Text: ${colors.text}
+- Headers: ${colors.header}
+- Highlights / buttons: ${colors.highlight}
+- Links: ${colors.link}
+- Inline styles allowed.
+- Do NOT use <html>, <body>, or <style>.
+- Wrap all content in: <div class="travel-itinerary">
+
+USER PREFERENCES:
 - Destination: ${form.destination}
 - Duration: ${form.duration} days
 - Interests: ${form.interests.join(", ")}
 - Details: ${form.details}
+
+Write in a friendly, informative tone.
 `;
 
-  return prompt;
+  return locale === "tr" ? promptTR : promptEN;
 };
 
 export function generateUsername(length: number = 8): string {

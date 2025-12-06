@@ -20,10 +20,10 @@ export const DiscoveryHeader = ({
           </button>
         )}
         <div>
-          <h1 className="text-xl font-bold text-blue-900 leading-tight">
+          <h1 className="text-xl font-bold text-blue-900 dark:text-white leading-tight">
             {title}
           </h1>
-          <p className="text-slate-500 text-xs font-medium">{subtitle}</p>
+          <p className="text-slate-500 dark:text-slate-300 text-xs font-medium">{subtitle}</p>
         </div>
       </div>
       <div className="bg-blue-50 px-3 py-1 rounded-full text-xs font-bold text-blue-600 flex items-center gap-1">

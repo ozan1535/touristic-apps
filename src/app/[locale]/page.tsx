@@ -63,16 +63,16 @@ export default async function Home({
   //.in("country_cca2", ["TR", "IT", "JP"]);
 
   return (
-    <div className="min-h-screen w-full bg-white">
+    <div className="min-h-screen w-full bg-white dark:bg-slate-950">
       <section className="w-full py-6 px-4 md:py-20">
         <div className="max-w-6xl mx-auto md:text-center">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-2">
-            <span className="text-transparent bg-gradient-to-r from-blue-400 to-indigo-600 bg-clip-text">
+            <span className="text-transparent bg-gradient-to-r from-blue-400 dark:from-blue-200 to-indigo-600 dark:to-indigo-300 bg-clip-text">
               GlobalAppGuide
             </span>
           </h1>
 
-          <p className="text-slate-900 font-dynapuff text-lg md:text-xl max-w-3xl mx-auto mb-5 leading-relaxed">
+          <p className="text-slate-900 dark:text-white text-lg md:text-xl max-w-3xl mx-auto mb-5 leading-relaxed">
             {homePageTranslation("description")}
           </p>
 
@@ -88,15 +88,15 @@ export default async function Home({
       <section className="w-full px-4 md:pb-20">
         <div className="hidden md:block max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3">
               {homePageTranslation("explore")}
             </h2>
-            <p className="text-slate-700">
+            <p className="text-slate-700 dark:text-slate-300">
               {homePageTranslation("clickLongText")}
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto border border-indigo-200 rounded-2xl p-4 md:p-8 bg-white backdrop-blur-sm shadow-xl">
+          <div className="max-w-5xl mx-auto border dark:border-indigo-400 border-indigo-200 rounded-2xl p-4 md:p-8 dark:bg-slate-200 bg-white backdrop-blur-sm shadow-xl">
             <RotatingWorldChart />
           </div>
         </div>
@@ -161,18 +161,39 @@ export default async function Home({
         </div>
       </section> */}
 
-      <section className="w-full px-4 pt-6 pb-32 md:pb-6 md:py-20">
-        <div className="max-w-5xl mx-auto text-center border border-indigo-200 rounded-2xl p-8 md:p-12 bg-gradient-to-br from-blue-50 to-indigo-100 backdrop-blur-sm">
+      {/* <section className="w-full px-4 pt-6 pb-32 md:pb-6 md:py-20">
+        <div className="max-w-5xl mx-auto text-center border border-indigo-200 rounded-2xl p-8 md:p-12 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-200 dark:to-slate-400 backdrop-blur-sm">
           <Sparkles className="mx-auto mb-4 text-blue-500" size={40} />
-          <h2 className="text-3xl md:text-4xl font-bold text-indigo-800 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-indigo-800 dark:text-indigo-700 mb-4">
             {homePageTranslation("planYourTrip")}
           </h2>
-          <p className="text-slate-800 mb-8 max-w-2xl mx-auto font-dynapuff">
+          <p className="text-slate-800 dark:text-slate-700 mb-8 max-w-2xl mx-auto">
             {homePageTranslation("letOurAi")}
           </p>
           <Link
             href="/ai-travel-planner"
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-400 rounded-lg text-white font-bold hover:from-indigo-600 hover:to-indigo-500 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
+          >
+            <Sparkles size={20} />
+            <span>{homePageTranslation("tryButton")}</span>
+          </Link>
+        </div>
+      </section> */}
+      <section className="w-full px-4 pb-32 md:pb-6 md:py-20">
+        <div className="max-w-5xl mx-auto text-center border border-indigo-200 dark:border-slate-700 rounded-2xl p-8 md:p-12 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-800 dark:to-slate-700 backdrop-blur-sm">
+          <Sparkles
+            className="mx-auto mb-4 text-blue-500 dark:text-blue-400"
+            size={40}
+          />
+          <h2 className="text-3xl md:text-4xl font-bold text-indigo-800 dark:text-blue-400 mb-4">
+            {homePageTranslation("planYourTrip")}
+          </h2>
+          <p className="text-slate-800 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+            {homePageTranslation("letOurAi")}
+          </p>
+          <Link
+            href="/ai-travel-planner"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-400 dark:from-blue-600 dark:to-indigo-500 rounded-lg text-white font-bold hover:from-indigo-600 hover:to-indigo-500 dark:hover:from-blue-700 dark:hover:to-indigo-600 transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 transform"
           >
             <Sparkles size={20} />
             <span>{homePageTranslation("tryButton")}</span>

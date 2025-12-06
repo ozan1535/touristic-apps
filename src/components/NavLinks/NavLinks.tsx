@@ -12,11 +12,11 @@ function NavLinks({ link }: { link: INavLink }) {
     <Link
       key={link.href}
       href={link.href}
-      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-gray-700 hover:text-indigo-800 hover:bg-blue-200 transition-all duration-200 group ${
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg dark:text-gray-200 text-gray-700 hover:text-indigo-800 hover:bg-blue-200 dark:hover:bg-blue-500 dark:hover:text-indigo-50 transition-all duration-200 group ${
         `/${pageName}` === link.href ? "bg-blue-100/60 text-indigo-800" : ""
       }`}
     >
-      <span className="text-indigo-600 group-hover:text-indigo-400 transition-colors">
+      <span className="text-indigo-600 dark:text-white group-hover:text-indigo-400 transition-colors">
         {link.icon}
       </span>
       <span className="text-sm font-medium">{link.label[language]}</span>

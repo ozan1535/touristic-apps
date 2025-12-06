@@ -26,7 +26,7 @@ function Login({
   const [email, setEmail] = useState("");
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-white px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-white  dark:bg-slate-950 px-4 py-12">
       <div className="w-full max-w-md">
         <div className="bg-white backdrop-blur-sm border border-indigo-200 rounded-2xl p-8 shadow-2xl">
           <div className="flex justify-center mb-6">

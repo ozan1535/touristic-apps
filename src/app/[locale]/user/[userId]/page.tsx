@@ -51,7 +51,7 @@ export default async function ProfilePage({ params }: { params: any }) {
   await checkMobileRedirect();
 
   const t = await getTranslations("Profile");
-  const { userId } = await params;
+  const { userId, locale } = await params;
 
   const { data: pageOwner } = await getUserProfile(userId);
   if (!pageOwner) {
@@ -60,7 +60,7 @@ export default async function ProfilePage({ params }: { params: any }) {
 
   const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const countries = await DiscoveryService.getCountries();
+  const countries = await DiscoveryService.getCountries(locale);
   const favorites = await DiscoveryService.getAllDiscoveryFavorites(user);
   const favoriteItems = await DiscoveryService.getAllDiscoveryFavoritesWithTree(
     user
@@ -97,7 +97,7 @@ export default async function ProfilePage({ params }: { params: any }) {
 
   const isOwner = currentUser?.username === userId;
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-white via-blue-50 to-indigo-50 p-4 md:p-10">
+    <div className="min-h-screen w-full bg-white dark:bg-slate-950 p-4 md:p-10">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
         <aside className="lg:w-80 flex-shrink-0">
           <ProfileSidebar
@@ -110,26 +110,29 @@ export default async function ProfilePage({ params }: { params: any }) {
 
         <main className="flex-1 flex flex-col gap-6">
           {/* Digital Passport */}
-          <div className="flex justify-between items-end relative z-10 bg-white p-4 rounded-xl shadow-sm">
+          <div className="flex justify-between items-end relative z-10 bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm">
             <div>
-              <span className="text-indigo-600 text-xs font-bold uppercase">
-                Digital Passport
+              <span className="text-indigo-600 dark:text-slate-300 text-xs font-bold uppercase">
+                {t("digitalPassport")}
               </span>
 
-              <div className="text-3xl font-extrabold text-indigo-900 mt-1 flex items-baseline gap-2">
+              <div className="text-3xl font-extrabold text-indigo-900 dark:text-slate-300 mt-1 flex items-baseline gap-2">
                 {reviews?.length}
-                <span className="text-lg text-blue-600 font-medium">
-                  Countries
+                <span className="text-lg text-blue-600 dark:text-slate-300 font-medium">
+                  {t("countries")}
                 </span>
               </div>
             </div>
 
-            <Globe className="text-blue-500 opacity-80" size={48} />
+            <Globe
+              className="text-blue-500 dark:text-slate-300 opacity-80"
+              size={48}
+            />
           </div>
           {/* Achievements */}
           <div>
             <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-              Achievements
+              {t("achievements")}
             </h3>
             <div className="grid grid-cols-3 gap-3">
               {[

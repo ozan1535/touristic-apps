@@ -24,14 +24,16 @@ export const getAiResponse = async (
   setData: Dispatch<React.SetStateAction<string>>,
   getAiPrompt: (locale: "en" | "tr", form: ITripForm) => string,
   locale: "en" | "tr",
-  handleAddData: (response: string) => void
+  handleAddData: (response: string) => void,
+  setOpenModal: Dispatch<React.SetStateAction<boolean>>,
+  theme: string | undefined
 ) => {
   if (!validateForm(form, setError)) return;
 
   setIsLoading(true);
   setError("");
   setData("");
-
+  setOpenModal(true);
   try {
     const ai = new GoogleGenAI({
       apiKey: process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY || "",
@@ -39,7 +41,7 @@ export const getAiResponse = async (
 
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: getAiPrompt(locale, form),
+      contents: getAiPrompt(locale, form, theme),
       config: {
         systemInstruction: `You are an expert travel planner. Create detailed day-by-day itineraries that include:
     - Recommended cities and neighborhoods
@@ -63,5 +65,6 @@ export const getAiResponse = async (
     console.error("AI Generation Error:", err);
   } finally {
     setIsLoading(false);
+    setOpenModal(false);
   }
 };

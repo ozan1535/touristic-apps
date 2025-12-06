@@ -36,13 +36,13 @@ const TravelPlannerPage = async () => {
   const aiTravelPlannerTranslation = await getTranslations("AiTravelPlanner");
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-white via-blue-50 to-indigo-50 p-4 md:p-10">
+    <div className="min-h-screen w-full bg-white dark:bg-slate-950 p-4 md:p-10">
       <div className="max-w-7xl mx-auto mb-8">
-        <h1 className="flex items-center justify-center text-blue-500 text-2xl md:text-5xl font-black text-center bg-gradient-to-r from-blue-300 to-blue-400 bg-clip-text mb-4">
-          <Zap size={40} className="mr-3 text-blue-500" />
+        <h1 className="flex items-center justify-center text-blue-500 dark:text-blue-300 text-2xl md:text-5xl font-black text-center bg-gradient-to-r from-blue-300 to-blue-400 bg-clip-text mb-4">
+          <Zap size={40} className="mr-3 text-blue-500 dark:text-blue-300" />
           {aiTravelPlannerTranslation("title")}
         </h1>
-        <p className="text-center text-slate-900 text-sm md:text-base max-w-2xl mx-auto">
+        <p className="text-center text-slate-900 dark:text-slate-300 text-sm md:text-base max-w-2xl mx-auto">
           {aiTravelPlannerTranslation("description")}
         </p>
       </div>

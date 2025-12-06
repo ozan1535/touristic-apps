@@ -22,11 +22,17 @@ import { getAiPrompt } from "@/lib/helpers";
 import { ITripForm } from "@/app/[locale]/ai-travel-planner/types";
 import { getAiResponse } from "@/app/[locale]/ai-travel-planner/aiTravelPlanner.helpers";
 import { supabase } from "@/lib/supabase/client";
+import CustomDialog from "../Dialog/CustomDialog/CustomDialog";
+import OkDialog from "../Dialog/OkDialog/OkDialog";
+import { useTheme } from "next-themes";
 
 function TravelPlannerClient() {
+  const { theme } = useTheme();
+
   const aiTravelPlannerTranslation = useTranslations("AiTravelPlanner");
 
   const { locale } = useParams<{ locale: "en" | "tr" }>();
+  const [openModal, setOpenModal] = useState(false);
   const [form, setForm] = useState<ITripForm>({
     destination: "",
     duration: 1,
@@ -111,16 +117,22 @@ function TravelPlannerClient() {
 
   return (
     <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl">
+      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 dark:bg-slate-700 backdrop-blur-sm shadow-xl">
+        <CustomDialog open={openModal} setOpen={setOpenModal}>
+          <OkDialog
+            text={aiTravelPlannerTranslation("processMessage")}
+            setOpen={setOpenModal}
+          />
+        </CustomDialog>
         <div className="flex items-center mb-4">
-          <div className="p-2 bg-gradient-to-br from-blue-400 to-blue-500 rounded-xl border border-indigo-200 mr-3">
+          <div className="p-2 bg-blue-500 dark:bg-slate-700 rounded-xl border border-indigo-200 mr-3">
             <Plane className="text-white" size={24} />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
             {aiTravelPlannerTranslation("preferences")}
           </h2>
         </div>
-        <p className="text-slate-600 mb-6 text-sm">
+        <p className="text-slate-600 dark:text-slate-300 mb-6 text-sm">
           {aiTravelPlannerTranslation("tellUs")}
         </p>
 
@@ -137,15 +149,15 @@ function TravelPlannerClient() {
           <div>
             <Label
               htmlFor="destination"
-              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
+              className="text-slate-800 dark:text-slate-300 mb-2 flex items-center gap-2 font-semibold"
             >
-              <Compass size={18} className="text-blue-500" />
+              <Compass size={18} className="text-blue-500 dark:text-white" />
               {aiTravelPlannerTranslation("destination")}
             </Label>
             <Input
               id="destination"
               placeholder={aiTravelPlannerTranslation("destinationPlaceholder")}
-              className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400"
+              className="bg-blue-50 border-indigo-200 text-slate-900 dark:text-slate-200 placeholder:text-slate-500 dark:placeholder:text-slate-200 focus:border-indigo-400"
               onChange={handleChange("destination")}
               value={form.destination}
             />
@@ -154,9 +166,9 @@ function TravelPlannerClient() {
           <div>
             <Label
               htmlFor="duration"
-              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
+              className="text-slate-800 dark:text-slate-300 mb-2 flex items-center gap-2 font-semibold"
             >
-              <Calendar size={18} className="text-blue-500" />
+              <Calendar size={18} className="text-blue-500 dark:text-white" />
               {aiTravelPlannerTranslation("duration")}
               <span className="bg-blue-400 py-1 px-4 rounded font-bold text-white">
                 {duration}
@@ -224,9 +236,9 @@ function TravelPlannerClient() {
           <div>
             <Label
               htmlFor="interests"
-              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
+              className="text-slate-800 dark:text-slate-300 mb-2 flex items-center gap-2 font-semibold"
             >
-              <Heart size={18} className="text-blue-500" />
+              <Heart size={18} className="text-blue-500 dark:text-white" />
               {aiTravelPlannerTranslation("interests")}
             </Label>
             {/* <Textarea
@@ -243,7 +255,7 @@ function TravelPlannerClient() {
                   onClick={() => toggleInterest(interest[locale])}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
                     interests.includes(interest[locale])
-                      ? "bg-indigo-50 dark:bg-indigo-900/30 border-indigo-200 dark:border-indigo-800 text-primary"
+                      ? "bg-indigo-50 dark:bg-indigo-500 border-indigo-200 dark:border-indigo-800 text-primary"
                       : "bg-slate-50 dark:bg-slate-900 border-transparent text-slate-500 dark:text-slate-400"
                   }`}
                 >
@@ -256,15 +268,18 @@ function TravelPlannerClient() {
           <div>
             <Label
               htmlFor="details"
-              className="text-slate-800 mb-2 flex items-center gap-2 font-semibold"
+              className="text-slate-800 dark:text-slate-300 mb-2 flex items-center gap-2 font-semibold"
             >
-              <NotepadText size={18} className="text-blue-500" />
+              <NotepadText
+                size={18}
+                className="text-blue-500 dark:text-white"
+              />
               {aiTravelPlannerTranslation("details")}
             </Label>
             <Textarea
               id="details"
               placeholder={aiTravelPlannerTranslation("details")}
-              className="bg-blue-50 border-indigo-200 text-slate-900 placeholder:text-slate-500 focus:border-indigo-400 min-h-[80px]"
+              className="bg-blue-50 border-indigo-200 text-slate-900 dark:text-slate-200 placeholder:text-slate-500 dark:placeholder:text-slate-200 focus:border-indigo-400 min-h-[80px]"
               onChange={handleChange("details")}
               value={form.details}
             />
@@ -316,7 +331,9 @@ function TravelPlannerClient() {
                 setData,
                 getAiPrompt,
                 locale,
-                handleAddData
+                handleAddData,
+                setOpenModal,
+                theme
               )
             }
             disabled={isLoading}
@@ -337,11 +354,11 @@ function TravelPlannerClient() {
         </div>
       </div>
 
-      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 backdrop-blur-sm shadow-xl mb-32 md:mb-0">
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">
+      <div className="border border-indigo-200 rounded-xl p-6 bg-blue-50 dark:bg-slate-700 backdrop-blur-sm shadow-xl mb-32 md:mb-0">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
           {aiTravelPlannerTranslation("yourItinerary")}
         </h2>
-        <p className="text-slate-600 mb-6 text-sm">
+        <p className="text-slate-600 dark:text-slate-300 mb-6 text-sm">
           {isLoading
             ? `${aiTravelPlannerTranslation("craftingJourney")}`
             : data
@@ -370,8 +387,13 @@ function TravelPlannerClient() {
         ) : (
           <div className="flex items-center justify-center h-64 text-slate-500">
             <div className="text-center">
-              <Compass size={48} className="mx-auto mb-4 text-blue-500" />
-              <p>{aiTravelPlannerTranslation("fillTheForm")}</p>
+              <Compass
+                size={48}
+                className="mx-auto mb-4 text-blue-500 dark:text-white"
+              />
+              <p className="dark:text-slate-300">
+                {aiTravelPlannerTranslation("fillTheForm")}
+              </p>
             </div>
           </div>
         )}

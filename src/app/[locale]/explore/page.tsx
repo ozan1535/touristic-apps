@@ -3,6 +3,7 @@ import { SwipeDiscovery } from "@/components/ExploreComponents/SwipeDiscovers";
 import { checkMobileRedirect } from "@/lib/server/checkMobileRedirect";
 import { DiscoveryService } from "@/lib/supabase/discovery-service";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { UserRound } from "lucide-react";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import React from "react";
@@ -27,8 +28,11 @@ export async function generateMetadata({
   };
 }
 
-async function page() {
+async function page({ params }: { params: { locale: "tr" | "en" } }) {
   await checkMobileRedirect();
+
+  const { locale } = await params;
+
   const { getUser } = getKindeServerSession();
   const user = await getUser();
   if (!user) {
@@ -39,7 +43,7 @@ async function page() {
     );
   }
 
-  const countries = await DiscoveryService.getCountries();
+  const countries = await DiscoveryService.getCountries(locale);
   const favorites = await DiscoveryService.getAllDiscoveryFavorites(user);
   const favoriteItems = await DiscoveryService.getAllDiscoveryFavoritesWithTree(
     user
@@ -47,11 +51,13 @@ async function page() {
 
   return (
     <SwipeDiscovery
-      userRoutes={favoriteItems}
+      userRoutesItems={favoriteItems}
       countries={countries}
       favorites={favorites}
       user={user}
       customClassName="pt-6 px-4 max-w-md"
+      locale={locale}
+      canShowDeleteOnFavoriteRoutes={false}
     />
   );
 }

@@ -22,7 +22,7 @@ function RatingsAndReviews({
 
   return (
     <div className="w-full mx-auto px-2 pb-32 md:pb-0">
-      <h2 className="text-2xl md:text-3xl font-black text-slate-900 pb-4">
+      <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-300 pb-4">
         {t("title")}
       </h2>
 

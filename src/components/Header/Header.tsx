@@ -8,20 +8,21 @@ import { Globe, Sparkles, Users } from "lucide-react";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import { navLinks } from "./Header.helpers";
 import NavLinks from "../NavLinks/NavLinks";
+import { SelectDarkLightMode } from "../SelectDarkLightMode/SelectDarkLightMode";
 
 async function Header() {
   const { getUser } = getKindeServerSession();
   const kindeUser = await getUser();
   const { data: profile } = await getUserProfile(kindeUser?.id as any);
   return (
-    <header className="hidden md:block sticky top-0 z-50 w-full border-b border-indigo-600/10 bg-blue-100 backdrop-blur-lg shadow-sm">
+    <header className="hidden md:block sticky top-0 z-50 w-full border-b border-indigo-600/10 bg-blue-100 dark:bg-slate-700 backdrop-blur-lg shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="p-1.5 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg border border-indigo-600/20 group-hover:border-blue-500/40 transition-all">
-              <Globe className="text-indigo-600" size={20} />
+            <div className="p-1.5 bg-gradient-to-br dark:from-blue-800 dark:to-indigo-900 from-blue-100 to-indigo-100 rounded-lg border border-indigo-600/20 group-hover:border-blue-500/40 transition-all">
+              <Globe className="text-indigo-600 dark:text-white" size={20} />
             </div>
-            <span className="text-xl font-black text-transparent bg-gradient-to-r from-indigo-700 via-indigo-400 to-indigo-700 bg-clip-text hidden sm:inline">
+            <span className="text-xl font-black text-transparent bg-gradient-to-r dark:from-indigo-200 dark:via-indigo-200 dark:to-indigo-400 from-indigo-700 via-indigo-400 to-indigo-700 bg-clip-text hidden sm:inline">
               GlobalAppGuide
             </span>
             <span className="text-xl font-black text-transparent bg-gradient-to-r from-indigo-700 via-indigo-400 to-indigo-700 bg-clip-text sm:hidden">
@@ -40,6 +41,7 @@ async function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <SelectDarkLightMode />
             <div className="hidden sm:block">
               <SelectLanguage />
             </div>

@@ -46,7 +46,7 @@ export function SearchCountry({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between h-14 text-base bg-white border-indigo-200 hover:border-indigo-400 hover:bg-blue-50 text-slate-800 hover:text-slate-800"
+          className="w-full justify-between h-14 text-base dark:bg-white dark:hover:bg-blue-50 bg-white border-indigo-200 hover:border-indigo-400 hover:bg-blue-50 text-slate-800 hover:text-slate-800"
         >
           <div className="flex items-center gap-3">
             <Search size={20} className="text-blue-500" />

@@ -79,19 +79,19 @@ export async function Footer() {
   const user = await client.getUser();
   const { data: profile } = await getUserProfile(user?.id as string);
   return (
-    <footer className="w-full bg-blue-100 border-t border-indigo-200 mt-auto">
+    <footer className="w-full bg-blue-100 dark:dark:bg-slate-700 border-t border-indigo-200 mt-auto">
       <div className="hidden md:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-8">
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4 group">
-              <div className="p-1.5 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg border border-indigo-600/20 group-hover:border-blue-500/40 transition-all">
-                <Globe className="text-indigo-600" size={20} />
+              <div className="p-1.5 bg-gradient-to-br dark:from-blue-800 dark:to-indigo-900 from-blue-100 to-indigo-100 rounded-lg border border-indigo-600/20 group-hover:border-blue-500/40 transition-all">
+                <Globe className="text-indigo-600 dark:text-white" size={20} />
               </div>
-              <span className="text-xl font-black text-transparent bg-gradient-to-r from-indigo-700 via-indigo-400 to-indigo-700 bg-clip-text hidden sm:inline">
+              <span className="text-xl font-black text-transparent bg-gradient-to-r from-indigo-700 via-indigo-400 to-indigo-700 dark:from-indigo-200 dark:via-indigo-200 dark:to-indigo-400 bg-clip-text hidden sm:inline">
                 GlobalAppGuide
               </span>
             </Link>
-            <p className="text-slate-600 text-sm mb-4 max-w-sm">
+            <p className="text-slate-600 dark:text-slate-300 text-sm mb-4 max-w-sm">
               {t("description")}
             </p>
             <div className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h3 className="text-slate-900 font-semibold mb-4">
+            <h3 className="text-slate-900 dark:text-slate-200 font-semibold mb-4">
               {t("product")}
             </h3>
             <ul className="space-y-2">
@@ -119,7 +119,7 @@ export async function Footer() {
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-slate-600 hover:text-indigo-500 text-sm transition-colors"
+                    className="text-slate-600 dark:text-slate-300 hover:text-indigo-500 text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -129,7 +129,7 @@ export async function Footer() {
           </div>
 
           <div>
-            <h3 className="text-slate-900 font-semibold mb-4">
+            <h3 className="text-slate-900 dark:text-slate-200 font-semibold mb-4">
               {t("company")}
             </h3>
             <ul className="space-y-2">
@@ -137,7 +137,7 @@ export async function Footer() {
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-slate-600 hover:text-indigo-500 text-sm transition-colors"
+                    className="text-slate-600 dark:text-slate-300 hover:text-indigo-500 text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -147,13 +147,15 @@ export async function Footer() {
           </div>
 
           <div>
-            <h3 className="text-slate-900 font-semibold mb-4">{t("legal")}</h3>
+            <h3 className="text-slate-900 dark:text-slate-200 font-semibold mb-4">
+              {t("legal")}
+            </h3>
             <ul className="space-y-2">
               {footerLinks.legal.map((link, index) => (
                 <li key={index}>
                   <Link
                     href={link.href}
-                    className="text-slate-600 hover:text-indigo-500 text-sm transition-colors"
+                    className="text-slate-600 dark:text-slate-300 hover:text-indigo-500 text-sm transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -166,7 +168,7 @@ export async function Footer() {
         <div className="w-full h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent mb-8" />
 
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-slate-500 text-sm text-center sm:text-left">
+          <p className="text-slate-500 dark:text-slate-200 text-sm text-center sm:text-left">
             © {currentYear} GlobalAppGuide. {t("rights")}
           </p>
         </div>

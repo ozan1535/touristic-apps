@@ -37,11 +37,11 @@ function CountryBanner({ picture, country, locale }: ICountryBannerProps) {
             )}
           </div>
 
-          <h1 className="text-indigo-50 text-4xl md:text-5xl lg:text-6xl font-black mb-3 drop-shadow-2xl">
+          <h1 className="text-indigo-50 dark:text-slate-300 text-4xl md:text-5xl lg:text-6xl font-black mb-3 drop-shadow-2xl">
             {country.name[locale]}
           </h1>
 
-          <p className="text-indigo-100 text-base md:text-lg mb-6 max-w-2xl font-dynapuff">
+          <p className="text-indigo-100 dark:text-slate-400 text-base md:text-lg mb-6 max-w-2xl">
             {CountryBannerTranslation("discoverApps")}
           </p>
 

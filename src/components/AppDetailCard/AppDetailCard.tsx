@@ -22,7 +22,7 @@ function AppDetailCard({
         group relative rounded-xl border transition-all duration-300
         ${
           isTopApp
-            ? "bg-gradient-to-br from-blue-100 via-blue-50 to-indigo-100 border-indigo-300 hover:border-indigo-200 hover:shadow-md hover:shadow-blue-300"
+            ? "bg-gradient-to-br dark:from-slate-800 dark:to-slate-500  from-blue-100 to-indigo-100 border-indigo-300 hover:border-indigo-200 hover:shadow-md hover:shadow-blue-300"
             : "bg-blue-50 border-indigo-200 hover:border-indigo-400 hover:bg-blue-100"
         }
         ${viewMode === "list" ? "p-4" : "p-5"}
@@ -63,7 +63,7 @@ function AppDetailCard({
         <div className="flex-1 min-w-0">
           <h3
             className={`
-            font-bold text-slate-900 mb-1 
+            font-bold text-slate-900 dark:text-slate-200 mb-1 
             group-hover:text-indigo-600 transition-colors
             ${
               viewMode === "list"
@@ -76,7 +76,7 @@ function AppDetailCard({
           </h3>
           <p
             className={`
-            text-slate-700 line-clamp-2
+            text-slate-700 dark:text-slate-300 line-clamp-2
             ${
               viewMode === "list"
                 ? "text-xs md:text-sm"
@@ -122,7 +122,7 @@ function AppDetailCard({
                   className="
                     flex items-center justify-center
                     w-9 h-9 rounded-lg
-                    bg-blue-500 border border-indigo-200
+                    bg-blue-500 dark:bg-blue-700 border border-indigo-200
                     text-indigo-600 hover:text-slate-900
                     hover:bg-blue-500 hover:border-indigo-200
                     transition-all duration-200

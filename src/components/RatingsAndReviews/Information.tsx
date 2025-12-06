@@ -14,10 +14,10 @@ function Information({
     <div className="flex items-center justify-between pb-6 border-b-2 border-indigo-200">
       <div className="flex items-center gap-6">
         <div className="text-center">
-          <div className="text-5xl font-black text-indigo-600">
+          <div className="text-5xl font-black text-indigo-600 dark:text-white">
             {isNaN(+averageRating) ? 0 : +averageRating}
           </div>
-          <p className="text-sm text-gray-600 mt-1">{t("outOf")}</p>
+          <p className="text-sm text-gray-600 dark:text-slate-300 mt-1">{t("outOf")}</p>
         </div>
         <div>
           <RenderStars
@@ -25,7 +25,7 @@ function Information({
             rating={rating}
             setRating={setRating}
           />
-          <p className="text-sm text-gray-600 mt-2">
+          <p className="text-sm text-gray-600 dark:text-slate-300 mt-2">
             {t("ratings", { count: totalRatings })}
           </p>
         </div>
