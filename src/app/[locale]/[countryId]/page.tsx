@@ -19,6 +19,7 @@ import AffiliateBanner from "@/components/AffiliateBanner/AffiliateBanner";
 import RatingsAndReviews from "@/components/RatingsAndReviews/RatingsAndReviews";
 import { supabase } from "@/lib/supabase/client";
 import { IReview } from "@/components/RatingsAndReviews/RatingsAndReviews.types";
+import CurrencyConverterDialog from "@/components/CurrencyConverter/CurrencyConverterDialog";
 
 export async function generateMetadata({
   params: { locale, countryId },
@@ -113,7 +114,7 @@ export default async function CountryPage({
   const flightValue = getFlightValue(countryInfo);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-br from-white via-blue-50 to-indigo-50">
+    <div className="w-full min-h-screen bg-white dark:bg-slate-950">
       <CountryBanner
         picture={countryInfo?.banner_picture}
         country={currentCountry}
@@ -157,21 +158,19 @@ export default async function CountryPage({
                   locale={locale}
                 />
               ) : null}
+              <div className="my-5">
+                <div className="hidden md:block">
+                  <CurrencyConverter />
+                </div>
+                <div className="block md:hidden">
+                  <CurrencyConverterDialog />
+                </div>
+              </div>
+              <AffiliateBanner />
             </aside>
           </div>
-          {/* <div className="border border-indigo-200 mt-5 rounded-2xl p-6 md:p-10 bg-white backdrop-blur-sm shadow-xl">
-            <ShareYourKnowledgeClient />
-          </div> */}
         </div>
       </div>
-
-      <div className="w-full px-4 md:px-6 lg:px-10">
-        <div className="max-w-7xl mx-auto">
-          <CurrencyConverter />
-        </div>
-      </div>
-
-      <AffiliateBanner />
 
       <div className="w-full px-4 md:px-6 lg:px-10 mt-5">
         <div className="max-w-7xl mx-auto">
