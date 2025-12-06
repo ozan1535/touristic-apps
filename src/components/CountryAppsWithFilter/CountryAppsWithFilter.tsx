@@ -6,12 +6,14 @@ import { ICountryAppsWithFilterProps } from "./CountryAppsWithFilter.types";
 import SelectComponent from "../SelectComponent/SelectComponent";
 import AppDetailCard from "../AppDetailCard/AppDetailCard";
 import { useParams } from "next/navigation";
+import PaginationComponent from "../PaginationComponent/PaginationComponent";
 
 function CountryAppsWithFilter({
   countryApps,
   contributions,
 }: ICountryAppsWithFilterProps) {
   const { locale } = useParams();
+  const [currentPage, setCurrentPage] = useState(1);
   const countryAppsWithFilterTranslation = useTranslations(
     "CountryAppsWithFilter"
   );
@@ -49,16 +51,21 @@ function CountryAppsWithFilter({
     setSelectedCategory(selectedItem);
   };
 
+  const itemsPerPage = 12;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const totalPages = Math.ceil(filteredData.length / 12);
+  const renderItems = filteredData.slice(startIndex, endIndex);
   return (
     <div>
       {filteredData.length > 0 ? (
         <>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
             <div>
-              <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-1">
+              <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-slate-200 mb-1">
                 {countryAppsWithFilterTranslation("allApps")}
               </h2>
-              <p className="text-slate-600 text-sm">
+              <p className="text-slate-600 dark:text-slate-300 text-sm">
                 {countryAppsWithFilterTranslation("appsAvailable", {
                   count: filteredData.length,
                 })}
@@ -72,7 +79,7 @@ function CountryAppsWithFilter({
                   className={`p-2 rounded transition-colors ${
                     viewMode === "grid"
                       ? "bg-blue-600 text-white"
-                      : "text-slate-600 hover:text-slate-900"
+                      : "text-slate-600 dark:text-slate-200 dark:hover:text-slate-300 hover:text-slate-900"
                   }`}
                   aria-label="Grid view"
                 >
@@ -83,7 +90,7 @@ function CountryAppsWithFilter({
                   className={`p-2 rounded transition-colors ${
                     viewMode === "list"
                       ? "bg-blue-600 text-white"
-                      : "text-slate-600 hover:text-slate-900"
+                      : "text-slate-600 dark:text-slate-200 dark:hover:text-slate-300 hover:text-slate-900"
                   }`}
                   aria-label="List view"
                 >
@@ -108,10 +115,10 @@ function CountryAppsWithFilter({
       >
         {
           filteredData.length > 0
-            ? filteredData.map((appDetail) => (
+            ? renderItems.map((appDetail, index) => (
                 <AppDetailCard
                   appDetail={appDetail}
-                  key={appDetail.id}
+                  key={appDetail.id + index}
                   isTopApp={appDetail.is_top}
                 />
               ))
@@ -123,6 +130,13 @@ function CountryAppsWithFilter({
           // </div>
         }
       </div>
+      {filteredData.length > 12 && (
+        <PaginationComponent
+          pageNumber={currentPage}
+          setPageNumber={setCurrentPage}
+          totalPages={totalPages}
+        />
+      )}
       {/* {contributions.length > 0 ? (
         <>
           <h1 className="text-slate-900 my-5 text-2xl font-bold">
