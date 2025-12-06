@@ -36,7 +36,8 @@
     "yourTravelPlan": "İşte kişiselleştirilmiş seyahat planınız",
     "yourGeneratedPlan": "Oluşturulan seyahat planınız burada görünecek",
     "fillTheForm": "Formu doldurun ve seyahat planınızı oluşturun",
-    "details": "Detaylar"
+    "details": "Detaylar",
+    "processMessage": "Bu işlem yaklaşık 30 saniye sürecektir, lütfen bekleyin..."
   },
   "CountryApps": {
     "notFound": "Ülke Bulunamadı",
@@ -112,7 +113,8 @@
     "swipeToExplore": "Keşfetmek için kaydırın",
     "checkAnother": "Başka bir şehri kontrol edin",
     "myList": "Listem",
-    "saved": "Favori Rotalar"
+    "saved": "Favori Rotalar",
+    "noFavoriteRote": "Herhangi bir favori rotanız bulunmamaktadır"
   },
   "SignIn": {
     "welcome": "Hoş Geldiniz",
@@ -201,7 +203,14 @@
     "selectCountry": "Ziyaret ettiğiniz ülkeyi seçin",
     "shareYourExperience": "Seyahat deneyiminizi toplulukla paylaşın",
     "updateTrip": "Seyahat bilgilerinizi güncelleyin",
-    "shareTip": "Bir seyahat ipucu veya deneyiminizi paylaşın..."
+    "shareTip": "Bir seyahat ipucu veya deneyiminizi paylaşın...",
+    "digitalPassport": "Dijital Pasaport",
+    "countries": "Ülkeler",
+    "achievements": "Başarılar",
+    "noPost": "Gönderi yok.",
+    "favorites": "Favoriler",
+    "tripHistory": "Gezi Geçmişi",
+    "yourTravelPlans": "Seyahat Planlarınız"
   },
   "Footer": {
     "travelPlanner": "AI Plan",

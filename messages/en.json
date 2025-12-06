@@ -36,7 +36,8 @@
     "yourTravelPlan": "Here's your personalized travel plan",
     "yourGeneratedPlan": "Your generated travel plan will appear here",
     "fillTheForm": "Fill out the form and generate your itinerary",
-    "details": "Details"
+    "details": "Details",
+    "processMessage": "This process will take about 30 seconds, please wait..."
   },
   "CountryApps": {
     "notFound": "Country Not Found",
@@ -116,7 +117,8 @@
     "swipeToExplore": "Swipe to explore",
     "myList": "My List",
     "checkAnother": "Check another city",
-    "saved": "Favorite Routes"
+    "saved": "Favorite Routes",
+    "noFavoriteRote": "You don't have any favorite routes"
   },
   "SignIn": {
     "welcome": "Welcome",
@@ -201,7 +203,14 @@
     "selectCountry": "Select the country you visited",
     "shareYourExperience": "Share your travel experience with the community",
     "updateTrip": "Update your trip details",
-    "shareTip": "Share a travel tip or experience..."
+    "shareTip": "Share a travel tip or experience...",
+    "digitalPassport": "Digital Passport",
+    "countries": "Countries",
+    "achievements": "Achievements",
+    "noPost": "There are no posts.",
+    "favorites": "Favorites",
+    "tripHistory": "Trip History",
+    "yourTravelPlans": "Your Travel Plans"
   },
   "Footer": {
     "travelPlanner": "AI Travel Planner",
