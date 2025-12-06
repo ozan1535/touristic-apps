@@ -19,16 +19,16 @@ export const loadCities = async (
   setLoading,
   setCities,
   isFavorite,
-  cities
+  cities,
+  locale
 ) => {
   setLoading(true);
   try {
     if (isFavorite) {
-      
       setCities(cities);
       return;
     }
-    const data = await DiscoveryService.getCitiesByCountry(countryName);
+    const data = await DiscoveryService.getCitiesByCountry(countryName, locale);
     setCities(data);
   } catch (error) {
     console.error("Error loading cities:", error);
@@ -41,17 +41,18 @@ export const loadRoutes = async (
   cityName: string,
   setLoading,
   setRoutes,
-  favoriteItems
+  favoriteItems,
+  locale
 ) => {
   setLoading(true);
   try {
-    const data = await DiscoveryService.getRoutesByCity(cityName);
-    setRoutes(
-      data.filter(
-        (route) => !favoriteItems.some((fav) => fav.route === route.id)
-      )
-    );
-    // setRoutes(data);
+    const data = await DiscoveryService.getRoutesByCity(cityName, locale);
+    // setRoutes(
+    //   data.filter(
+    //     (route) => !favoriteItems.some((fav) => fav.route === route.id)
+    //   )
+    // );
+    setRoutes(data);
   } catch (error) {
     console.error("Error loading routes:", error);
   } finally {
@@ -143,7 +144,10 @@ export const handleSwipe = (
 ) => {
   if (dir === "right") {
     const route = routes.find((r) => r.id === id);
-    handleInsertData(route.id, user.id, setFavoriteItems, user, setRoutes);
+    if (!favoriteItems.some((item) => item.discovery.id === route.id)) {
+      handleInsertData(route.id, user.id, setFavoriteItems, user, setRoutes);
+    }
+
     if (route) setLikedRoutes([...likedRoutes, route]);
     // if (user) {
     //loadFavorites(user, setLoading, setFavoriteItems);

@@ -26,7 +26,7 @@ export interface IRoute {
   id: string;
   discoveryFavoritesId: string;
   title: string;
-  location: string;
+  description: string;
   tag: string;
   image_url: string;
 }
