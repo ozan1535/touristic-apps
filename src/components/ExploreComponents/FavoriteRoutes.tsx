@@ -3,7 +3,13 @@ import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
-function FavoriteRoutes({ route, isFavorite, setRoutes = null, user = null }) {
+function FavoriteRoutes({
+  route,
+  isFavorite,
+  setRoutes = null,
+  user = null,
+  canShowDelete = true,
+}) {
   const handleRemoveRoute = async () => {
     const { error } = await supabase
       .from("discovery_favorites")
@@ -17,7 +23,7 @@ function FavoriteRoutes({ route, isFavorite, setRoutes = null, user = null }) {
 
   return (
     <div className="group relative w-full h-40 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all active:scale-[0.98] mb-2">
-      {isFavorite && (
+      {canShowDelete && (
         <span
           className="absolute top-5 right-5 z-50"
           onClick={handleRemoveRoute}
@@ -38,9 +44,10 @@ function FavoriteRoutes({ route, isFavorite, setRoutes = null, user = null }) {
           {route.title}
         </h3>
 
+        <p className="text-white text-sm">{route.description}</p>
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-white/90 text-sm bg-white/10 px-2 py-1 rounded-md backdrop-blur-sm border border-white/10">
-            📍 {route.location}
+            📍 {route.address}
           </span>
 
           <span className="text-white/90 text-sm bg-white/10 px-2 py-1 rounded-md backdrop-blur-sm border border-white/10">
