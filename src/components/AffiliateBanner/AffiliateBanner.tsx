@@ -4,7 +4,7 @@ import React from "react";
 
 function AffiliateBanner() {
   return (
-    <div className="w-full px-4 md:px-6 lg:px-10 pt-10">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto">
         <Link
           href={"#"}
