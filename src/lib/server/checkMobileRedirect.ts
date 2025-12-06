@@ -8,8 +8,10 @@ export async function checkMobileRedirect() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  const userAgent = headers().get("user-agent") ?? "";
-  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(userAgent);
+  const userAgent = await headers();
+  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(
+    userAgent.get("user-agent") ?? ""
+  );
 
   if (!user && isMobile) {
     redirect("/sign-in");
