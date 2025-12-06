@@ -7,10 +7,12 @@ import {
 import { supabase } from "./client";
 
 export class DiscoveryService {
-  static async getCountries(): Promise<ICountry[]> {
+  static async getCountries(locale: "tr" | "en"): Promise<ICountry[]> {
     const { data, error } = await supabase
       .from("discovery")
-      .select("country, country_image_url");
+      .select("country, country_image_url")
+      .eq("language", locale)
+      .not("country_image_url", "eq", "");
 
     if (error) throw error;
 
@@ -27,12 +29,17 @@ export class DiscoveryService {
     return Array.from(uniqueCountries.values());
   }
 
-  static async getCitiesByCountry(countryName: string): Promise<ICity[]> {
+  static async getCitiesByCountry(
+    countryName: string,
+    locale
+  ): Promise<ICity[]> {
     const { data, error } = await supabase
       .from("discovery")
       .select("country, city, city_image_url")
-      .eq("country", countryName);
+      .eq("country", countryName)
+      .eq("language", locale)
 
+      .not("city_image_url", "eq", "");
     if (error) throw error;
 
     const uniqueCities = new Map<string, ICity>();
@@ -49,10 +56,11 @@ export class DiscoveryService {
     return Array.from(uniqueCities.values());
   }
 
-  static async getRoutesByCity(cityName: string): Promise<IRoute[]> {
+  static async getRoutesByCity(cityName: string, locale): Promise<IRoute[]> {
     const { data, error } = await supabase
       .from("discovery")
-      .select("id, route, description, tag, route_image_url")
+      .select("id, route, description, tag, route_image_url, address")
+      .eq("language", locale)
       .eq("city", cityName);
 
     if (error) throw error;
@@ -60,9 +68,10 @@ export class DiscoveryService {
     return (data || []).map((item) => ({
       id: item.id,
       title: item.route,
-      location: item.description,
+      description: item.description,
       tag: item.tag,
       image_url: item.route_image_url,
+      address: item.address,
     }));
   }
 
@@ -89,7 +98,8 @@ export class DiscoveryService {
         country,
         description,
         tag,
-        route_image_url
+        route_image_url,
+        address
       )
     `
       )
@@ -180,7 +190,8 @@ export class DiscoveryService {
         tag,
         route_image_url,
         country_image_url,
-        city_image_url
+        city_image_url,
+        address
       )
     `
       )
@@ -188,6 +199,32 @@ export class DiscoveryService {
       .order("created_at", { ascending: true });
 
     if (error) throw error;
+
+    const { data: countryFallback } = await supabase
+      .from("discovery")
+      .select("country, country_image_url")
+      .not("country_image_url", "eq", "");
+
+    const { data: cityFallback } = await supabase
+      .from("discovery")
+      .select("country, city, city_image_url")
+      .not("city_image_url", "eq", "");
+
+    const countryImages = new Map<string, string>();
+    const cityImages = new Map<string, string>();
+
+    countryFallback?.forEach((item) => {
+      if (!countryImages.has(item.country) && item.country_image_url) {
+        countryImages.set(item.country, item.country_image_url);
+      }
+    });
+
+    cityFallback?.forEach((item) => {
+      const cityKey = `${item.country}-${item.city}`;
+      if (!cityImages.has(cityKey) && item.city_image_url) {
+        cityImages.set(cityKey, item.city_image_url);
+      }
+    });
 
     const countryMap = new Map<
       string,
@@ -209,10 +246,15 @@ export class DiscoveryService {
       const d = item.discovery;
       if (!d) return;
 
+      const countryImageUrl =
+        d.country_image_url || countryImages.get(d.country) || "";
+      const cityImageUrl =
+        d.city_image_url || cityImages.get(`${d.country}-${d.city}`) || "";
+
       if (!countryMap.has(d.country)) {
         countryMap.set(d.country, {
           name: d.country,
-          image_url: d.country_image_url,
+          image_url: countryImageUrl,
           cities: new Map(),
         });
       }
@@ -222,7 +264,7 @@ export class DiscoveryService {
       if (!country.cities.has(d.city)) {
         country.cities.set(d.city, {
           name: d.city,
-          image_url: d.city_image_url,
+          image_url: cityImageUrl,
           routes: [],
         });
       }
@@ -233,9 +275,10 @@ export class DiscoveryService {
         id: d.id,
         discoveryFavoritesId: item.id,
         title: d.route,
-        location: d.description,
+        description: d.description,
         tag: d.tag,
         image_url: d.route_image_url,
+        address: d.address,
       });
     });
 
