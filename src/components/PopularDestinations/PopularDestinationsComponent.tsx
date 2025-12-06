@@ -1,36 +1,19 @@
 "use client";
 import React from "react";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
+import { CarouselItem } from "@/components/ui/carousel";
 import PopularDestinations from "./PopularDestinations";
+import CustomCarousel from "../CustomCarousel/CustomCarousel";
+import { useParams } from "next/navigation";
 
 function PopularDestinationsComponent({ popularDestinations, locale }) {
   return (
-    <section className="w-full py-6 px-4 md:pb-20">
+    <section className="w-full py-6 px-4">
       <div className="max-w-5xl mx-auto">
-        <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-4">
-          Popular Destinations
+        <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-slate-300 mb-4">
+          {locale === "tr" ? "Popüler Destinasyonlar" : "Popular Destinations"}
         </h3>
-
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          plugins={[
-            Autoplay({
-              delay: 3000,
-              stopOnInteraction: false,
-              stopOnMouseEnter: true,
-            }),
-          ]}
-          className="w-full"
-        >
-          <CarouselContent>
+        <CustomCarousel className="w-full">
+          <>
             {popularDestinations?.map((country) => (
               <CarouselItem
                 key={country.id}
@@ -41,8 +24,8 @@ function PopularDestinationsComponent({ popularDestinations, locale }) {
                 </div>
               </CarouselItem>
             ))}
-          </CarouselContent>
-        </Carousel>
+          </>
+        </CustomCarousel>
       </div>
     </section>
   );

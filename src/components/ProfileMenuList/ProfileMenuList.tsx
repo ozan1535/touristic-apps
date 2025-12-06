@@ -15,6 +15,7 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import TravelPlans from "../TravelPlans/TravelPlans";
+import { useTranslations } from "next-intl";
 
 function ProfileMenuList({
   userRoutes,
@@ -28,8 +29,8 @@ function ProfileMenuList({
   const [openTrips, setOpenTrips] = useState(false);
   const [openTravelPlans, setOpenTravelPlans] = useState(false);
   const { locale } = useParams();
+  const t = useTranslations("Profile");
 
-  console.log(travelPlans, "hahaha");
   return (
     <div className="space-y-3 mb-32 md:mb-0">
       <CustomDialog
@@ -38,13 +39,15 @@ function ProfileMenuList({
         contentClassName=""
       >
         <SwipeDiscovery
-          userRoutes={userRoutes}
+          userRoutesItems={userRoutes}
           countries={countries}
           favorites={favorites}
           user={user}
           isFavorite={true}
-          canShowHeader={false}
+          canShowHeader={true}
           customClassName="pt-0 px-0 w-full"
+          canShowDeleteOnFavoriteRoutes={true}
+          locale={locale}
         />
       </CustomDialog>
       <CustomDialog
@@ -53,7 +56,7 @@ function ProfileMenuList({
         contentClassName="h-[90vh] overflow-y-scroll"
       >
         {reviews.length === 0 ? (
-          <p>Herhangi bir gönderi bulunmamaktadır.</p>
+          <p>{t("noPost")}</p>
         ) : (
           reviews.map((item) => <EditReview key={item.id} userReview={item} />)
         )}
@@ -64,7 +67,7 @@ function ProfileMenuList({
         contentClassName="w-full flex flex-col h-[90vh] overflow-y-scroll"
       >
         {travelPlans.length === 0 ? (
-          <p>Herhangi bir gönderi bulunmamaktadır.</p>
+          <p>{t("noPost")}</p>
         ) : (
           <TravelPlans travelPlans={travelPlans} />
         )}
@@ -72,19 +75,19 @@ function ProfileMenuList({
       {[
         {
           icon: Heart,
-          label: "Favorites",
+          label: t("favorites"),
           color: "text-rose-500",
           onClick: () => setOpenFavorites(true),
         },
         {
           icon: Calendar,
-          label: "Trip History",
+          label: t("tripHistory"),
           color: "text-blue-500",
           onClick: () => setOpenTrips(true),
         },
         {
           icon: Sparkles,
-          label: "Your Travel Plans",
+          label: t("yourTravelPlans"),
           color: "text-indigo-500",
           onClick: () => setOpenTravelPlans(true),
         },
@@ -93,13 +96,15 @@ function ProfileMenuList({
         <button
           key={item.label}
           onClick={item.onClick}
-          className="w-full bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between group active:scale-98 transition-all"
+          className="w-full bg-white dark:bg-slate-700 p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center justify-between group active:scale-98 transition-all"
         >
           <div className="flex items-center gap-4">
             <div className={`p-2 bg-slate-50 ${item.color} rounded-xl`}>
               <item.icon size={20} strokeWidth={2.5} />
             </div>
-            <span className="font-semibold text-slate-700">{item.label}</span>
+            <span className="font-semibold text-slate-700 dark:text-slate-300">
+              {item.label}
+            </span>
           </div>
           <ChevronRight
             size={18}
