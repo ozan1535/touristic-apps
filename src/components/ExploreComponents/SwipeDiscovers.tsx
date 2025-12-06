@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { ICity, ICountry, IRoute } from "./ExploreComponents.types";
 import { DiscoveryHeader } from "./DiscoveryHeader";
@@ -16,17 +16,20 @@ import {
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import FavoriteRoutes from "./FavoriteRoutes";
+import { DiscoveryService } from "@/lib/supabase/discovery-service";
 
 type Step = "country_select" | "city_select" | "deck" | "show_favorites";
 
 export const SwipeDiscovery = ({
-  userRoutes,
+  userRoutesItems,
   countries,
   favorites,
   user,
   isFavorite = false,
   canShowHeader = true,
   customClassName = "",
+  locale,
+  canShowDeleteOnFavoriteRoutes,
 }) => {
   // useEffect(() => {
   //   if (user) {
@@ -45,7 +48,7 @@ export const SwipeDiscovery = ({
   const [loading, setLoading] = useState(false);
   // TODO: Fix type
   const [favoriteItems, setFavoriteItems] = useState<any[]>(favorites);
-
+  const [userRoutes, setUserRoutes] = useState(userRoutesItems);
   const t = useTranslations("Explore");
 
   const countryItems = isFavorite ? userRoutes : countries;
@@ -54,31 +57,43 @@ export const SwipeDiscovery = ({
   const nextRoute = routes[routes.length - 2];
 
   const headerConfig = getHeaderConfig(step, selectedCountry, selectedCity, t);
+
+  const handleFetchUserRoutes = async () => {
+    const userFavoriteRoutes =
+      await DiscoveryService.getAllDiscoveryFavoritesWithTree(user);
+    setUserRoutes(userFavoriteRoutes);
+  };
+
+  useEffect(() => {
+    handleFetchUserRoutes();
+  }, []);
   return (
     <div
-      className={`h-[90vh] mx-auto flex flex-col relative overflow-hidden bg-gradient-to-b from-blue-50 to-white ${customClassName}`}
+      className={`h-[90vh] mx-auto flex flex-col relative overflow-hidden bg-white dark:bg-slate-950 ${customClassName}`}
     >
-      <DiscoveryHeader
-        title={headerConfig.title}
-        subtitle={headerConfig.subtitle}
-        likedCount={favoriteItems.length}
-        showBack={headerConfig.showBack}
-        onBack={() =>
-          handleBack(
-            step,
-            setStep,
-            setSelectedCity,
-            setRoutes,
-            setSelectedCountry,
-            setCities,
-            setLikedRoutes
-          )
-        }
-      />
+      {canShowHeader && (
+        <DiscoveryHeader
+          title={headerConfig.title}
+          subtitle={headerConfig.subtitle}
+          likedCount={favoriteItems.length}
+          showBack={headerConfig.showBack}
+          onBack={() =>
+            handleBack(
+              step,
+              setStep,
+              setSelectedCity,
+              setRoutes,
+              setSelectedCountry,
+              setCities,
+              setLikedRoutes
+            )
+          }
+        />
+      )}
 
       {isFavorite && userRoutes.length === 0 && (
         <p className="p-2 bg-blue-500 text-center text-white font-bold">
-          Herhangi bir favori rotanız bulunmamaktadır
+          {t("noFavoriteRote")}
         </p>
       )}
       {/* {canShowHeader ? (
@@ -131,7 +146,8 @@ export const SwipeDiscovery = ({
                       setLoading,
                       setCities,
                       isFavorite,
-                      country.cities
+                      country.cities,
+                      locale
                     );
                   }
                   // handleCountrySelect(country, setSelectedCountry, setStep)
@@ -157,7 +173,13 @@ export const SwipeDiscovery = ({
                   }
                   setSelectedCity(city);
                   setStep("deck");
-                  loadRoutes(city.name, setLoading, setRoutes, favoriteItems);
+                  loadRoutes(
+                    city.name,
+                    setLoading,
+                    setRoutes,
+                    favoriteItems,
+                    locale
+                  );
                 }}
 
                 //handleCitySelect(city, setSelectedCity, setStep)}
@@ -175,6 +197,7 @@ export const SwipeDiscovery = ({
                 key={route.id}
                 setRoutes={setRoutes}
                 isFavorite={true}
+                canShowDelete={canShowDeleteOnFavoriteRoutes}
               />
             ))}
           </>
@@ -229,27 +252,29 @@ export const SwipeDiscovery = ({
                 likedRoutes={favoriteItems}
                 onBackToCity={() => setStep("city_select")}
               /> */
-              // <SwipeDiscovery
-              //   userRoutes={userRoutes}
-              //   countries={countries}
-              //   favorites={favorites}
-              //   user={user}
-              //   isFavorite={true}
-              //   canShowHeader={false}
-              //   customClassName="pt-0 px-0"
-              // />
-              <div>
-                <h2 className="text-center bg-blue-500 p-2 rounded text-lg font-bold text-white mb-5">
-                  Güncel rotanız
-                </h2>
-                {likedRoutes.map((route) => (
-                  <FavoriteRoutes
-                    isFavorite={false}
-                    key={route.id}
-                    route={route}
-                  />
-                ))}
-              </div>
+              <SwipeDiscovery
+                userRoutesItems={userRoutes}
+                countries={countries}
+                favorites={favorites}
+                user={user}
+                isFavorite={true}
+                canShowHeader={false}
+                customClassName="pt-0 px-0"
+                locale={locale}
+                canShowDeleteOnFavoriteRoutes={false}
+              />
+              // <div>
+              //   {<h2 className="text-center bg-blue-500 p-2 rounded text-lg font-bold text-white mb-5">
+              //     Güncel rotanız
+              //   </h2>}
+              //   {favoriteItems.map((route) => (
+              //     <FavoriteRoutes
+              //       isFavorite={false}
+              //       key={route.id}
+              //       route={route}
+              //     />
+              //   ))}
+              // </div>
             )}
 
             {routes.length > 0 && (

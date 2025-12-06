@@ -2,6 +2,8 @@ import { motion, useMotionValue, useTransform, PanInfo } from "framer-motion";
 import { MapPin } from "lucide-react";
 import { IRoute } from "./ExploreComponents.types";
 import Image from "next/image";
+import CustomCarousel from "../CustomCarousel/CustomCarousel";
+import { CarouselItem } from "../ui/carousel";
 
 interface SwipeCardProps {
   data: IRoute;
@@ -41,13 +43,25 @@ export const SwipeCard = ({ data, onSwipe, index }: SwipeCardProps) => {
       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
       whileTap={{ scale: 1.02 }}
     >
-      <Image
-        src={data.image_url}
-        alt={data.title}
-        width={500}
-        height={500}
-        className="w-full h-full object-cover pointer-events-none"
-      />
+      <CustomCarousel
+        className={"w-full h-full"}
+        canShowButtons={true}
+        watchDrag={false}
+      >
+        {data.image_url.split(",").map((item, index) => (
+          <CarouselItem key={data.id + index} className="h-full">
+            <Image
+              // src={data.image_url}
+              key={data.id + index}
+              src={item}
+              alt={data.title}
+              width={500}
+              height={500}
+              className="w-full h-full object-cover pointer-events-none"
+            />
+          </CarouselItem>
+        ))}
+      </CustomCarousel>
 
       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent flex flex-col justify-end p-8 pointer-events-none">
         <div className="flex items-end gap-2 mb-1">
@@ -55,9 +69,10 @@ export const SwipeCard = ({ data, onSwipe, index }: SwipeCardProps) => {
             {data.title}
           </h2>
         </div>
+        <p className="text-white text-lg">{data.description}</p>
         <div className="flex items-center gap-3">
           <p className="text-slate-300 text-lg font-medium flex items-center gap-2">
-            <MapPin size={18} /> {data.location}
+            <MapPin size={18} /> {data.address}
           </p>
           {data.tag && (
             <span className="bg-blue-500/20 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-bold text-blue-100 border border-blue-400/30">
