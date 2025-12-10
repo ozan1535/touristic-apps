@@ -24,6 +24,6 @@ export const getTabs = (user, locale) => [
     id: "4",
     label: locale === "tr" ? "Profil" : "Profile",
     icon: User,
-    href: user ? `/user/${user.username}` : "/sign-in",
+    href: user ? `/${locale}/user/${user.username}` : "/sign-in",
   },
 ];
